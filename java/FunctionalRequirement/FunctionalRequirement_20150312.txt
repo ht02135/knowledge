@@ -1,0 +1,27 @@
+http://javarevisited.blogspot.com/2015/01/difference-between-functional-and-nonfunctional-requirements-software-development.html
+Difference between Functional and Non-Functional Requirements in Software development
+
+ 
+Gathering the correct and complete requirement is one of the most important thing in software development. Incorrect and incomplete requirement are main reason of why project fails. If you are in software development, you may have come across terms like functional and non-functional requirement. If you are wondering why a prototype take a 2 weeks but actual application development requires around 3 to 4 months of development; think of non-functional requirement. When someone told you to build a software, what they tell you is what that software should do e.g. allow you to trade on certain market, but they don't tell you about security, performance, load and other stuff, this is what I called non functional requirement. Obvious difference between functional and non-functional requirement is, former is specified by its users, business analyst and its part of software's feature list, for example functional requirement of a trading application is to receive order, enrich, transform and send it to Stock Exchange, but non-functional requirement is not specified by user, its rather thought by Software architect, Subject Matter Experts, Technical lead and Support peoples. For example, for this same trading application non-functional requirement could be Failover and Recovery, logging, auditing, latency and other performance characteristic that, application should be able to run continuous, can process 5K orders per second etc. Support people can also ask functionality require to add user, give access, revoke access, monitoring etc. Every application in software development has one or other kind of non-functional requirements. In this article, we will learn more about difference between functional and non-functional requirements in software and product development.
+
+
+
+Functional vs Non-functional Requirements
+
+Functional vs Non-Functional Requirements in software development
+Here are couple of differences between functional and non-functional requirement in software development process :
+
+1) Functional requirement is specified by User, while non-functional requirement is specified by technical peoples e.g. Architect, Technical leaders and software developers.
+
+2) Functional requirement is also the activity System must perform, on other hand non-functional are depending upon criticality of application. For example, if your application is not critical and you can live with downtime, you may not need to develop complex failover and disaster recovery code, reducing your application total development time.
+
+3) Functional requirements defines a software’s functionality i.e. what can they do, while non-functional requirements defines, other things which is not required by user but requirement by service provider or software itself e.g. logging is a non-functional requirement to support an application, not directly used by user but essential to troubleshoot any issue in production environment.
+
+4) Non-functional requirements are sometimes defined in terms of metrics (something that can be measured about the system) to make them more tangible.
+
+5) Non-functional requirements may also describe aspects of the system that don't relate to its execution, but rather to its evolution over time (e.g. maintainability, extensibility, documentation, etc.).
+
+
+That's all about difference between functional and non-functional requirement in field of software development. While estimating total development time, always think about non-functional requirements and highlight them as soon as possible. They are used to set expectation correctly from Managers and Users perspective. Most of the time, your manager think a feature can be done in days, without giving any thought to non functional requirement attached to it, it’s your, a software programmer's job to bring that up.
+
+If you like this article, you will also enjoy these amazing articles on programmers and programming:
