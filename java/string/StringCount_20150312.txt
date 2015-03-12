@@ -1,0 +1,15 @@
+http://javarevisited.blogspot.com/2015/02/how-to-count-number-of-words-in-string.html#more
+
+/* * Counting number of words using regular expression. */ 
+public int countWord(String word) { 
+  if (word == null) { return 0; } 
+  String input = word.trim(); int count = input.isEmpty() ? 0 : input.split("\\s+").length; 
+  return count; 
+}
+
+http://stackoverflow.com/questions/15625629/regex-expressions-in-java-s-vs-s
+\\s - matches single whitespace character
+\\s+ - matches sequence of one or more whitespace characters.
+
+////////////
+
