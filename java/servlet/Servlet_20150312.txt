@@ -69,3 +69,12 @@ While java.net.URLEncoder.encode() and java.net.URLDecoder.decode()is used to pe
 2) In URL rewriting session id is appended to URL and in case of URL-encoding special character replaced by another character.
 
 That's all on difference between URL-rewriting and URL-encoding, let me know if you come across some more differences between these URL Encoding vs URL-rewriting in Servlet and JSP.
+
+///////////////////
+What is the difference between encodeRedirectUrl and encodeURL?
+
+encodeURL and encodeRedirectURL are methods of the HttpResponse object. Both rewrite a raw URL to include session data if necessary. (If cookies are on, both are no-ops.)
+
+encodeURL is for normal links inside your HTML pages.
+
+encodeRedirectURL is for a link you're passing to response.sendRedirect(). It has slightly different syntax requirements too gory to get into here.
