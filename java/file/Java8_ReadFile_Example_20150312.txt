@@ -1,0 +1,109 @@
+http://javarevisited.blogspot.com/2011/12/create-file-directory-java-example.html
+
+Example of How to Create File in Java
+import java.io.*;
+
+public class FileExample {
+
+public static void main(String[] args) {
+boolean flag = false;
+
+// create File object
+File stockFile = new File("d://Stock/stockFile.txt");
+
+try {
+    flag = stockFile.createNewFile();
+} catch (IOException ioe) {
+     System.out.println("Error while Creating File in Java" + ioe);
+}
+
+System.out.println("stock file" + stockFile.getPath() + " created ");
+
+}
+}
+
+//////////////////////////
+
+http://javarevisited.blogspot.sg/2011/12/read-and-write-text-file-java.html
+
+If we are using input and output stream for reading and writing it’s very easy to understand. We have to follow three simple steps to achieve this task.
+
+Ø       First get the File object
+Ø       Create the File Stream from File object
+Ø       Use this File Stream for reading or writing the data to the file in the file system.
+
+File read and write Example in Java
+
+class FileStreamsReadnWrite {
+       public static void main(String[] args) {
+              try {
+                     File stockInputFile = new File("C://stock/stockIn.txt");
+                     File StockOutputFile = new File("C://stock/StockOut.txt");
+
+                     /*
+                      * Constructor of FileInputStream throws FileNotFoundException if
+                      * the argument File does not exist.
+                      */
+
+                     FileInputStream fis = new FileInputStream(stockInputFile);
+                     FileOutputStream fos = new FileOutputStream(StockOutputFile);
+                     int count;
+
+                     while ((count = fis.read()) != -1) {
+                           fos.write(count);
+                     }
+                     fis.close();
+                     fos.close();
+              } catch (FileNotFoundException e) {
+                     System.err.println("FileStreamsReadnWrite: " + e);
+              } catch (IOException e) {
+                     System.err.println("FileStreamsReadnWrite: " + e);
+              }
+       }
+}
+
+////////////////
+
+http://javarevisited.blogspot.com/2015/02/how-to-read-file-in-one-line-java-8.html#more
+
+Reading file in one line Java 7 and 8
+
+Our example uses new Files class which was introduced in JDK 1.7, the java.nio.file.Files class contains lots of utility method to deal with files in Java
+
+You can use Files.readAllBytes(Path) to read a complete file in memory. This method returns a byte array, which can be passed to String constructor to create String out of it. This method also ensures that file is properly closed when all bytes are read, or an IO error or other unchecked exception has occurred, which means no need to close file in finally block, in short no boiler plate coding.  BTW, this method is not suitable to read large files, because you might run out of memory if enough space is not available in heap. You should also explicitly provide character encoding while converting byte array to String to avoid any surprise or parsing error.
+
+If you want to read file as String then you can also use another method called readAllLines(Path path, Charset cs), this method is similar to previous one i.e. it also close files after reading or in case of error but instead of returning byte array, returns a list of String, which is converted from bytes using specified character set. Further to this, Java 8 added another overloaded version of this method which doesn't require Charset and uses UTF-8 to convert bytes to String.
+
+
+import java.io.IOException; 
+import java.nio.charset.StandardCharsets; 
+import java.nio.file.Files; 
+import java.nio.file.Paths; 
+import java.util.List; 
+
+public class Java78FileReadingExample { 
+	public static void main(String args[]) throws IOException { 
+	
+	// Java 7 Example - Uses Platform's default character encoding System.out.println(new String(Files.readAllBytes( Paths.get("data_old.txt")))); System.out.println(new String(Files.readAllBytes( Paths.get("info.xml")))); 
+	
+	// Java 8 Example - Uses UTF-8 character encoding List lines = Files.readAllLines(Paths.get("data_old.txt"), StandardCharsets.UTF_8); 
+	StringBuilder sb = new StringBuilder(1024); 
+	for (String line : lines) { 
+		sb.append(line);
+	} 
+	String fromFile = sb.toString(); 
+	System.out.println("++++++++++++++++++++++++"); 
+	System.out.println("String created by reading File in Java"); 
+	System.out.println(fromFile); 
+	System.out.println("++++++++++++++++++++++++"); } 
+}
+
+//////////////
+If you are using Java 8, you can also use Stream API to write more concise and performance code, as shown in following example. In this example, lines() method returns a Stream of String, which is converted from bytes read from file to character using UTF-8 character encoding. It's equivalent to Java 7, Files.lines(path, StandardCharsets.UTF_8) method call.
+
+public static void main(String args[]) throws IOException { 
+  // In Java 8, you can also use Streams to further optimize it 
+  Files.lines(Paths.get("manifest.mf"), StandardCharsets.UTF_8) .forEach(System.out::println); }
+}
+
+
