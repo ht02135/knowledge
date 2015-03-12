@@ -1,0 +1,50 @@
+
+What is difference between Maven, ANT, Jenkins and Hudson?http://javarevisited.blogspot.com/2015/01/difference-between-maven-ant-jenkins-and-hudson.html
+
+ 
+In short, though Maven and ANT are build tool but main difference is that maven also provides dependency management, standard project layout and project management. On difference between Maven, ANT and Jenkins, later is a continuous integration tool which is much more than build tool. You can setup your CI environment using Jenkins or Hudson and automatically build, test and deploy your Java project. Now last, main difference between Jenkins and Hudson, both are originate from same source code but one is closed source while other is open source. You can read the details in this article. Now let's start long story, what is difference between Maven and ANT or difference between Maven and Jenkins, or Maven vs Hudson are some of the frequently discussed questions among Java when developers. Well all four e.g.  ANT, Maven, Jenkins and Hudson are tools to help Java developers on build, unit testing, continues integration (CI) and project management. In this Java article we will explore each of Maven, ANT, Jenkins and Hudson to get basic idea of what they are, what benefit they offer and how they are used in Java JEE projects. Just to give you basic idea, ANT is a well known build tool, probably oldest among all. A build tool is used to create deliverable like JAR file or WAR file from Java source and resources for deployment.
+
+Maven came after ANT and offers much more than a build tool. Main difference between ANT and Maven is that In ANT you need to define every thing i.e. source directory, build directory, target directory etc while Maven adopts principle of Convention over configuration. Which means Maven has predefined project structure i.e. standard directory for source files, test files and resources. On the other hand, Jenkins and Hudson are Continues Integration tool, which gives you power to automate your build and deployment process. By using Jenkins or Hudson you can trigger build whenever developer commit code, to see if project is compiling fine, to run unit tests, to create build or even deploy in QA or production environment. Similarly you can have daily build, nightly build or weekly build process established in Jenkins or Hudson. In next section we will understand Maven, ANT, Jenkins and Hudson in more detail and understand difference between them.
+
+
+
+
+Maven vs ANT
+
+Ever since Maven has released, many Java programmer compare Maven and ANT, which is pretty natural. Even I have taken some time to adopt Maven because I was very used to ANT build process. Eventually I realized Maven offers more convenience as build tool than ANT and also enforces a common way to build Java applications among multiple projects, developers and organization. Before shifting to Maven, I had worked with very complex ANT scripts, in-fact every project I work has different build structure than other. In order to make a release, you need to spend considerable time to understand whole build process e.g. from where does libraries are coming, are they coming as JAR or project is building them during build time etc. Maven solves many of these problem by introducing standard convention and better dependency management.
+
+If we need to compare Maven and ANT, following are my list of difference between Maven and ANT :
+Difference between Maven and ANT in Java
+
+
+1) One major difference between Maven and ANT is that Maven requires less configuration than ANT because it works on principle of Convention over configuration and assumes reasonable default e.g. java source file in ${basedir}/src/main/java, resources on ${basedir}/src/main/resources, JUnit test cases on ${basedir}/src/test/java etc. It also creates Java class files on ${basedir}/target/classes and JAR file on ${basedir}/target directory. On the other hand ANT requires all these directories supplied as configuration, usually in ANT build file e.g. build.xml.
+
+
+2) Another significant difference between Maven and ANT is dependency Management. Maven introduced concept of repository, which is a central place to store all libraries, JARs etc. Maven allows you to use central maven repository as well as local repository and automatically download dependency during build process. While ANT based project generally use ${lib} as directory to store dependencies. Changing and updating dependency is much easier in maven than ANT because you don't need to manually download dependency. Having an organization wide central repository also helps to remove redundancy across different projects.
+
+
+3) Third and most important difference between Maven and ANT is that, Maven offers a consistent and common interface to build Java projects. All you need to do is download the project and run mvn install to build it. Also by knowing maven conventions and looking at pom.xml, one can easily understand where source files are and what are project dependencies.
+
+
+4) Another technical difference between ANT and Maven is that ANT task doesn't have any lifecycle, you need to define targets and there dependencies. While Maven has lifecycle, which is invoked when you run commands like mvn install. Maven executes a series of steps as a result of this command to produce artifacts e.g. JAR file, which is end of life cycle.
+
+
+5) Maven also enforce a standard naming convention for artifacts defined using groupId, artifactId and version. Also one more difference between ANT and Maven is that, Maven is more than just a build tool, it act as project management tool and can generate reports etc, Though I have yet to use this feature.
+
+
+
+Maven vs Jenkins and Hudson
+
+Jenkins and Hudson are Continuous Integration tool, commonly known as CI frameworks. They allows Java project to automate build and deployment process. By using CI tools like Hudson or Jenkins you can create hourly or daily builds automatically, you can also automatically run your unit tests and can deploy build to your QA or production environment. This helps if you are working in a large project and development team is spread across multiple locations. CI tolls can trigger build whenever developer commits code and check if project is compiling or not. By the way Jenkins and Hudson are from same source tree. Hudson was original project which was open source and supported by Sun. When Oracle bought Sun, it took control over Hudson name and logistic platform of Hudson. Many open source contributor was not comfortable with that which results in Jenkins, which is pretty much community driven.
+
+If we need to compare Maven and Jenkins or Hudson, following would be my list of differences between Maven and Hudson or Jenkins :
+Difference between Jenkins and Hudson in Java
+
+
+1) Main difference between Maven and Jenkins or Hudson is that Maven is a build tool which knows how to build project and Jenkins or Hudson provides trigger to build. You can control when to trigger build automatically using Jenkins or Hudson or any CI tool.
+
+
+2) Jenkins can use Maven as build tool. Also Jenkins or Hudson can do lot more than just building application, they can run all unit tests, deploy deliverable into configured servers etc. Essentially difference is that Maven is build tool while Jenkins of Hudson is a Continues Integration tool.
+
+
+That's all on difference between Maven and ANT, Jenkins or Hudson etc. Maven is pretty much standard of building Java projects now days and you can customize it to fit in your ANT based legacy environment. Some organization also has CI tools like Jenkins which can be used along with Maven to automated build, test and deploy process.
