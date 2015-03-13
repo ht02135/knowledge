@@ -1,0 +1,18 @@
+
+Chrome
+Enter about:plugins in the search field.
+In the Plug-ins list, look for Java and check whether Java is enabled (if the Disable link appears, Java is already enabled)
+Click on the Enable link (if available)
+(Optional) Check the Always allowed box to stop additional Chrome warnings when running Java content
+
+///////////
+
+Aside from the unhelpful responses for the non-tech savvy.
+
+    In your address bar type: about:config
+    Agree to void your warranty
+    Right-click anywhere on the list below and select New > Boolean
+    Copy-paste this phrase into preference name: extensions.blocklist.enabled
+    The variable should be set to false by default, if it isn't on the list, double click it until it is.
+    Stuff will work now and I can read PDFs because I don't want to reinstall SumatraPDF all the time. 
+
