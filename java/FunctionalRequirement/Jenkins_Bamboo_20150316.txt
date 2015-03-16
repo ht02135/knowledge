@@ -1,0 +1,35 @@
+1>SunGard Decalog used Bamboo (PAID)
+2>Direxxis used Cruise-Control (FREE)
+
+most popular is Jenkins (FREE)
+
+////////////////////////////////
+
+A look into continuous integration Tools
+Posted by yodiz | On: Nov 01 2013
+
+
+inShare
+As Continuous Integration practice is becoming prevalent among the agile teams, we are seeing more and more continuous integration servers sprouting up with new features. Many readers want to know the list of continuous integration servers available so here we are publishing a list Continuous Servers available in the market. We have seen that most popular among paid ones (hands-down) is Jenkins followed by Bamboo, but there are others very feature list free servers are also available to use.
+Before selecting a CI server, we need to see how it’s fulfilling our needs. Every team has its own needs and requirements and every tool offers different feature set. Following are most common things you look at before selecting a tool.
+
+Easy setup
+Available plugins (findbugs, emma, coberturna, yodiz etc.)
+Distributed builds
+SCM trigger integration
+Issue tracker Support
+Support documents/help/customer service
+Is it alive tool, new features are coming?
+SCM Support
+Allow to create repositories
+Multiple SCM support
+Support Parallel builds
+Distributed builds
+Force builds
+Notification process i.e. notify when test fails
+Authentication
+Build tools support (Ant, Maven, n ant)
+Test Rendering (nunit, junit etc.)
+Role management
+Language it is built on
+ 
