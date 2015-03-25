@@ -1,0 +1,17 @@
+jconsole
+
+1>go to C:\apps\java\jdk\1.7.0_75-x64\bin
+click jconsole.exe
+
+2>click Remote Process and click insecured
+  localhost:<jmx-port>
+  localhost:18089
+  
+3>MBeans >> java.lang >> Runtime >> Attributes >> SystemProperties
+  click on Attribute value to go thru properties
+  
+if any where in you code, have
+
+System.setProperty("javax.xml.bind.JAXBContext", "com.sun.xml.internal.bind.v2.ContextFactory");
+
+then you will see jdk load them.
