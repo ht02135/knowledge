@@ -1,0 +1,43 @@
+https://jaxb.java.net/guide/Migrating_JAXB_2_0_applications_to_JavaSE_6.html
+
+7.1. Migrating JAXB 2.0 applications to JavaSE 6
+
+JavaSE 6 ships with its own JAXB 2.0 implementation. This implementation is based on the JAXB RI, where the only differences are:
+
+    No RI-specific vendor extensions are supported: This is so that portability across different JavaSE 6 implementations will be guaranteed.
+    Code in JavaSE 6 is hosted in its own packages to avoid conflicts: This allows applications to continue to use a specific version of the JAXB RI that they choose to use.
+
+Therefore, if you develop an application that uses JAXB 2.0 for JavaSE 5 today, the easiest way to upgrade to JavaSE 6 is to do nothing. You should keep the JAXB RI in your development environment, keep bundling the JAXB RI runtime jars to your app, just like you do that today.
+7.1.1. Reducing footprint
+
+If you'd like to reduce the footprint of your application by taking advantage of a JAXB implementation in JavaSE 6, you can take the following steps:
+
+    You will no longer have to ship jaxb-api.jar in your application. This doesn't require any change to your code.
+    If your application does not use any of the vendor extension features of the JAXB RI runtime (such as unmarshaller/marshaller properties whose names start with "com.sun."), then you will no longer have to ship jaxb-impl.jar (nor jaxb1-impl.jar, jaxb-libs.jar.) When you do this, be sure to test your application since it's not very easy to find all such dependencies.
+
+7.1.2. Using JAXB 2.1/2.2 with JavaSE 6
+
+JavaSE 6 comes with JAXB 2.0 API in rt.jar, newer releases (since update 4) of JavaSE 6 contain JAXB 2.1 API. Therefore, using JAXB 2.1/2.2 with JavaSE 6 requires one to override a portion of rt.jar with the new API. There are several ways to do this:
+
+    Place the 2.1/2.2 jaxb-api.jar into $JRE_HOME/lib/endorsed. This essentially makes your JRE to "JRE 6 + JAXB 2.x". This won't affect any other applications that use this JRE, and it's easy. On the other hand, in various scenarios you may not be able to alter the JRE.
+    Use the system property java.endorsed.dirs when you launch your application, and have it point to the directory that contains the 2.1/2.2 jaxb-api.jar. This allows you use use JAXB 2.1/2.2 without modifying the JRE. Make sure not to include any other JAXB RI jar files (such as jsr173-api.jar or jaxb-impl.jar.)
+    Implement a custom ClassLoader and block delegation to javax.xml.bind package, so that code running inside this class loader will load the JAXB API from elsewhere. This is a very advanced approach.
+
+No matter which approach you take, make sure not to include jar files other than jaxb-api.jar. Doing so, for example including jaxb-xjc.jar, may result in classloading related errors such as "taskdef A class needed by class com.sun.tools.xjc.XJCTask cannot be found: org/apache/tools/ant/...."
+
+See the endorsed directory mechanism for more details.
+7.1.3. Where's the XJC ant task?
+
+JavaSE has never shipped an Ant task implementation, so we are just following that tradition. There's an (process-wise) overhead of adding additional dependencies during the JavaSE build, and there would likely be some runtime dependency issues in having a class in tools.jar that would require the ant classes, due to class loader delegation.
+
+We are thinking about perhaps releasing a small jar that only contains the ant task for JDK6.
+
+Please also note that the syntax of <xjc> task is neither defined in the JAXB spec nor in the JavaSE spec. Therefore other JavaSE vendors may not implement that at all, or do so in a different class name, etc. Therefore, from a portability perspective, if you choose to depend on the <xjc> task you should bundle the JAXB RI. 
+
+---------------
+
+http://stackoverflow.com/questions/14162159/supplying-a-different-version-of-jaxb-for-jax-ws-in-java-1-6
+
+Also according to the Unofficial JAXB Guide, they say you need to use endorsed lib in order to correctly override the version of JAXB. As it turns out though, SOAPFaultBuilder uses JAXBContext.newInstance() to search the classpath for a file named /META-INF/services/javax.xml.bind.JAXBContext, then manually load (and reflexively create) a JAXBContext based on the class name specified in the file. So it doesn't matter - classpath or endorsed lib gives you the same behavior.
+
+One workaround is to add -Djavax.xml.bind.JAXBContext=com.sun.xml.internal.bind.v2.ContextFactory to the command line, which causes JAXBContext.newInstance() to ignore the /META-INF/services/javax.xml.bind.JAXBContext file on the classpath and manually specifies the built-in version of JAXB. The other workaround is to simply not specify your own JAXB and use the version built into the JDK, but it seems from the Unofficial JAXB Guide, that Sun designed this system to be able to handle supplying your own JAXB implementation. Has anyone been able to successfully supply a version of JAXB and still be able to successfully capture fault messages? (Everything runs fine for me as long as there are no faults generated by the Web Service).
