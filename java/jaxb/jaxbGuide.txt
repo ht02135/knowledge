@@ -49,3 +49,25 @@ com.sun.xml.bind.v2.ContextFactory (from sun jaxb-impl-2.1.13.jar)
 com.sun.xml.internal.bind.v2.ContextFactory (from 1.7.0_75-x64 rt.jar)
 
 if you not careful, you might mix and cause conflict
+
+--------
+
+force using com.sun.xml.internal.bind.v2.ContextFactory
+
+1>create login_test.jsp
+
+2>append System.setProperty
+
+<%@ page import="org.acegisecurity.AuthenticationException" %>
+<%@ page import="org.acegisecurity.ui.AbstractProcessingFilter" %>
+<%
+                System.setProperty("javax.xml.bind.JAXBContext", "com.sun.xml.internal.bind.v2.ContextFactory");
+%>
+
+3>launch login_test.jsp to force using com.sun.xml.internal.bind.v2.ContextFactory
+
+4>FIX is adding 
+
+-Djavax.xml.bind.JAXBContext=com.sun.xml.internal.bind.v2.ContextFactory
+
+to tomcat service
