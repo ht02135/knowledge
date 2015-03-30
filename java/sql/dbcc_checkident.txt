@@ -1,0 +1,49 @@
+DBCC CHECKIDENT
+
+It is used to check the identity value for the specified table and if needed correct the identity value
+
+1>I want to know the current identity value of the column
+
+DBCC CHECKIDENT (‘table_name‘, NORESEED)
+
+Result :
+
+Checking identity information: current identity value ’6', current column value ’6'.
+
+2>To reset the identity column with the maximum value in the identity column I have two option.
+
+Option 1 :
+
+DBCC CHECKIDENT (‘table_name‘)
+
+Option 2 :
+
+DBCC CHECKIDENT (‘table_name‘, RESEED)
+
+3>What if i want to set it to the specific value
+
+DBCC CHECKIDENT (‘table_name‘, RESEED, new_reseed_value)
+
+Example : DBCC CHECKIDENT (‘Employee‘, RESEED, 65)
+
+//////////
+
+DBCC CHECKIDENT ('table_name') or DBCC CHECKIDENT ('table_name', RESEED)
+
+If the current identity value for a table is lower than the maximum identity value stored in the column, it is reset using the maximum value in the identity column.
+
+///////////
+
+DBCC CHECKIDENT ('table_name', RESEED, new_reseed_value)
+
+The current identity value is set to the new_reseed_value. If no rows have been inserted to the table since it was created, the first row inserted after executing DBCC CHECKIDENT will use new_reseed_value as the identity. Otherwise, the next row inserted will use new_reseed_value + 1. If the value of new_reseed_value is less than the maximum value in the identity column, error message 2627 will be generated on subsequent references to the table.
+
+BEGIN TRANSACTION;
+set @table_name = 'customization_template_tag_metadata';
+PRINT ''
+PRINT '================================================================================'
+PRINT 'running checkident on ''' + @table_name + ''''
+PRINT '================================================================================'
+DBCC checkident(@table_name, RESEED, 0);
+DBCC checkident(@table_name, RESEED);
+COMMIT;
