@@ -47,3 +47,46 @@ PRINT '=========================================================================
 DBCC checkident(@table_name, RESEED, 0);
 DBCC checkident(@table_name, RESEED);
 COMMIT;
+
+//////////////
+
+begin transaction
+
+declare @table_name varchar(100);
+
+set @table_name = 'customization_template';
+
+PRINT 'before NORESEED'
+DBCC checkident(@table_name, NORESEED);
+PRINT 'after NORESEED'
+PRINT '--------------------------'
+
+PRINT 'before RESEED 0'
+DBCC checkident(@table_name, RESEED, 0);
+PRINT 'after RESEED 0'
+PRINT '--------------------------'
+
+PRINT 'before RESEED'
+DBCC checkident(@table_name, RESEED);
+PRINT 'after RESEED'
+PRINT '--------------------------'
+
+rollback
+
+/////////////////////
+
+before NORESEED
+Checking identity information: current identity value '297', current column value '297'.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+after NORESEED
+--------------------------
+before RESEED 0
+Checking identity information: current identity value '297', current column value '0'.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+after RESEED 0
+--------------------------
+before RESEED
+Checking identity information: current identity value '0', current column value '295'.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+after RESEED
+--------------------------
