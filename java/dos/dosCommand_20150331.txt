@@ -1,0 +1,8 @@
+how to delete
+
+1>move <foldername> to c:\DeleteMe
+
+2>run following command
+del /f/s/q c:\DeleteMe\<foldername> 
+rmdir /s/q c:\DeleteMe\<foldername>
+
