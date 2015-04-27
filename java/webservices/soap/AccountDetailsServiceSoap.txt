@@ -1,0 +1,497 @@
+http://briansjavablog.blogspot.com/2013/01/spring-web-services-tutorial.html
+https://github.com/briansjavablog/spring-webservices-tutorial
+
+The Contract Last approach involves taking existing code and generating a service contract directly from that code in order to expose it as a SOAP interface
+
+The Contract First approach involves defining the Service contract before implementing the service. This means describing the service parameters and return types using XSD's (XML Schema Definitions), then using those XSD's to construct a WSDL (web service definition language) to provides a public facing contract or description of the service. Only after the service contract has been clearly defined, is the service implementation actually written.
+
+///////
+
+This post will describe a Contract First service, as this is the preferred approach for various reasons, some of which are explained in this
+
+src/main/webapp/schemas/AccountDetails.xsd.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://webservices.samples.blog.com" targetNamespace="http://webservices.samples.blog.com" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Account" type="Account"/>
+	<xs:complexType name="Account">
+		<xs:sequence>
+			<xs:element name="AccountNumber" type="xs:string"/>
+			<xs:element name="AccountName" type="xs:string"/>
+			<xs:element name="AccountBalance" type="xs:double"/>
+			<xs:element name="AccountStatus" type="EnumAccountStatus"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="EnumAccountStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Inactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
+
+---------
+
+Next we'll define the service request and response types in src/main/webapp/schemas/AccountDetailsServiceOperations.xsd.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://com/blog/samples/webservices/accountservice" xmlns:account="http://webservices.samples.blog.com" targetNamespace="http://com/blog/samples/webservices/accountservice" elementFormDefault="qualified">
+	<xsd:import namespace="http://webservices.samples.blog.com" schemaLocation="AccountDetails.xsd"/>
+	<xsd:element name="AccountDetailsRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="accountNumber" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AccountDetailsResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="AccountDetails" type="account:Account"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
+
+///////////
+
+Object to XML Mapping
+A fundamental part of web services is the conversion of SOAP messages from XML to Java objects and vice versa. 
+
+In order to use our XSD defined types in the application we need to generate Java classes from those types. We do this as part of the Maven build process by using the jaxb-maven-plugin in our POM. The plugin is configured to parse a set of XSD's and run JAXB's class generator to create Java classes for each of the defined types.
+
+pom.xml
+
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+							 http://maven.apache.org/maven-v4_0_0.xsd">
+	<artifactId>spring-webservices-sample</artifactId>
+	<modelVersion>4.0.0</modelVersion>
+	<inceptionYear>2013</inceptionYear>
+	<packaging>war</packaging>
+	<groupId>com.blog.webservices</groupId>
+	<version>1.0</version>
+	<properties>
+		<spring.version>3.1.1.RELEASE</spring.version>
+		<spring.ws.version>2.0.0.RELEASE</spring.ws.version>
+		<log4j.version>1.2.16</log4j.version>
+		<context.path>spring-webservices-sample</context.path>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<clearOutputDir>false</clearOutputDir>
+					<outputDirectory>src/main/java</outputDirectory>
+					<schemaDirectory>src/main/webapp/schemas</schemaDirectory>
+					<includeSchema>**/*.xsd</includeSchema>
+					<bindingDirectory>src/main/resources/bindings</bindingDirectory>
+					<enableIntrospection>false</enableIntrospection>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${context.path}</warName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>${spring.ws.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.schema</groupId>
+			<artifactId>XmlSchema</artifactId>
+			<version>1.4.3</version>
+		</dependency>
+	</dependencies>
+</project>
+
+////////////
+
+Running a Maven build will create Java classes for each of the defined schema types. The screenshot below shows what the generated classes should look like in your project after you run a Maven build. Note that JAXB has used the the namespaces in the XSD's to derive package names for the generated classes.
+
+The next step is to define the Service interface using the types we generated above
+
+package com.blog.samples.services;
+
+import com.blog.samples.webservices.Account;
+
+/**
+ * The Interface AccountService.
+ */
+public interface AccountService
+{
+
+	/**
+	 * Gets the account details.
+	 *
+	 * @param accountNumber the account number
+	 * @return the account details
+	 */
+	public Account getAccountDetails(String accountNumber);
+}
+
+---------
+
+package com.blog.samples.services;
+
+import org.springframework.stereotype.Service;
+
+import com.blog.samples.webservices.Account;
+import com.blog.samples.webservices.EnumAccountStatus;
+
+/**
+ * The Class AccountService.
+ */
+@Service
+public class AccountServiceImpl implements AccountService
+{
+
+	/**
+	 * Gets the account details.
+	 *
+	 * @param accountNumber the account number
+	 * @return the account details
+	 */
+	public Account getAccountDetails(String accountNumber)
+	{
+
+		/* hard coded account data - in reality this data would be retrieved
+		 * from a database or back end system of some sort */
+		Account account = new Account();
+		account.setAccountNumber("12345");
+		account.setAccountStatus(EnumAccountStatus.ACTIVE);
+		account.setAccountName("Joe Bloggs");
+		account.setAccountBalance(3400);
+
+		return account;
+	}
+}
+
+////////////////
+
+Creating the Service Endpoint
+A service endpoint is the component that deals with processing web service requests and responses. In the background a Spring Servlet intercepts incoming SOAP requests for a defined URL and routes them to an endpoint for processing. Below we're going to define that endpoint.
+
+package com.blog.samples.services.endpoints;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import com.blog.samples.services.AccountService;
+import com.blog.samples.webservices.Account;
+import com.blog.samples.webservices.accountservice.AccountDetailsRequest;
+import com.blog.samples.webservices.accountservice.AccountDetailsResponse;
+
+/**
+ * The Class AccountService.
+ */
+@Endpoint
+public class AccountServiceEndpoint
+{
+	private static final String TARGET_NAMESPACE = "http://com/blog/samples/webservices/accountservice";
+
+	@Autowired
+	private AccountService accountService_i;
+
+	/**
+	 * Gets the account details.
+	 *
+	 * @param accountNumber the account number
+	 * @return the account details
+	 */
+	@PayloadRoot(localPart = "AccountDetailsRequest", namespace = TARGET_NAMESPACE)
+	public @ResponsePayload AccountDetailsResponse getAccountDetails(@RequestPayload AccountDetailsRequest request)
+	{
+		AccountDetailsResponse response = new AccountDetailsResponse();
+
+		/* call Spring injected service implementation to retrieve account data */
+		Account account = accountService_i.getAccountDetails(request.getAccountNumber());
+		response.setAccountDetails(account);
+		return response;
+	}
+
+	public void setAccountService(AccountService accountService_p)
+	{
+		this.accountService_i = accountService_p;
+	}
+}
+
+Our sample application makes sue of  Springs Web Services annotation support. The above class uses a number of these annotations, each of which is explained below.
+
+Line 14 - @Enpoint is a specialised version of the standard Spring @Component annotation and allows this class to get picked up and registered by Springs component scanning.
+Lines 18 & 19 - Our simple service implementation is Spring injected so that it can be used by our web service endpoint.
+Line 17 - this is the namespace we defined in our XSD type definitions earlier. We use this in the endpoint class for mapping request to specific methods for processing.
+Line 26 - @PayloadRoot indicates that this method will process service requests with the XML root element matching that defined by the localPart attribute. In the example above our method will process incoming requests of type AccountDetailsRequest with namespace http://com/blog/samples/webservices/accountservice. Remember that we defined this XSD type and namespace earlier.
+Line 27 - @ResponsePayload indicates the type to be returned in the SOAP response. In this example the AccountDetailsResponse object will be converted to XML and returned to the client application as a SOAP response. @RequestPayload AccountDetails tells Spring to convert incoming requests of type AccountDetails, from XML to Java and the pass that object as a parameter to this endpoint method.
+
+//////////////
+
+Spring Configuration
+Next we'll write our Spring configuration to bring everything together. The Spring configuration is defined as follows.
+
+src\main\webapp\WEB-INF\config\spring-config.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:sws="http://www.springframework.org/schema/web-services"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/web-services
+							http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<context:component-scan base-package="com.blog.samples.services" />
+	<sws:annotation-driven />
+
+	<!--
+		Our test service bean
+	-->
+	<bean id="AccountDetailsService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition" lazy-init="true">
+        <property name="schemaCollection">
+            <bean class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+                <property name="inline" value="true" />
+                <property name="xsds">
+                    <list>
+                        <value>schemas/AccountDetailsServiceOperations.xsd</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="portTypeName" value="AccountDetailsService"/>
+        <property name="serviceName" value="AccountDetailsServices" />
+        <property name="locationUri" value="/endpoints"/>
+    </bean>
+
+</beans>
+
+Line 12 - Component scanning scans the defined package (com.blog.sample.services) for Spring managed components to load into the bean factory.
+Line 13 - Enables Spring Web Services annotation support so that annotations like @PayloadRoot can be used to configure the service endpoint.
+Line 17 to 31 - Use of DefaultWsdl11Definition enables automated WSDL generation. Spring uses the schema definitions listed in the schemaCollection property, as well as the portType, serviceName and locationUri to generate a WSDL file the first time it is requested. Although this is a powerful feature it should be used with caution in production as the WSDL generation process can be quite slow. An approach I've used in the past is to copy the generated WSDL from your browser to your project and expose it using Springs static WSDL support with <static-wsdl>. 
+
+//////////
+
+Web.xml
+Now for the final bit of configuration before we test out our service. Web.xml is defined as follows.
+
+spring-webservices-tutorial-master\src\main\webapp\WEB-INF\web.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 id="WebApp_ID"
+		 version="2.5">
+
+	<!--
+		Main configuration file for this Spring web application.
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/config/spring-config.xml
+		</param-value>
+	</context-param>
+
+	<!--
+		Loads the Spring web application context, using the files defined above.
+	-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--
+		Define the Spring WS Servlet. The 'transformWsldLocations' param means
+		that any WSDLs generated are context-aware and contain the correct
+		path to their exposed port types. The 'contextConfigLocation' param
+		with an empty value means that the Spring context won't try to load
+		a file called webservices-servlet.xml
+	-->
+	<servlet>
+		<servlet-name>webservices</servlet-name>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>transformWsdlLocations</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>webservices</servlet-name>
+		<url-pattern>*.wsdl</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>webservices</servlet-name>
+		<url-pattern>/endpoints/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+Line 8 to 13 - Path for Spring configuration to be loaded on application start-up.
+Line 14 to 16 - Loads the Spring application context using the configuration file defined above
+Line 18 to 19 - Spring Web Service Servlet that intercepts incoming HTTP requests.
+Line 21 to 22 - Ensures WSDL is context aware. Transforms SOAP address so that it isn't hard coded to localhost:8080.Address updates depending on the application context and port that the application is deployed at.
+Line 25 to 26 - ContextConfigLocation set with an empty parameter means that Spring won't try to load the default webservices-servlet.xml configuration.
+Line 47 to 55 - Configures the URLs that our newly configured Web Services Servlet will handle.
+
+////////////
+
+Deploying the Service
+We're now ready to deploy our application - I use Tomcat but feel free to use any Servlet container. Once the application is deployed, just browse to http://localhost:8080/spring-webservices-sample/endpoints/AccountDetailsService.wsdl and the application should generate and display the following WSDL.
+
+1:  <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://com/blog/samples/webservices/accountservice" xmlns:sch1="http://webservices.samples.blog.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com/blog/samples/webservices/accountservice" targetNamespace="http://com/blog/samples/webservices/accountservice">  
+2:       <wsdl:types>  
+3:            <xsd:schema xmlns="http://com/blog/samples/webservices/accountservice" xmlns:account="http://webservices.samples.blog.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://com/blog/samples/webservices/accountservice">  
+4:                 <xsd:import namespace="http://webservices.samples.blog.com"/>  
+5:                 <xsd:element name="AccountDetailsRequest">  
+6:                      <xsd:complexType>  
+7:                           <xsd:sequence>  
+8:                                <xsd:element name="accountNumber" type="xsd:string"/>  
+9:                           </xsd:sequence>  
+10:                      </xsd:complexType>  
+11:                 </xsd:element>  
+12:                 <xsd:element name="AccountDetailsResponse">  
+13:                      <xsd:complexType>  
+14:                           <xsd:sequence>  
+15:                                <xsd:element name="AccountDetails" type="account:Account"/>  
+16:                           </xsd:sequence>  
+17:                      </xsd:complexType>  
+18:                 </xsd:element>  
+19:            </xsd:schema>  
+20:            <xs:schema xmlns="http://webservices.samples.blog.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://webservices.samples.blog.com">  
+21:                 <xs:element name="Account" type="Account"/>  
+22:                 <xs:complexType name="Account">  
+23:                      <xs:sequence>  
+24:                           <xs:element name="AccountNumber" type="xs:string"/>  
+25:                           <xs:element name="AccountName" type="xs:string"/>  
+26:                           <xs:element name="AccountBalance" type="xs:double"/>  
+27:                           <xs:element name="AccountStatus" type="EnumAccountStatus"/>  
+28:                      </xs:sequence>  
+29:                 </xs:complexType>  
+30:                 <xs:simpleType name="EnumAccountStatus">  
+31:                      <xs:restriction base="xs:string">  
+32:                           <xs:enumeration value="Active"/>  
+33:                           <xs:enumeration value="Inactive"/>  
+34:                      </xs:restriction>  
+35:                 </xs:simpleType>  
+36:            </xs:schema>  
+37:       </wsdl:types>  
+38:       <wsdl:message name="AccountDetailsResponse">  
+39:            <wsdl:part element="tns:AccountDetailsResponse" name="AccountDetailsResponse"/>  
+40:       </wsdl:message>  
+41:       <wsdl:message name="AccountDetailsRequest">  
+42:            <wsdl:part element="tns:AccountDetailsRequest" name="AccountDetailsRequest"/>  
+43:       </wsdl:message>  
+44:       <wsdl:portType name="AccountDetailsService">  
+45:            <wsdl:operation name="AccountDetails">  
+46:                 <wsdl:input message="tns:AccountDetailsRequest" name="AccountDetailsRequest"/>  
+47:                 <wsdl:output message="tns:AccountDetailsResponse" name="AccountDetailsResponse"/>  
+48:            </wsdl:operation>  
+49:       </wsdl:portType>  
+50:       <wsdl:binding name="AccountDetailsServiceSoap11" type="tns:AccountDetailsService">  
+51:            <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>  
+52:            <wsdl:operation name="AccountDetails">  
+53:                 <soap:operation soapAction=""/>  
+54:                 <wsdl:input name="AccountDetailsRequest">  
+55:                      <soap:body use="literal"/>  
+56:                 </wsdl:input>  
+57:                 <wsdl:output name="AccountDetailsResponse">  
+58:                      <soap:body use="literal"/>  
+59:                 </wsdl:output>  
+60:            </wsdl:operation>  
+61:       </wsdl:binding>  
+62:       <wsdl:service name="AccountDetailsServices">  
+63:            <wsdl:port binding="tns:AccountDetailsServiceSoap11" name="AccountDetailsServiceSoap11">  
+64:                 <soap:address location="http://localhost:8080/spring-webservices-sample/endpoints"/>  
+65:            </wsdl:port>  
+66:       </wsdl:service>  
+67:  </wsdl:definitions>  
+
+///////
+
+Testing the Service
+The simplest way to test a SOAP service is using SoapUI. For anyone who hasn't used it before, SoapUI is an open source functional testing tool for testing SOAP web services. It saves us having to write a web service client and means that in just a few clicks we can have a test harness in place to test our service.
+
+To test our serviced using SoapUI follow the steps below.
+Download and install SoapUI from here.
+Go to File->New SoapUI Project
+For project name enter AccountServiceTest
+For initial WSDL enter the path to your deployed WSDL - http://localhost:8080/spring-webservices-sample/endpoints/AccountDetailsService.wsdl   
+
+Figure 6.0 SoapUI Test Project
+SoapUI will parse the exposed WSDL (make sure your application is deployed and the WSDL is exposed!) and use it to build a sample SOAP request.
+When the new project opens click AccountServiceTest -> AccountDetails -> request and you'll see a SOAP request for the AccountDetails service in the left hand pane. Set the account number and press the green arrow in the top left hand corner to call the service.
+If the request is successful you should see a SOAP response containing the requested account data in the right hand pane. See figure 7.0 below  
