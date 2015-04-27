@@ -1,0 +1,181 @@
+http://www.codeproject.com/Articles/18426/XSD-Tutorial-Part-of-Elements-and-Attributes
+
+XML schema is. A schema formally describes what a given XML document contains
+
+An XML schema describes the coarse shape of the XML document, what fields an element can contain, which sub elements it can contain etc. It can also describe the values that can be placed into any element or attribute.
+
+-"DTD" was the first formalized standard, but is rarely used anymore.
+-"XDR" was an early attempt by Microsoft to provide a more comprehensive standard than DTD. This standard has pretty much been abandoned now in favor of XSD.
+-"XSD" is currently the de facto standard for describing XML documents. There are 2 versions in use 1.0 and 1.1, which are on the whole the same
+
+//////
+
+Elements are the main building block of any XML document, they contain the data and determine the structure of the document. An element can be defined within an XML Schema (XSD) as follows:
+
+<xs:element name="x" type="y"/>
+
+An element definition within the XSD must have a name property.  The type property provides the description of what can be contained within the element when it appears in the XML document. There are a number of predefined types, such as xs:string, xs:integer, xs:boolean or xs:date (see XSD standard for a complete list). You can also create a user defined type using the <xs:simple type> and <xs:complexType> tags
+
+<xs:element name="Customer_dob" type="xs:date"/> 
+<Customer_dob>2000-01-12T12:13:14Z</Customer_dob>
+
+<xs:element name="Customer_address" type="xs:string"/>
+<Customer_address>99 London Road</Customer_address>
+
+/////////
+
+Default = means that if no value is specified in the XML document then the application reading the document (typically an XML parser or XML Data binding Library) should use the default specified in the XSD.
+
+Fixed = means the value in the XML document can only have the value specified in the XSD.
+
+<xs:element name="Customer_name" type="xs:string" default="unknown"/>
+<xs:element name="Customer_location" type="xs:string" fixed=" UK"/> 
+
+///////
+
+Cardinality
+
+Specifying how many times an element can appear is referred to as cardinality, and is specified using the attributes minOccurs and maxOccurs. 
+
+The default values for minOccurs and maxOccurs is 1 . So if both the minOccurs and maxOccurs attributes are absent
+
+<xs:element name="Customer_dob"type="xs:date"/> 
+If we don't specify minOccurs or maxOccurs, then the default values of 1 are used, so in this case there has to be one and only one occurrence of Customer_dob
+
+<xs:element name="Customer_order"
+			type="xs:integer"
+			minOccurs ="0"
+			maxOccurs="unbounded"/>
+Here, a customer can have any number of Customer_orders (even 0)
+
+<xs:element name="Customer_hobbies"
+			type="xs:string"
+			minOccurs="2"
+			maxOccurs="10"/>
+In this example, the element Customer_hobbies must appear at least twice, but no more than 10 times
+
+////////
+
+Simple Types
+
+built in data types xs:string, xs:integer, xs:date
+ 
+////////////
+
+Complex Types
+
+<xs:element name="Customer" type="xs:string"/>
+<xs:element name="Customer_dob" type="xs:date"/>
+<xs:element name="Customer_address" type="xs:string"/>
+
+<xs:element name="Supplier" type="xs:string"/>
+<xs:element name="Supplier_phone" type="xs:integer"/>
+<xs:element name="Supplier_address" type="xs:string"/> 
+
+We can see that some of these elements should really be represented as child elements, "Customer_dob" and "Customer_address" belong to a parent element – "Customer". While "Supplier_phone" and "Supplier_address" belong to a parent element "Supplier". We can therefore re-write this in a more structured way:
+
+<xs:element name="Customer">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Dob" type="xs:date" />
+                <xs:element name="Address" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+</xs:element>
+
+<xs:element name="Supplier">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Phone" type="xs:integer"/>
+            <xs:element name="Address" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+Example XML
+
+<Customer>
+    <Dob> 2000-01-12T12:13:14Z </Dob>
+    <Address> 34 thingy street, someplace, sometown, w1w8uu </Address>
+</Customer>
+
+<Supplier>
+    <Phone>0123987654</Phone>
+    <Address>22 whatever place, someplace, sometown, ss1 6gy </Address>
+</Supplier>
+
+/////////
+
+Compositors
+
+There are 3 types of compositors <xs:sequence>, <xs:choice> and <xs:all>. These compositors allow us to determine how the child elements within them appear within the XML document.
+
+Sequence = The child elements in the XML document MUST appear in the order they are declared in the XSD schema.
+
+Choice = Only one of the child elements described in the XSD schema can appear in the XML document.
+
+All = The child elements described in the XSD schema can appear in the XML document in any order.
+
+-------
+
+<xs:complexType name="AddressType">
+    <xs:sequence>
+        <xs:element name="Line1" type="xs:string"/>
+        <xs:element name="Line2" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType> 
+
+<xs:element name="Customer">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Dob" type="xs:date"/>
+            <xs:element name="Address" type="AddressType"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="supplier">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Phone" type="xs:integer"/>
+            <xs:element name="Address" type="AddressType"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element> 
+
+Example XML <Customer>
+    <Dob> 2000-01-12T12:13:14Z </Dob>
+    <Address>
+        <Line1>34 thingy street, someplace</Line1>
+        <Line2>sometown, w1w8uu </Line2>
+    </Address>
+</Customer>
+
+<Supplier>
+    <Phone>0123987654</Phone>
+    <Address>
+        <Line1>22 whatever place, someplace</Line1>
+        <Line2>sometown, ss1 6gy </Line2>
+    </Address>
+</Supplier>
+
+/////////
+
+Attributes
+
+An attribute provides extra information within an element. Attributes are defined within an XSD as follows, having name and type properties.
+
+An Attribute can appear 0 or 1 times within a given element in the XML document. Attributes are either optional or mandatory (by default, they are optional)
+
+<xs:attribute name="ID" type="xs:string"/>
+<xs:attribute name="ID" type="xs:string" use="optional"/>
+
+<xs:element name="Order">
+	<xs:complexType>
+		<xs:attribute name="OrderID"type="xs:int"/>
+	</xs:complexType>
+</xs:element> 
+
+<Order OrderID="6"/>
+
+
