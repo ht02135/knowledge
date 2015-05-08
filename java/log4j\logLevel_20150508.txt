@@ -1,0 +1,32 @@
+
+This rule is at the heart of log4j. It assumes that levels are ordered. For the standard levels, we have DEBUG < INFO < WARN < ERROR < FATAL.
+
+Here is an example of this rule.
+
+http://logging.apache.org/log4j/1.2/manual.html
+http://stackoverflow.com/questions/2342280/difference-between-logger-info-and-logger-debug
+
+   // get a logger instance named "com.foo"
+   Logger  logger = Logger.getLogger("com.foo");
+
+   // Now set its level. Normally you do not need to set the
+   // level of a logger programmatically. This is usually done
+   // in configuration files.
+   logger.setLevel(Level.INFO);
+
+   Logger barlogger = Logger.getLogger("com.foo.Bar");
+
+   // This request is enabled, because WARN >= INFO.
+   logger.warn("Low fuel level.");
+
+   // This request is disabled, because DEBUG < INFO.
+   logger.debug("Starting search for nearest gas station.");
+
+   // The logger instance barlogger, named "com.foo.Bar",
+   // will inherit its level from the logger named
+   // "com.foo" Thus, the following request is enabled
+   // because INFO >= INFO.
+   barlogger.info("Located nearest gas station.");
+
+   // This request is disabled, because DEBUG < INFO.
+   barlogger.debug("Exiting gas station search");
