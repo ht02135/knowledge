@@ -1,0 +1,28 @@
+https://coderwall.com/p/c4ut-w/adding-raygun-error-tracking-to-web-api
+
+Raygun (raygun.io) is a cloud-based error tracking system that can be used from a variety of development platforms. The following are steps for adding Raygun to your Web API application.
+1. Get API Key
+
+    Login to your Raygun account (raygun.io)
+    Add a new application or navigate to existing application
+    Select Application Settings and copy the API key
+
+2. Install NuGet Package
+
+    From the Package Manager Console in Visual Studio, run the following command:
+
+    Install-Package WebApiContrib.Logging.Raygun
+
+3. Add API Key to Web.config
+
+    Add your API key to <appSettings> in the web.config file:
+
+    <add key="RaygunAppKey" value="API_KEY" />
+
+4. Add Raygun Exception Logger
+
+    Add the following code to WebApiConfig.cs:
+
+    config.Services.Add(typeof (IExceptionLogger), new RaygunExceptionLogger());
+
+That's it. Try it out by throwing an exception in one of your controllers and verify it is logged to Raygun.
