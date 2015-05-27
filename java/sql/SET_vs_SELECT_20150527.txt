@@ -1,0 +1,55 @@
+http://www.sql-server-helper.com/tips/set-vs-select-assigning-variables.aspx
+
+SET
+
+1>Can only assign one variable at a time.
+
+SET @Index = 1
+SET @LoopCount = 10
+SET @InitialValue = 5
+
+2>When assigning from a query and the query returns no result, SET will assign a NULL value to the variable.
+
+DECLARE @CustomerID NCHAR(5)
+SET @CustomerID = 'XYZ'
+SET @CustomerID = (SELECT [CustomerID]
+                   FROM [dbo].[Customers]
+                   WHERE [CustomerID] = 'ABC')
+SELECT @CustomerID -– Returns NULL
+
+3>When assigning from a query that returns more than one value, SET will fail with an error.
+
+
+
+SET = (SELECT [CustomerID]
+       FROM [dbo].[Customers])
+
+Msg 512, Level 16, State 1, Line 3
+Subquery returned more than 1 value. 
+This is not permitted when the subquery
+follows =, !=, <, <= , >, >= or when the 
+subquery is used as an expression.
+
+/////////
+
+SELECT
+
+1>Can assign values to more than one variable at a time.
+
+SELECT @Index = 1, @LoopCount = 10,
+       @InitialValue = 5
+
+2>When assigning from a query and the query returns no result, SELECT will not make the assignment and therefore not change the value of the variable.
+
+DECLARE @CustomerID NCHAR(5)
+SET @CustomerID = 'XYZ'
+SELECT @CustomerID = [CustomerID]
+FROM [dbo].[Customers]
+WHERE [CustomerID] = 'ABC'
+SELECT @CustomerID –- Returns XYZ
+
+3>When assigning from a query that returns more than one value, SELECT will assign the last value returned by the query and hide the fact that the query returned more than one row.
+
+SELECT  @CustomerID = [CustomerID]
+FROM [dbo].[Customers]
+-- No error generated
