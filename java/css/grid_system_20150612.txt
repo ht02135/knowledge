@@ -1,0 +1,108 @@
+
+example
+
+    <div class="row">
+        <div id="homewhatsnew" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="hometrending" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="homebestpractice" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+    </div>
+
+////////////
+http://getbootstrap.com/examples/grid/
+four tiers of classes: xs (phones), sm (tablets), md (desktops), and lg (larger desktops)
+
+Three equal columns
+
+    <div class="row">
+        <div id="homewhatsnew" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="hometrending" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="homebestpractice" class="col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+    </div>
+    
+----------
+
+Three unequal columns
+
+    <div class="row">
+        <div id="homewhatsnew" class="col-md-3" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="hometrending" class="col-md-6" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="homebestpractice" class="col-md-3" data-bind="template:{name:'htmlmod'}"></div>
+    </div>
+    
+Mixed: mobile and desktop
+
+    <div class="row">
+        <div id="homewhatsnew" class="col-xs-12 col-md-8" data-bind="template:{name:'htmlmod'}"></div>
+        <div id="hometrending" class="col-xs-6 col-md-4" data-bind="template:{name:'htmlmod'}"></div>
+    </div>
+    
+<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+<div class="row">
+  <div class="col-xs-12 col-md-8">.col-xs-12 .col-md-8</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>
+
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+<div class="row">
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>
+
+<!-- Columns are always 50% wide, on mobile and desktop -->
+<div class="row">
+  <div class="col-xs-6">.col-xs-6</div>
+  <div class="col-xs-6">.col-xs-6</div>
+</div>
+
+--------------
+Example: Mobile, tablet, desktop
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+  <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+  <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+  <!-- Optional: clear the XS cols if their content doesn't match in height -->
+  <div class="clearfix visible-xs-block"></div>
+  <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+</div>
+
+--------
+
+Nesting columns
+
+<div class="row">
+  <div class="col-sm-9">
+    Level 1: .col-sm-9
+    <div class="row">
+      <div class="col-xs-8 col-sm-6">
+        Level 2: .col-xs-8 .col-sm-6
+      </div>
+      <div class="col-xs-4 col-sm-6">
+        Level 2: .col-xs-4 .col-sm-6
+      </div>
+    </div>
+  </div>
+</div>
+
+////////
+
+http://getbootstrap.com/css/
+http://getbootstrap.com/css/#helper-classes
+
+Bootstrap includes a responsive, mobile first fluid grid system that appropriately scales up to 12 columns as the device or viewport size increases
+
+Less mixins and variables
+
+Variables
+Variables determine the number of columns, the gutter width, and the media query point at which to begin floating columns. We use these to generate the predefined grid classes documented above, as well as for the custom mixins listed below.
+
+Copy
+@grid-columns:              12;
+@grid-gutter-width:         30px;
+@grid-float-breakpoint:     768px;
+
+-----------
