@@ -1,0 +1,9 @@
+<object data="pdf.pdf" type="application/pdf" width="1000px" height="1200px" id="pdfDoc" name="pdfDoc"></object>
+
+<html>
+<body>
+    <object data="your_url_to_pdf" type="application/pdf">
+        <embed src="your_url_to_pdf" type="application/pdf" />
+    </object>
+</body>
+</html>
