@@ -7,3 +7,8 @@
     </object>
 </body>
 </html>
+
+<embed src="http://domain.com/your_pdf.pdf" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+
+<iframe src="http://docs.google.com/gview?url=http://domain.com/your_pdf.pdf&embedded=true" 
+style="width:600px; height:500px;" frameborder="0"></iframe>
