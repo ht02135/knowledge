@@ -16,7 +16,8 @@ popup window:
 ---------
 <a href = "jsp_tutorial.pdf?iframe=true">Click me</a>
 
------
+http://bootsnipp.com/snippets/P3Vvm
+//////////////////////////////////////////////
 
 html
 <div class="container">
