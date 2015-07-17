@@ -12,3 +12,6 @@ popup window:
 
 <a href="{BookingLink}&if=1&ifwidth=720" onclick="window.open(this.href, 'mywin', 
 'toolbar=0,menubar=0,scrollbars=1,height=600,width=720'); return false;">Book online</a>
+
+---------
+<a href = "jsp_tutorial.pdf?iframe=true">Click me</a>
