@@ -6,3 +6,6 @@ You can access <a href="../latin9.pdf">the document</a>
 via a link though.]</iframe>
 
 <iframe src="http://complete-path-to-the-pdf/your.pdf " width="580" height="580" style="border: none; "></iframe>
+
+<a href="{BookingLink}&if=1&ifwidth=720" onclick="window.open(this.href, 'mywin', 
+'toolbar=0,menubar=0,scrollbars=1,height=600,width=720'); return false;">Book online</a>
