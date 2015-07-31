@@ -19,3 +19,66 @@ bunch of elements the same height” was implemented.
     </div>
 
 </div>
+
+///////////
+
+
+
+I know its been a long time but I share my solution anyway. This is a jQuery trick.
+
+--- HTML
+
+<div class="custom-column">
+    <div class="column-left">
+        asd
+        asd<br/>
+        asd<br/>
+    </div>
+    <div class="column-right">
+        asd
+    </div>
+</div>
+
+<div class="custom-column">
+    <div class="column-left">
+        asd
+    </div>
+    <div class="column-right">
+        asd
+        asd<br/>
+        asd<br/>
+    </div>
+</div>
+
+---- CSS
+
+<style>
+.custom-column { margin-bottom:10px; }
+.custom-column:after { clear:both; content:""; display:block; width:100%; }
+    .column-left { float:left; width:25%; background:#CCC; }
+    .column-right { float:right; width:75%; background:#EEE; }
+</style>
+
+--- JQUERY
+
+<script src="js/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $balancer = function() {
+        $('.custom-column').each(function(){
+            if($('.column-left',this).height()>$('.column-right',this).height()){
+                $('.column-right',this).height($('.column-left',this).height())
+            } else {
+                $('.column-left',this).height($('.column-right',this).height())
+            }
+
+        });
+
+    }
+    $balancer();
+    $(window).load($balancer());
+    $(window).resize($balancer());
+
+});
+</script>
+
