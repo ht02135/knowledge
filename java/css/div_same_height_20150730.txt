@@ -1,0 +1,21 @@
+http://stackoverflow.com/questions/2997767/how-do-i-keep-two-divs-that-are-side-by-side-the-same-height
+
+This is an area where CSS has never really had any solutions — you’re down to using <table> tags 
+(or faking them using the CSS display:table* values), as that’s the only place where a “keep a 
+bunch of elements the same height” was implemented.
+
+<div style="display: table-row;">
+
+    <div style="border:1px solid #cccccc; display: table-cell;">
+        Some content!<br/>
+        Some content!<br/>
+        Some content!<br/>
+        Some content!<br/>
+        Some content!<br/>
+    </div>
+
+    <div style="border:1px solid #cccccc;  display: table-cell;">
+        Some content!
+    </div>
+
+</div>
