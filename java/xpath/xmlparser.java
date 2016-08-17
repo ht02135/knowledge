@@ -21,8 +21,6 @@ import javax.xml.xpath.XPathFactory;
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse(file);
 			XPath xPath = XPathFactory.newInstance().newXPath();
-
-//			String expression = "//Form[@id='userProfileContactInformation']/field[@required='true']/@id";
 			
 			NodeList nodeList = (NodeList) xPath.compile(xPathExpression).evaluate(xmlDocument, XPathConstants.NODESET);
 			System.out.println("nodeList.getLength() "+nodeList.getLength());
@@ -32,7 +30,6 @@ import javax.xml.xpath.XPathFactory;
 				list.add(result);
 			}
 			System.out.println("list="+list);
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
