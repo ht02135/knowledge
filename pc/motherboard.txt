@@ -1,0 +1,31 @@
+idle (where we determine an average of 5 minutes), 
+maximum usage during Cinebench 11.5 
+and lastly the average usage during 3DMark.
+
+https://us.hardware.info/reviews/6390/13/4-mid-range-z170-motherboards-review-power-consumption
+https://us.hardware.info/reviews/6388/12/z170-motherboards-of-approximately-110-pounds135-dollars-review-power-consumption
+https://us.hardware.info/reviews/6441/9/msi-z170a-pc-mate-overclocking-test-with-an-entry-level-motherboard-power-consumption
+
+i think i like 
+Gigabyte Z170X-Gaming 5 >> ASUS Z170 Pro Gaming
+ 
+                        | idle  | cinebench 11.5 | 3dmark |
+ASRock Z170 Extreme4    | 30w   | 101w           | 61w    |
+ASUS Z170I Pro Gaming   | 33.6w | 101w           | 62.6w  |
+ASUS Z170 Pro Gaming    | 30w   | 103w           | 66.1w  |
+Gigabyte Z170X-Gaming 3 | 25.2w | 109w           | 67.2w  |
+Gigabyte Z170X-Gaming 5 | 26.4w | 102w           | 61.8w  |
+
+http://techreport.com/review/29072/gigabyte-z170x-gaming-7-motherboard-reviewed/5
+
+                        | idle | load |
+Gigabyte Z170X-Gaming 7 | 41w  | 282w |
+
+http://www.bit-tech.net/hardware/2015/12/29/gigabyte-z170mx-gaming-5-review/4
+
+                        | idle | load |
+Gigabyte Z170MX-Gaming 5 | 48/70w  | 122/197w |
+Gigabyte Z170X-Gaming 7 | 46/73w  | 123/173w |
+Asus Maximus VIII Impact | 50/58w  | 113/172w |
+
+http://www.techspot.com/review/1073-intel-z170-motherboard-roundup/
