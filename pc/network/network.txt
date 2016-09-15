@@ -1,0 +1,26 @@
+isp: 192.168.0.1
+
+--------
+
+Bridge :
+take dlink-1650
+lan ip : 192.168.0.50 (default)
+subnet mask : 255.255.255.0
+default gateway: 192.168.0.1
+dns server: 192.168.0.1
+
+or google
+primary dns: 8.8.8.8
+second dns: 8.8.4.4
+
+------------
+
+AP
+lan ip : 192.168.0.2
+subnet mask : 255.255.255.0
+default gateway: 192.168.0.1
+dns server: 192.168.0.1
+
+or google
+primary dns: 8.8.8.8
+second dns: 8.8.4.4
