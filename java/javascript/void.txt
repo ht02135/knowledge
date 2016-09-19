@@ -4,6 +4,10 @@ The reason you’d want to do this with the href of a link is that normally, a j
 browser to a plain text version of the result of evaluating that JavaScript. But if the result is undefined, 
 then the browser stays on the same page. void(0) is just the smallest script possible that evaluates as undefined
 
+<td class="pct90 strong right"><a href="javascript:void(0)" class="strong_shipping" data-bind="i18n: 'SHIPPING'"></a></td>
+
+--------------------------
+
 <a href="javascript:showProfilePopup()">Profile</a>
 
 var showProfilePopup = dx.navigate.showProfilePopup =  function() {
