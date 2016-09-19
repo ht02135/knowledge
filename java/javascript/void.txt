@@ -3,3 +3,14 @@ javascript:void(0)
 The reason you’d want to do this with the href of a link is that normally, a javascript: URL will redirect the 
 browser to a plain text version of the result of evaluating that JavaScript. But if the result is undefined, 
 then the browser stays on the same page. void(0) is just the smallest script possible that evaluates as undefined
+
+<a href="javascript:showProfilePopup()">Profile</a>
+
+var showProfilePopup = dx.navigate.showProfilePopup =  function() {
+    dxMenu.userMenuViewModel.displayFixedModal("userprofile.jsp", {buttonLabel: "Profile", className: "userprofile.jsp",
+        icon: "ico_profile",
+        id: "190",
+        modal: "true",
+        nodeType: "SCREEN",
+        user: "true"} );
+};
