@@ -1,0 +1,33 @@
+http://forums.astrogaming.com/index.php?threads/astro-gen1-equipment-connecting-to-the-ps4.81570/
+
+- Connecting the A30 or A40 Headset and MixAmp Pro to your PS4 -
+1) Connect the included TOSLINK to Mini-TOSLINK optical cable from the optical input on your MixAmp Pro to the optical output located on the back of your PS4 console.
+
+2) Connect the included USB to Mini-USB cable from the Mini-USB port on your MixAmp Pro to one of the USB ports found on the front of your PS4 console.
+
+3) Connect either the A30 or A40 Headset to your MixAmp Pro using the included Inline Mute Cable or Mobile Cable.
+
+//////
+
+- Configuring your PS4 for game and voice audio -
+1) Switch on your PS4.
+
+2) From the PlayStation Dynamic Menu, select the Settings icon.
+
+3) Navigate to Sound and Screen and then Audio Output Settings.
+
+4) Select Primary Output Port and change this to DIGITAL OUT (OPTICAL) and if required, only check the Dolby Digital 5.1ch format on the following screen.
+
+5) Back under the Audio Output Settings section, select Audio Format (Priority) and change this to Bitstream (Dolby)
+
+6) Navigate back to the Settings page and select Devices followed by Audio Devices.
+
+7) Change the Input and Output Device to USB Headset(ASTRO MixAmp Pro).
+
+8) Select the Adjust Microphone Level and in this screen, adjust the volume bar until your microphone stays somewhere around the Good area.
+
+9) Back under the Audio Devices section, increase the Volume Control (Headphones) to the maximum position.
+
+10) Select Output to Headphones and change this to Chat Audio. Please do not select All Audio or else it will force all of the audio to the voice side of your mixer resulting in the mixer become inoperable and your headset losing the Dolby and EQ functionality!
+
+11) On your MixAmp Pro, you can now adjust the mix between game and voice audio by using the mixer dial.
