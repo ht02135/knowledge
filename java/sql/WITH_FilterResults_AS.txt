@@ -1,0 +1,21 @@
+WITH FilterResults AS (    
+	select u.*, 
+           row_number() over(ORDER BY user_id) 'RowNumber'   
+	FROM users AS u                       
+	WHERE 1=1 
+	AND u.first_name like '%test%' 
+) 
+INSERT INTO member (
+	version,                 
+	user_id,                   
+	first_name,          
+	last_name,
+	seq_number
+)         
+SELECT top 10          
+	0,                                                                     
+	fr.user_id,                                                      
+	fr.first_name,                         
+	fr.last_name,
+	fr.RowNumber
+FROM FilterResults fr OPTION (MAXDOP 0) 
