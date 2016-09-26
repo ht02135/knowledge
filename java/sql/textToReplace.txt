@@ -1,0 +1,13 @@
+
+declare @textToReplace nvarchar(max);
+declare @replacementText nvarchar(max);
+
+set @textToReplace   = 'hung'
+set @replacementText = 'hung_updated'
+
+UPDATE u
+SET u.version = u.version + 1,
+	u.first_name = replace(convert(varchar(max), u.first_name), @textToReplace, @replacementText)
+FROM users AS u with (nolock)
+WHERE 1=1
+and user_id = 152114
