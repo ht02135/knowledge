@@ -1,0 +1,48 @@
+http://www.w3schools.com/sql/sql_isnull.asp
+
+P_Id	ProductName	UnitPrice	UnitsInStock	UnitsOnOrder
+1	Jarlsberg	10.45	16	15
+2	Mascarpone	32.56	23	 
+3	Gorgonzola	15.67	9	20
+
+----------
+
+Suppose that the "UnitsOnOrder" column is optional, and may contain NULL values.
+
+We have the following SELECT statement:
+
+SELECT ProductName,UnitPrice*(UnitsInStock+UnitsOnOrder)
+FROM Products
+
+-------------
+
+In this case we want NULL values to be zero.
+
+SQL Server
+
+SELECT ProductName,UnitPrice*(UnitsInStock+ISNULL(UnitsOnOrder,0))
+FROM Products
+
+--------------
+
+In MySQL we can use the IFNULL() function, like this:
+
+SELECT ProductName,UnitPrice*(UnitsInStock+IFNULL(UnitsOnOrder,0))
+FROM Products
+
+-----------
+
+we can use the COALESCE() function, like this:
+coalesce, return 0 for NULL
+
+SELECT ProductName,UnitPrice*(UnitsInStock+COALESCE(UnitsOnOrder,0))
+FROM Products
+
+//////////////
+
+coalesce, return empty for NULL
+
+coalesce(rs.attribute1,'') as 'attribute1',
+
+where 1=10
+and COALESCE (rs.attribute1, '') <> ''
