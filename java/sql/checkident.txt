@@ -1,0 +1,15 @@
+PRINT ''
+PRINT '================================================================================'
+PRINT 'Cleanup...'
+DECLARE @table_name varchar(100);
+
+BEGIN TRANSACTION;
+SET @table_name = 'c';
+PRINT ''
+PRINT 'Table: ' + @table_name + '...'
+DBCC checkident(@table_name, RESEED, 0);
+DBCC checkident(@table_name, RESEED);
+COMMIT;
+
+PRINT ''
+PRINT 'Done'
