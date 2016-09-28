@@ -1,8 +1,7 @@
 select count (*) as 'attribute20_cnt'
 FROM list AS l WITH (nolock) 
-inner join member as m with (nolock) on m.list_id = l.list_id and l.population_segment = 'ClientAgencyDatabase'
+inner join member as m with (nolock) on m.list_id = l.list_id
 WHERE 1=1
-and l.population_segment = 'ClientAgencyDatabase'
 --and NULLIF(m.attribute20, '') IS NOT NULL
 --and ISNULL(m.attribute20,'') <> ''
 and COALESCE(m.attribute20,'') <> ''
