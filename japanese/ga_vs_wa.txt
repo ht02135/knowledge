@@ -27,3 +27,27 @@ marked with が stake their claim on the sentence (and the verb in particular), 
 claim of ownership.
 
 ///////////////
+
+in Japanese, there is rarely ever a sentence that becomes grammatically incorrect if you chose は when you should have said が or vice versa. The error that arises from misusing these particles is that you convey the wrong meaning.
+
+since は marks a topic, information that while important does not have a definite grammatical role, it is much less central to the message of a sentence than a が marked subject
+ 
+watashi ga kuruma o unten shimashita. (I drove the car.)
+ 
+watashi wa, kuruma o unten shimashita. (I, drove the car.)
+
+In fact, in written Japanese, the particle は is often followed by a comma, but が almost never is 
+
+////////////////
+
+summary
+wa
+1>top of sentence (non-gramatical)
+2>contrast one option
+3>used when elaborate on things known to listener
+
+ga
+1>mark subject of verb (gramatical)
+2>separate/call out one option
+3>used when adding new information to a conversation
+4>used when describing specifi things with adj
