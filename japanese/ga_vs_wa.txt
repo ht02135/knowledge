@@ -1,0 +1,29 @@
+http://nihonshock.com/2010/02/particles-the-difference-between-wa-and-ga/
+
+は (wa) is the topic marker and が (ga) is the subject marker.
+
+Topic: a non-grammatical context for the whole sentence.
+Subject: a grammatical relationship only to the verb.
+
+The number one difference is that while a subject has a explicit grammatical role 
+(the thing which does the verb), a topic is just like a big cloud, with no set relationship 
+to what’s actually going on in the sentence; it’s just there, floating around the sentence.
+
+Since we only ever have subjects in English (never topics) it still takes some getting used 
+to before you can accurately distinguish where we should use one or the other
+
+---------------
+
+A は B.
+は marks a topic–something non-grammatically related to the sentence–you can think of it like
+a picture frame. The thing は marks surrounds and labels the sentence, but is largely independent 
+of what goes on inside. は is a good describer and observer
+
+------------
+
+A が B
+が–in contrast to は–is much more involved in the sentence. It’s almost like a conqueror. Words
+marked with が stake their claim on the sentence (and the verb in particular), making a definite 
+claim of ownership.
+
+///////////////
