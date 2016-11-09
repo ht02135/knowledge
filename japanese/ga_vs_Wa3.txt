@@ -1,0 +1,102 @@
+http://www.fluentu.com/japanese/blog/japanese-particle-ga-wa/
+
+Because は and が are interchangeable! As a matter of fact, it is often grammatically correct to 
+switch them around, but in doing so you will change the meaning of that sentence.
+
+Typically, when you use は you are making a more general statement about who is performing an 
+action than when you use が.
+
+が implies that the one who is performing that action is the only one doing it. In other words, が 
+implies definiteness
+
+/////////////
+
+1>ga
+if you want to insist on paying for dinner for everyone, you will say 私が払います(わたしが はらいます)
+
+2>wa
+If you are only paying for your own dinner and you do not expect to pay for everyone else as well, 
+you would say 私は払います (わたしは はらいます)
+
+//////////
+
+1. Declaring the topic of a sentence
+
+For English speakers, it is very difficult to understand は because we do not have anything quite like
+it in our language. が on the other hand makes some sense to us. This is because subjects exist in English, 
+while topics are not really a grammatical construct.
+
+When you have some sentence “A はB” you can think of this sentence as describing something inside a closed 
+room. We can imagine that this room contains everything related to A. By saying “A はB” we indicate that 
+B is one of the things that goes on inside that room.
+
+So, take for instance 私は学生です (わたしは がくせいです –  I am a student). The topic is 私 (I), so that 
+sentence can be read as “there is a student inside the room which contains everything related to me.” Oh, 
+okay, I guess you are a student then. But here you could still make a sensible sentence using が, so why 
+does it even matter?
+
+Well, we can put other things into that room as well. Take the sentence ゾウは鼻が長いです (ぞうは はながながいです), 
+which means “An elephant has a long trunk.” If a sentence like this is translated word for word we get something 
+like “An elephant, a trunk is long.” Which is, of course, completely different from what we want to say.
+
+/////////////////
+
+2. Topic and subject in the same sentence
+
+One of the first sentences I learned in Japanese was 京都にはお寺が多い (きょうとには おてらがおおい – There are many 
+temples in Kyoto). Here we see another common usage of  は and が. They appear in a sentence with the structure 
+“topic はsubject が action.”
+
+You can roughly think of it as saying “in the context of topic, subject does action.” In the example above, 
+“in Kyoto” is the topic and the subject is “temples.”
+ 
+/////////////////
+3. Using が to place emphasis
+
+When you use が you are usually talking about something in particular rather than something in general. If you have 
+the sentence お母さんが。。。(おかあさんが。。。-  Mother is…) then you are talking about one person in particular. 
+Emphasis is placed on the person doing an action rather than the action itself.
+
+///////////////////
+4. Known and unknown subjects
+
+Whenever someone or something is introduced for the first time, we introduce that new person or thing with が, even 
+if it otherwise makes sense to use は in that context.
+
+For instance: 今日、先生が来る。彼は優しい人らしい。(きょう、せんせいがくる。かれは やさしいひとらしい。- Today, the teacher 
+is coming. He sounds like a kind person.)
+
+が places emphasis on the object or person being introduced. が tells us that we are talking about one person in 
+particular rather than a general concept
+
+You can use は right away after he has been introduced.
+
+///////////////
+5. Asking and answering questions
+
+When the subject of a sentence is an unknown, it is paired with が
+誰が来る？(だれがくる？-  who is coming?)
+In any case, just try to remember to use が. When answering the question, you should also always use が
+
+//////////
+6. Contrasting and comparing
+
+When contrasting sentences against each other you should use は. For example: クラッシックは聞きますが、ジャズは聞きません (くらっしっくは ききますが
+
+//////////////
+
+Example #1
+私は絵を見るのが好きです 。(わたしは えをみるのが すきです。) –  I like looking at paintings.
+
+Example #2
+日本酒は飲みますが、ワインは飲みません。(にほんしゅは のみますが、わいんは のみません。) –  I drink rice wine, but I don’t drink wine.
+
+Example #3
+この街にはとても高いビルがある。(このまちには とてもたかいびるがある。) –  In this town, there are very tall buildings.
+
+Example #4
+何が面白いですか？日本語が面白いです。(なにが おもしろいですか？にほんごが おもしろいです。) –  What’s interesting? Japanese is interesting.
+
+Example #5
+その魚は食べたことがありません。 (そのさかなは たべたことが ありません。) –  I haven’t eaten that fish.
+ 
