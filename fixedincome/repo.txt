@@ -1,0 +1,155 @@
+
+https://www.newyorkfed.org/medialibrary/media/research/epr/2012/1210cope.pdf
+
+In the tri-party repo market, a third party, called a clearing
+bank, facilitates repo settlement. In the United States, two
+clearing banks handle tri-party repos: Bank of New York
+Mellon (BNYM) and JP Morgan Chase (JPMC). These clearing
+banks settle repo transactions on their own balance sheets.
+Maintaining cash and securities accounts for dealers and cash
+providers, the clearing banks settle the opening leg of a tri-party
+repo by transferring securities from the dealer’s securities
+account to the cash investor’s securities account, and by
+transferring cash from the investor’s cash account to the
+dealer’s cash account. Movements in the opposite direction
+occur on the closing leg of the repo (Exhibit 2).5
+In addition to offering settlement and custodial services,
+clearing banks provide collateral management services, such
+as daily revaluation of assets, daily remargining of collateral,
+and allocation of the borrower’s collateral to its lenders in
+accordance with the lenders’ eligibility and risk management
+constraints. As explained by Garbade (2006), clearing banks
+also ensure that the collateral will be available to cash providers
+if a dealer defaults
+
+////////////////////
+
+Tri-Party Repos Funded by Nondealers
+Cash providers in this segment of the market are primarily
+MMFs, securities lenders, and other institutional cash
+providers, such as mutual funds, corporate treasurers, and state
+and local government treasurers. These investors seek interest
+income at short maturities. For some investors, overnight
+repos serve as a secured alternative to bank deposits. Together,
+MMFs and securities lenders account for over half of tri-party
+repo lending (Copeland, Martin, and Walker 2010).
+Dealers use the tri-party repo market mainly to obtain largescale,
+short-term financing for their securities inventories at a
+low cost. They typically use only one of the two clearing banks
+to settle their tri-party repos. Large cash providers maintain
+accounts at both clearing banks in order to transact with
+dealers at each of them.
+The tri-party repo market is a general collateral (GC)
+market, meaning that an investor may care about the class of
+collateral it receives but not about the specific securities.6
+ The
+market is the largest source of secured funding for U.S. dealers. 
+
+////////////
+
+The GCF Repo Market
+The GCF (General Collateral Finance) repo market is a blindbrokered
+interdealer market, meaning that dealers involved in
+the transactions do not know each other’s identity. GCF trades
+are arranged by interdealer brokers that preserve the
+participant’s anonymity. Only securities that settle on the
+Fedwire Securities Service can serve as collateral for a GCF repo
+transaction. GCF repo trades are settled on the books of the
+clearing bank using the tri-party repo infrastructure and thus
+are an integral part of tri-party repo settlement
+
+////////////
+
+Tri-Party Repo Transactions
+Because a repo is effectively a collateralized loan, the key terms
+are the same for both: borrower and lender, maturity date, cash
+loan amount, interest rate,9
+ collateral eligibility, margin
+schedules, and the treatment of the contract in the event of
+either party’s failure. For tri-party repos, the time to maturity,
+or tenor, is commonly one day. Many such “overnight” repos,
+however, are “rolled” for a number of successive days. A “term”
+repo has a tenor of more than one day.
+To establish a tri-party trading relationship, a cash provider
+and a cash borrower execute a master repo agreement (MRA)
+that stipulates the key elements of their prospective tri-party
+repos, such as how a repo may be terminated and how margins
+will be maintained. The MRA also outlines the conditions
+under which the collateral backing the repo can be replaced by
+other collateral. The borrower and lender each have, in
+addition, clearing agreements with a tri-party clearing bank,
+either JPMC or BNYM. Like repos, clearing agreements are
+exempt from bankruptcy stays, which allows these agreements
+to terminate in the event of bankruptcy, giving the collateral
+holder the immediate right to use or dispose of the collateral.10
+Finally, a custodial undertaking agreement (CUA), executed by
+the two MRA signatories as well as the clearing bank,
+establishes the clearing bank as the tri-party agent for this
+lender-borrower relationship and documents the lender’s
+collateral eligibility criteria
+
+////////////////
+
+3.1 The Role of the Clearing Banks
+as Intraday Investors
+The financial strains experienced by several dealers, including
+Bear Stearns and Lehman Brothers, during the financial crisis
+of 2007-09 highlighted the fact that the two tri-party clearing
+banks are not only agents, but also the largest creditors in the
+tri-party repo market on each business day. This daytime
+exposure is associated with the unwind of repos, a process by
+which the clearing banks send cash back to investors and
+collateral back to dealers, regardless of whether a repo is
+expiring.14
+Between the time of the unwind and the time at which new
+trades are settled near the end of the business day, dealers
+must finance the securities that serve as repo collateral.
+During this transition period, the clearing banks provide
+financing to dealers, collateralized by the dealers’ securities.15
+This provision of intraday credit creates multiple risks.
+The exposure of a clearing bank to a single dealer can
+routinely exceed $100 billion (Federal Reserve Bank of New
+York 2010). In the event that a dealer fails, its clearing bank
+could, in an unexpected situation, discover that the market 
+sudden reduction in the market value of some securities that
+collateralize the dealer’s tri-party repos. Moreover, an attempt
+by a clearing bank to lower its exposure to a failed dealer
+through a sudden “fire sale” of the collateral could itself reduce
+the value of that collateral, thus exacerbating the losses to the
+clearing bank and to other market participants that hold
+positions in the same or similar assets. This danger buttresses
+the importance of the Primary Dealer Credit Facility (PDCF),
+introduced by the Federal Reserve Bank of New York during
+the financial crisis (Adrian, Burke, and McAndrews 2009). The
+PDCF provided an alternative source of financing for collateral
+that might otherwise have been liquidated in a fire sale; such a
+liquidation could have potentially destabilized the markets and
+eroded the capital of these asset holders
+
+As explained by Duffie (2010), the exposure of tri-party
+clearing banks to securities dealers also represents a
+potential danger to any dealer whose credit quality becomes
+suspect. A clearing bank refusing to unwind the repos of such
+a dealer could suddenly and fatally restrict that dealer’s ability
+to finance itself. Section 4 explains how the daily morning
+“handoff” of dealer exposure from cash providers to the
+clearing bank creates an incentive for the clearing bank to pull
+away from granting credit to a dealer in the event of concerns
+over that dealer’s credit quality. In the case of Lehman
+Brothers, such instances are documented by Anton R. Valukas
+in his report as bankruptcy examiner (United States
+Bankruptcy Court 2010) and by the report of the Financial
+Crisis Inquiry Commission (2011).
+
+Concerns over the failure of a large dealer arise in part from
+the stress likely to spread to other financial markets, as was the
+case with the run on MMFs following the failure of Lehman
+Brothers. This run was triggered when the Reserve Primary
+Fund announced large losses on its investments in Lehman
+commercial paper. From September 9 to September 30, 2008,
+institutional investors withdrew approximately $450 billion
+(about one-third of their assets) from “prime” MMFs.16
+Significantly greater redemptions would likely have occurred
+had the U.S. Treasury not quickly guaranteed the performance
+of money market funds, an action that it has pledged not to
+take in the future (McCabe 2010).
