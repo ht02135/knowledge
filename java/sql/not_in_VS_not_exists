@@ -1,0 +1,94 @@
+
+SELECT a FROM table1 WHERE a NOT IN (SELECT a FROM table2)
+
+SELECT a FROM table1 WHERE NOT EXISTS (SELECT * FROM table2 WHERE table1.a = table2.a)
+
+SELECT a FROM table1 LEFT JOIN table2 ON table1.a = table2.a WHERE table1.a IS NULL
+
+---------
+
+--userApp
+--not in
+--pick top 10 contacts not already used in order
+select top 10
+	c.*
+from contact as c 
+where 1=1
+and c.contact_id not in (
+	select c2.contact_id
+	from order as o2
+	left join list as l2 on l2.list_id=o2.list_id
+	left join member as m2 on m2.list+_id=l2.list_id
+	where 1=1
+	and o2.status in ('in_process')
+)
+
+--pick top 10 contacts not already used in order
+--not exists
+select top 10
+	c.*
+from contact as c
+where 1=1
+and not exists (
+	select 1
+	from order as o2
+	left join list as l2 on l2.list_id=o2.list_id
+	left join member as m2 on m2.list+_id=l2.list_id
+	where 1=1
+	and o2.status in ('in_process')
+	and c2.contact_id = c.contact_id
+)
+
+--/////////////////////////
+
+1>lets say order already has master list
+2>we try to generate a new list base on master list.
+3>what happen when all order.status in 'locked'???  based on not in, new list should be generated???
+
+best way to be sure is update order to locked and run thru sql
+
+--batchApp
+--not in
+select
+	o.id,
+	o.count,
+	count(*)
+from order as o
+left join list as l on l.list_id=o.list_id
+left join member as m on m.list+_id=l.list_id
+left join contact as c on c.contact_id=m.contact_id
+where 1=1
+and c.contact_id not in (
+	select c2.contact_id
+	from order as o2
+	left join list as l2 l2.list_id=o2.list_id
+	left join member as m2 on m2.list+_id=l2.list_id
+	where 1=1
+	and o2.status in ('in_process')
+)
+and o.id in (1,2,3)
+group by o.id, o.count
+order by o.id, o.count
+
+--not exists
+select
+	o.id,
+	o.count,
+	count(*)
+from order as o
+left join list as l on l.list_id=o.list_id
+left join member as m on m.list+_id=l.list_id
+left join contact as c on c.contact_id=m.contact_id
+where 1=1
+and not exists (
+	select 1
+	from order as o2
+	left join list as l2 l2.list_id=o2.list_id
+	left join member as m2 on m2.list+_id=l2.list_id
+	where 1=1
+	and o2.status in ('in_process')
+	and c2.contact_id = c.contact_id
+)
+and o.id in (1,2,3)
+group by o.id, o.count
+order by o.id, o.count
