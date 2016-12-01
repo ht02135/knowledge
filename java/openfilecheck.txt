@@ -1,0 +1,13 @@
+https://technet.microsoft.com/en-us/library/cc732037(v=ws.11).aspx
+
+To close an open shared file or folder by using the Windows interface
+Open Computer Management.
+If the User Account Control dialog box appears, confirm that the action it displays is what you want, and then click Yes.
+In the console tree, click System Tools, click Shared Folders, and then click Open Files.
+Do one of the following:
+To close all open files and folders, on the Action menu, click Disconnect All Open Files.
+
+To close a specific file or folder, in the Results pane right-click the file or folder name, and then click Close Open File.
+
+To disconnect multiple open files or folders, press the CTRL key while clicking the file or folder names, right-click any
+one of the selected files or folders, and then click Close Open File. This closes the selected files or folders.
