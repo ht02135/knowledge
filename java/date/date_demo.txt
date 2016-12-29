@@ -1,0 +1,26 @@
+package com.tutorialspoint;
+
+import java.util.*;
+
+public class DateDemo {
+
+   public static void main(String[] args) {
+
+   // create 2 dates
+   // date before date2
+   Date date = new Date(11, 5, 21);  // Date(int year,int month,int date)
+   Date date2 = new Date(15, 1, 21);  // Date(int year,int month,int date)
+
+   // tests if date 2 is before date and print
+   boolean before = date2.before(date);
+   System.out.println("Date 2 is before date: " + before);
+
+   // tests if date is before date 2 and print
+   before = date.before(date2);
+   System.out.println("Date is before date 2: " + before);
+   }
+}
+Let us compile and run the above program, this will produce the following result:
+
+Date 2 is before date: false
+Date is before date 2: true
