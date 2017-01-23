@@ -1,0 +1,36 @@
+--attribute38 = month 01-12
+--attribute39 = 1-15 or not in (1-15) waves
+
+--////////////////////////////////////
+
+--extract both (1-15) and (not in 1-15) wave
+	  AND ISNUMERIC([slm].[attribute38]) = 1  --attribute38 contains the month
+	  AND LEN([slm].[attribute38]) = 2 --valid value 01 thru 12
+	  AND ( --determine add 2 to month if in first part of month 
+		  (((MONTH(@invoiceDate) + 2) % 12) = (CAST([slm].[attribute38] AS INT) % 12)
+		    AND [slm].[attribute39] IN ( '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15' )
+		  )
+		  OR --otherwise add 1 if not in first part of month
+		  (((MONTH(@invoiceDate) + 1) % 12) = (CAST([slm].[attribute38] AS INT) % 12)
+			AND [slm].[attribute39] NOT IN ( '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15' )
+		  )
+	  )
+
+--////////////////////////////////////////
+
+--split into 2 extract.  one extract consider (1-15) wave.  another extract consider (not in 1-15) wave
+	  AND ISNUMERIC([slm].[attribute38]) = 1  --attribute38 contains the month
+	  AND LEN([slm].[attribute38]) = 2 --valid value 01 thru 12
+	  AND (
+	  		((datepart(month, dateadd(month, 1, @invoiceDate)) % 12) = (CAST([slm].[attribute38] AS INT) % 12)
+	  		  AND (datepart(day, dateadd(month, 1, @invoiceDate)) in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+		           AND [slm].[attribute39] IN ( '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15' )
+		      )
+	  		)
+	  		OR
+	  		((datepart(month, dateadd(month, 1, @invoiceDate)) % 12) = (CAST([slm].[attribute38] AS INT) % 12)
+	  		  AND (datepart(day, dateadd(month, 1, @invoiceDate)) not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+		           AND [slm].[attribute39] NOT IN ( '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15' )
+		      )
+	  		)
+	  )
