@@ -1,0 +1,28 @@
+--CONTAINSTABLE, depends on 'full-time indexed columns'
+select distinct
+	cs.CS_id as 'cs.CS_id',
+	cs.*
+from CS as cs with (nolock)
+join CONTAINSTABLE(CS, location, '_NONE OR MA') p2 on p2.[KEY] = cs.CS_id   
+where 1=1
+and cs.CS_id in (999)
+
+
+--CONTAINS, depends on 'full-time indexed columns'
+select distinct
+	cs.CS_id as 'cs.CS_id',
+	cs.*
+from CS as cs with (nolock)
+where 1=1
+and cs.CS_id in (999)
+and CONTAINS(cs.location, '_NONE OR MA')
+
+
+--like
+select distinct
+	cs.CS_id as 'cs.CS_id',
+	cs.*
+from CS as cs with (nolock)
+where 1=1
+and cs.CS_id in (999)
+and (cs.location like '%_NONE%' or cs.location like '%MA%')
