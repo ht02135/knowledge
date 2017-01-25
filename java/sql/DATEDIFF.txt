@@ -1,0 +1,2 @@
+       , DATEDIFF(day, sd.cutoff_date, sd.execute_date) AS exec_vs_cutoff_diff_days
+       , DATEDIFF(day, sd.execute_date, sd.mail_date) AS mail_vs_exec_diff_days
