@@ -11,3 +11,8 @@ To close a specific file or folder, in the Results pane right-click the file or 
 
 To disconnect multiple open files or folders, press the CTRL key while clicking the file or folder names, right-click any
 one of the selected files or folders, and then click Close Open File. This closes the selected files or folders.
+
+/////////////////
+
+https://technet.microsoft.com/en-us/sysinternals/bb896653.aspx
+Computer Management >> System Tools >> Shared Folders >> Open Files
