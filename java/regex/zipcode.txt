@@ -1,0 +1,31 @@
+http://regexlib.com/CheatSheet.aspx
+^=Start of a string.
+$=End of a string.
+?=0 or 1 of previous expression
+(...)=Logical grouping of part of an expression.
+{...}=Explicit quantifier notation.
+[...]=Explicit set of characters to match.
+\d=Matches any decimal digit. Equivalent to \p{Nd} for Unicode and [0-9] for non-Unicode, ECMAScript behavior.
+|=Alternation.
+
+Expression="^\d{5}(-\d{4})?$"
+Matches=55555-5555 | 90210
+
+Expression="^\d{5}(-\d{4})?|\d{9}$"
+Matches=55555-5555 | 90210 | 345643342
+
+
+////////////
+
+Expression=^\d{5}$
+Matches	=33333 | 55555 | 23445
+
+/////////
+
+Expression=^\d{5}-\d{4}$
+Matches	=22222-3333 | 34545-2367 | 56334-2343
+
+//////////
+
+Expression=^\d{5}$|^\d{5}-\d{4}$
+Matches=55555-5555 | 34564-3342 | 90210
