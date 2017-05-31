@@ -39,7 +39,11 @@ order by cr.status, cr.inventory_code
 
 --///////////////////////////
 
-UNION is best way to combine.  
+--UNION is best way to combine.  
+--1st subquery return all active creative
+--2nd subquery return all creative placed thru orders
+--union grab all active creative and creative placed regardless active/inactive
+--final return all inactive creative and never placed creatvie
 
 select distinct
 	   cr.inventory_code as 'cr.inventory_code',
