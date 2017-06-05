@@ -82,6 +82,6 @@ SELECT
 from calendar_schedule as sd
 inner join schedule_date as sd2 with(nolock) on sd2.schedule_name = sd.schedule_name and sd2.mail_date = sd.mail_date
 where 1=1
-and sd2.schedule_name = sd.schedule_name
-and sd2.mail_date = sd.mail_date
+--and sd2.schedule_name = sd.schedule_name
+--and sd2.mail_date = sd.mail_date
 and (sd2.cutoff_date <> sd.cutoff_date or sd2.execute_date <> sd.execute_date)
