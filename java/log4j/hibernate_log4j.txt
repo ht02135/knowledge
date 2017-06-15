@@ -1,0 +1,15 @@
+# logs the SQL statements
+log4j.logger.org.hibernate.SQL=debug 
+
+# Logs the JDBC parameters passed to a query
+log4j.logger.org.hibernate.type=trace 
+
+<logger name="org.hibernate.SQL" additivity="false" >   
+ <level value="DEBUG" />    
+ <appender-ref ref="SQLROLLINGFILE" />
+</logger>
+
+<logger name="org.hibernate.type" additivity="false" >
+ <level value="TRACE" />
+ <appender-ref ref="SQLROLLINGFILE" />
+</logger>
