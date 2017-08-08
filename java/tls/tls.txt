@@ -29,3 +29,11 @@ but your load balancer is running -Dhttps.protocols=TLSv1.1,TLSv1.2
 
 third party code call your app service will need to go thru loadbalancer which support TLSv1.1,TLSv1.2
 then third party will epic fail if they still use TLSv1.  tell them to remove it.
+
+///////////////
+
+JDK 8 will use TLS 1.2 as default
+By: Guest Author
+Transport Level Security (TLS) is designed to encrypt conversations between two parties and ensure that others can neither read nor modify the conversation. When combined with Certificate Authorities, a proper level of trust is established: we know who is on the other end of the conversation and that conversation is protected from eavesdropping/modification.
+
+Support for TLS 1.2 first appeared in JDK 7 (2011). For compatibility reasons, it is enabled by default on server sockets but disabled on clients. Since that time, the industry has made considerable improvements to address interoperability and backwards compatibility.
