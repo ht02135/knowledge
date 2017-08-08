@@ -1,0 +1,31 @@
+got this error
+javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake   at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:953)   at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1332)   at sun.security.ssl.SSLSocketImpl.writeRecord(SSLSocketImpl.java:709)   at sun.security.ssl.AppOutputStream.write(AppOutputStream.java:122)   at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)   at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)   at org.apache.commons.httpclient.HttpConnection.flushRequestOutputStream(HttpConnection.java:828)   at org.apache.commons.httpclient.HttpMethodBase.writeRequest(HttpMethodBase.java:2116)   at org.apache.commons.httpclient.HttpMethodBase.execute(HttpMethodBase.java:1096)   at org.apache.commons.httpclient.HttpMethodDirector.executeWithRetry(HttpMethodDirector.java:398)   at org.apache.commons.httpclient.HttpMethodDirector.executeMethod(HttpMethodDirector.java:171)   at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:397)   at org.apache.commons.httpclient.HttpClient.executeMethod(HttpClient.java:323)   at com.direxxis.dmedge.batch.web.AutoEnrollServiceWebClient.execute(AutoEnrollServiceWebClient.java:14)   at com.direxxis.dmedge.batch.tasklet.AutoEnrollTasklet.execute(AutoEnrollTasklet.java:20)   at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:98)   at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:172)   at org.springframework.batch.core.job.SimpleJob.execute(SimpleJob.java:100)   at org.springframework.batch.core.configuration.support.ClassPathXmlApplicationContextJobFactory$ContextClosingJob.execute(ClassPathXmlApplicationContextJobFactory.java:107)   at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:86)   at java.lang.Thread.run(Thread.java:745)  Caused by: java.io.EOFException: SSL peer shut down incorrectly   at sun.security.ssl.InputRecord.read(InputRecord.java:482)   at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:934)   ... 20 more
+
+Exception in thread "main" javax.net.ssl.SSLHandshakeException: Remote host closed connection during handshake
+       at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:946)
+       at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1312)
+       at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1339)
+       at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1323)
+       at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:563)
+       at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)
+       at sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1091)
+       at sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:250)
+       at com.labcorp.efone.vendor.TestATTConnectivity.main(TestATTConnectivity.java:43)
+       
+ ///////////////
+ 
+ in tomcat, we have -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+ 
+ https://stackoverflow.com/questions/21245796/javax-net-ssl-sslhandshakeexception-remote-host-closed-connection-during-handsh
+ ava 7 defaults to TLS 1.0, which can cause this error when that protocol is not accepted. I ran into this problem with a Tomcat application and a server that would not accept TLS 1.0 connections any longer. I added
+
+-Dhttps.protocols=TLSv1.1,TLSv1.2
+to the Java options and that fixed it. (Tomcat was running Java 7.)
+
+//////////////////
+
+also if your app is running -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
+but your load balancer is running -Dhttps.protocols=TLSv1.1,TLSv1.2
+
+third party code call your app service will need to go thru loadbalancer which support TLSv1.1,TLSv1.2
+then third party will epic fail if they still use TLSv1.  tell them to remove it.
