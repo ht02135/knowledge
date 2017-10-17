@@ -1,0 +1,7 @@
+
+
+LEFT join customization_tag_option cto on cto.customization_tag_id = ctag.customization_tag_id 
+and ccrc.value = convert(varchar(max), cto.value)
+
+if they are different type, convert one of them
+ccrc.value = convert(varchar(max), cto.value)
