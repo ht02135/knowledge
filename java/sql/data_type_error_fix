@@ -5,3 +5,8 @@ and ccrc.value = convert(varchar(max), cto.value)
 
 if they are different type, convert one of them
 ccrc.value = convert(varchar(max), cto.value)
+
+-----------
+
+	and cs2.parent_inventory_code = convert(varchar(max), cs.parent_inventory_code)
+	and cs2.inventory_code = convert(varchar(max), cs.inventory_code)
