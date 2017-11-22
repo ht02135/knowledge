@@ -18,6 +18,8 @@ order by c.communication_id desc
 
 select top 100
 	'' as 'oti',
+	c.communication_id,
+	c.status,
 	oti.order_tracking_item_id as 'oti.order_tracking_item_id',
 	oti.creation_date as 'oti.creation_date',
 	oti.payload as 'oti.payload',
