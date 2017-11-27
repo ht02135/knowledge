@@ -1,0 +1,34 @@
+http://dosprompt.info/network/netstat.example.asp
+
+1>-a = This switch displays active TCP connections
+netstat -a
+
+Proto   Local Address   Foreign Address  State
+TCP     0.0.0.0:135     pc01:0           LISTENING
+TCP     0.0.0.0:445     pc01:0           LISTENING
+TCP     0.0.0.0:912     pc01:0           LISTENING
+TCP     0.0.0.0:2002    pc01:0           LISTENING
+
+2>-b = instead of displaying the PID, will display the process's actual file name
+
+Proto   Local Address   Foreign Address     State
+TCP     0.0.0.0:135     desktop1:0          LISTENING
+RpcSs
+[svchost.exe]
+TCP     0.0.0.0:912     pc01:0              LISTENING
+[vmware-authd.exe]
+TCP     0.0.0.0:2002    pc01:0              LISTENING
+[LogMeIn.exe]
+
+3>netstat -an | findstr ":80"
+
+-n = Use the -n switch to prevent netstat from attempting to determine host names for foreign IP addresses
+
+Will show all connections on port 8080
+
+4>netstat -an | findstr ":8080" | findstr "ESTABLISHED"
+  netstat -an | find ":8080" | find "ESTABLISHED"
+  
+ Find goes back to the DOS/UNIX days.   FINDSTR was added in Windows (Findstr has more search options and supports regular expressions)
+
+finds an established connection on port 8080
