@@ -7,7 +7,8 @@ import public cert and generate 'tmpkeys/pubring.gpg'
 
 gpg --homedir=C:\HungTsai\Bugs\public_certs\aloha_co\tmpkeys --list-keys --with-colons
 
-list public key and sub key with colons.  Sub is for subkeys.  They are other keys that go along with the main, or primary, key.  A common usage pattern is for the primary to be used for signing, and the subkey used to encryption.
+list public key and sub key with colons.  Sub is for subkeys.  They are other keys that go along with the main, or primary, key.  
+A common usage pattern is for the primary to be used for signing, and the subkey used to encryption.
 
 -------------------
 
