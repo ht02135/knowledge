@@ -13,3 +13,8 @@ A common usage pattern is for the primary to be used for signing, and the subkey
 -------------------
 
 gpg --homedir=C:\HungTsai\Bugs\public_certs\aloha_co\tmpkeys --fingerprint accounting@callard.com
+
+--------------------
+
+convert to integer
+SELECT CONVERT(bigint, 0xC ) ----> 12
