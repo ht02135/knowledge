@@ -18,3 +18,70 @@ gpg --homedir=C:\HungTsai\Bugs\public_certs\aloha_co\tmpkeys --fingerprint accou
 
 convert to integer
 SELECT CONVERT(bigint, 0xC ) ----> 12
+
+//////////////
+http://www.ianatkinson.net/computing/gnupg.htm
+
+gpg --gen-key 
+gpg: /Users/ian/.gnupg: directory created
+gpg: new configuration file `/Users/ian/.gnupg/gpg.conf' created
+gpg: WARNING: options in `/Users/ian/.gnupg/gpg.conf' are not yet active during this run
+gpg: keyring `/Users/ian/.gnupg/secring.gpg' created
+gpg: keyring `/Users/ian/.gnupg/pubring.gpg' created
+Please select what kind of key you want:
+   (1) DSA and ElGamal (default)
+   (2) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+
+Enter passphrase: my passphrase 
+Enter passphrase: my passphrase 
+
+gpg: /Users/ian/.gnupg/trustdb.gpg: trustdb created
+public and secret key created and signed.
+key marked as ultimately trusted.
+
+pub  1024D/0EB6F689 2006-04-06 Ian Atkinson (home) <ian@atkinson.co.uk>
+     Key fingerprint = 908E 6C41 8689 7981 F6B4  CEDF A70C 0200 0EB6 F689
+sub  1024g/71445CC9 2006-04-06
+
+///////////
+
+yoda:~ ian$ gpg --list-keys
+/Users/ian/.gnupg/pubring.gpg
+-----------------------------
+pub  1024D/0EB6F689 2006-04-06 Ian Atkinson (home) <ian@atkinson.co.uk>
+sub  1024g/71445CC9 2006-04-06
+
+//////////////
+
+yoda:~ ian$ gpg --list-secret-keys
+/Users/ian/.gnupg/secring.gpg
+-----------------------------
+sec  1024D/0EB6F689 2006-04-06 Ian Atkinson (home) <ian@atkinson.co.uk>
+ssb  1024g/71445CC9 2006-04-06
+
+////////////
+
+yoda:~/gpgtest ian$ gpg -d secret.txt.gpg 
+
+You need a passphrase to unlock the secret key for
+user: "Ian Atkinson (home) <ian@atkinson.co.uk>"
+1024-bit ELG-E key, ID 71445CC9, created 2006-04-06 (main key ID 0EB6F689)
+
+Enter passphrase: my passphrase 
+
+gpg: encrypted with 1024-bit ELG-E key, ID 71445CC9, created 2006-04-06
+      "Ian Atkinson (home) <ian@atkinson.co.uk>"
+this is a secret!!!
+
+////////////
+
+ian@chewy:~> gpg --import publickey.txt 
+gpg: /home/ian/.gnupg/trustdb.gpg: trustdb created
+gpg: key 34BEE591: public key "Ian Atkinson <ian@atkinson.co.uk>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+
+//////////////
+
