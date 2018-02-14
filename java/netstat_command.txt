@@ -1,0 +1,16 @@
+
+lets say, you have indesign server running on port 8092
+
+1>netstat -a -n -o | find "8092"
+
+you can find PID
+  TCP    0.0.0.0:8092           0.0.0.0:0              LISTENING       8328
+  TCP    [::]:8092              [::]:0                 LISTENING       8328
+  
+in this case, PID=8328
+  
+2>launch processs explorer to check that PID.  then you can kill that PID
+
+or
+taskkill /f /pid (process_id here)
+taskkill /f /pid 8328
