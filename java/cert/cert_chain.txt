@@ -9,8 +9,8 @@ www.aloha1.com
 \\loadbalancer01\c$\clientdata\www.aloha1.com\apache2\conf\ssl\www.aloha1.com.key
 
 1>grab root cert and intermediate cert as der from www.aloha1.com
-  -- root cert (DigiCert Global Root G2), save root cert as ca-root.der
-  -- intermediate cert (DigiCert Global CA G2), save intermediate cert as ca-intermediate.der
+  -- root cert (Aloha Global Root G2), save root cert as ca-root.der
+  -- intermediate cert (Aloha Global CA G2), save intermediate cert as ca-intermediate.der
   or
   --SSLCertificateChainFile_thawte_SSL_CA-G2.pem (root=file=thawte_Primary_Root_CA.pem,intermediate=file=thawte_SSL_CA_G2.pem)
   load-balancer-configuration/ca-certificates/trunk/SSLCertificateChainFile_thawte_SSL_CA-G2.pem
