@@ -72,3 +72,12 @@ keytool
 keytool -importkeystore -deststorepass aloha-pwd -destkeypass aloha-pwd -destkeystore aloha-pwd-qa.jks -srckeystore www.aloha1.com.pkcs12 -srcstoretype PKCS12 -srcstorepass aloha-pwd -alias aloha-pwd
 
 6>keytool -list -keystore "aloha-pwd-qa.jks" -storepass "aloha-pwd"
+
+7>troubleshoot all vairables
+
+openssl x509 -text -in  ca-root.pem > ca-root.pem.info
+openssl x509 -text -in  ca-intermediate.pem > ca-intermediate.pem.info
+openssl x509 -text -in www.aloha1.com.cert > www.aloha1.com.cert.info
+openssl x509 -text -in www.aloha1.com.pem > www.aloha1.com.pem.info
+openssl x509 -text -in ca-chain.pem > ca-chain.pem.info
+openssl x509 -text -in www.aloha1.com.chain.pem > www.aloha1.com.chain.pem.info
