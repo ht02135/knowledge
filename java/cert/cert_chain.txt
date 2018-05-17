@@ -22,6 +22,10 @@ openssl x509 -inform DER -outform PEM -in ca-intermediate.der -out ca-intermedia
 
 type ca-intermediate.pem ca-root.pem > ca-chain.pem
 
+2.5>verify newly created ca-chain.pem validate 
+
+openssl verify -CAfile ca-chain.pem www.aloha1.com.pem
+
 3>Concatenate the PEM-formatted certificate and the chained certs from step 1
 
 openssl x509 -outform PEM -in www.aloha1.com.cert -out www.aloha1.com.pem
