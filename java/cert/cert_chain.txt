@@ -1,0 +1,60 @@
+Import an entire certificate chain
+
+https://www.ssllabs.com/ssldb/index.html 
+www.aloha1.com
+
+0>grab key and cert from nedv1b05 load balancer
+
+\\loadbalancer01\c$\clientdata\www.aloha1.com\apache2\conf\ssl\www.aloha1.com.cert
+\\loadbalancer01\c$\clientdata\www.aloha1.com\apache2\conf\ssl\www.aloha1.com.key
+
+1>grab root cert and intermediate cert as der from www.aloha1.com
+  -- root cert (DigiCert Global Root G2), save root cert as ca-root.der
+  -- intermediate cert (DigiCert Global CA G2), save intermediate cert as ca-intermediate.der
+  or
+  --SSLCertificateChainFile_thawte_SSL_CA-G2.pem (root=file=thawte_Primary_Root_CA.pem,intermediate=file=thawte_SSL_CA_G2.pem)
+  load-balancer-configuration/ca-certificates/trunk/SSLCertificateChainFile_thawte_SSL_CA-G2.pem
+
+2>Get the root and intermediate certificates in PEM format (ca-root.pem and intermediate.pem) and concatenate them
+
+openssl x509 -inform DER -outform PEM -in ca-root.der -out ca-root.pem
+openssl x509 -inform DER -outform PEM -in ca-intermediate.der -out ca-intermediate.pem
+
+type ca-intermediate.pem ca-root.pem > ca-chain.pem
+
+3>Concatenate the PEM-formatted certificate and the chained certs from step 1
+
+openssl x509 -outform PEM -in www.aloha1.com.cert -out www.aloha1.com.pem
+
+type www.aloha1.com.pem ca-chain.pem > www.aloha1.com.chain.pem
+
+4>Convert the PEM-formatted certificate chain to PKCS12 format
+
+openssl
+    pkcs12
+    -export
+    -in       www.aloha1.com.chain.pem
+    -inkey    www.aloha1.com.key
+    -out      www.aloha1.com.pkcs12
+    -name     aloha-pwd
+    -CAfile   ca-chain.pem
+    -caname   root
+    -password pass:PASSWORD
+    
+openssl pkcs12 -export -in www.aloha1.com.chain.pem -inkey www.aloha1.com.key -out www.aloha1.com.pkcs12 -name aloha-pwd -CAfile ca-chain.pem -caname root -password pass:aloha-pwd    
+    
+5>Import the PKCS12-formatted certificate chain into a keystore file
+
+keytool
+    -importkeystore
+    -deststorepass PASSWORD
+    -destkeypass   PASSWORD
+    -destkeystore  my-keystore.jks
+    -srckeystore   www.aloha1.com.pkcs12
+    -srcstoretype  PKCS12
+    -srcstorepass  PASSWORD
+    -alias         aloha-pwd
+    
+keytool -importkeystore -deststorepass aloha-pwd -destkeypass aloha-pwd -destkeystore aloha-pwd-qa.jks -srckeystore www.aloha1.com.pkcs12 -srcstoretype PKCS12 -srcstorepass aloha-pwd -alias aloha-pwd
+
+6>keytool -list -keystore "aloha-pwd-qa.jks" -storepass "aloha-pwd"
