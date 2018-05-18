@@ -59,6 +59,7 @@ openssl pkcs12 -export -in www.aloha1.com.chain.pem -inkey www.aloha1.com.key -o
     
 5>Import the PKCS12-formatted certificate chain into a keystore file
 
+--delete old alias
 keytool -delete -alias "aloha-sharing" -keystore "aloha-sharing-qa.jks" -storepass "aloha-sharing"
 
 keytool
