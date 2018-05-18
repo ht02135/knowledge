@@ -50,14 +50,16 @@ openssl
     -in       www.aloha1.com.chain.pem
     -inkey    www.aloha1.com.key
     -out      www.aloha1.com.pkcs12
-    -name     aloha-pwd
+    -name     aloha-sharing
     -CAfile   ca-chain.pem
     -caname   root
     -password pass:PASSWORD
     
-openssl pkcs12 -export -in www.aloha1.com.chain.pem -inkey www.aloha1.com.key -out www.aloha1.com.pkcs12 -name aloha-pwd -CAfile ca-chain.pem -caname root -password pass:aloha-pwd    
+openssl pkcs12 -export -in www.aloha1.com.chain.pem -inkey www.aloha1.com.key -out www.aloha1.com.pkcs12 -name aloha-sharing -CAfile ca-chain.pem -caname root -password pass:aloha-sharing    
     
 5>Import the PKCS12-formatted certificate chain into a keystore file
+
+keytool -delete -alias "aloha-sharing" -keystore "aloha-sharing-qa.jks" -storepass "aloha-sharing"
 
 keytool
     -importkeystore
@@ -67,11 +69,11 @@ keytool
     -srckeystore   www.aloha1.com.pkcs12
     -srcstoretype  PKCS12
     -srcstorepass  PASSWORD
-    -alias         aloha-pwd
+    -alias         aloha-sharing
     
-keytool -importkeystore -deststorepass aloha-pwd -destkeypass aloha-pwd -destkeystore aloha-pwd-qa.jks -srckeystore www.aloha1.com.pkcs12 -srcstoretype PKCS12 -srcstorepass aloha-pwd -alias aloha-pwd
+keytool -importkeystore -deststorepass aloha-sharing -destkeypass aloha-sharing -destkeystore aloha-sharing-qa.jks -srckeystore www.aloha1.com.pkcs12 -srcstoretype PKCS12 -srcstorepass aloha-sharing -alias aloha-sharing
 
-6>keytool -list -keystore "aloha-pwd-qa.jks" -storepass "aloha-pwd"
+6>keytool -list -keystore "aloha-sharing-qa.jks" -storepass "aloha-sharing"
 
 7>troubleshoot all vairables
 
