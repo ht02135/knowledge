@@ -22,6 +22,12 @@ openssl x509 -inform DER -outform PEM -in ca-intermediate.der -out ca-intermedia
 
 type ca-intermediate.pem ca-root.pem > ca-chain.pem
 
+-i am pretty sure i grabbed right root and intermediate cert from browser (can verify with aloha1_CertificateChain.crt).  i probably can use it as ca-chain.pem
+\\loadbalancer01\c$\apps\apache2-www.aloha1.com\conf\extra\httpd-ssl_www.aloha1.com.conf
+    SSLCertificateFile      C:/ClientData/www.aloha1.com/apache2/conf/ssl/www.aloha1.com.cert
+    SSLCertificateKeyFile   C:/ClientData/www.aloha1.com/apache2/conf/ssl/www.aloha1.com.key
+    SSLCertificateChainFile C:/clientdata/CertificateChain/aloha1_CertificateChain.crt
+
 2.5>verify newly created ca-chain.pem validate 
 
 openssl verify -CAfile ca-chain.pem www.aloha1.com.pem
