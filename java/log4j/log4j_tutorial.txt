@@ -27,4 +27,4 @@ Fatal Message!
 
 ---------------
 
-2>so, set to INFO, if you want 'INFO + WARN + ERROR + FATAL'
+2>so, set to INFO, if you want 'INFO + WARN + ERROR + FATAL' and you dont want 'ALL + DEBUG'
