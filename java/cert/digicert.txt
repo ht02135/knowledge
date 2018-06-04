@@ -1,0 +1,5 @@
+https://www.digicert.com/digicert-root-certificates.htm
+
+1>Root Certificates (figure out which cert is used by serial#)
+
+2>Intermediate Certificates
