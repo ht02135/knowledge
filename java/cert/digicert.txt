@@ -154,3 +154,19 @@ Subject:
 Issuer: 
    Common Name (CN): DigiCert High Assurance EV Root CA
    Organizational Unit Name (OU): www.digicert.com
+   
+///////////
+
+another example
+
+another older ssl cert
+
+1>Issuer: C=US, O=Symantec Corporation, OU=Symantec Trust Network, CN=Symantec Class 3 Secure Server CA - G4
+
+2>go to http://certificate.fyicenter.com and type 'Symantec Class 3 Secure Server CA - G4'
+
+3>click cert icon and http://certificate.fyicenter.com/1707_Symantec_Class_3_Secure_Server_CA-G4_Certificate-5F60CF619055DF8443148A602AB2F57AF44318EF.html
+
+Subject: Symantec Class 3 Secure Server CA - G4    <-- intermidate cert
+Issuer: VeriSign Class 3 Public Primary Certification Authority - G5    <-- root cert
+Expiration: 2023-10-30 23:59:59 UTC 
