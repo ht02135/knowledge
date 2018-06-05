@@ -19,3 +19,14 @@ Entry type: trustedCertEntry
 Owner: OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
 Issuer: OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
 Serial number: 7dd9fe07cfa81eb7107967fba78934c6
+
+///////////
+
+you need to know above
+1>sometime, when you add ssl cert, you need to add root cert and intermediate cert.  you need to run
+
+CALL keytool -list -v -storepass "aloha" -keystore aloha.jks > aloha.jks.listing.old
+
+and check 'aloha.jks.listing.old'.  if your keystore contain root alias (root cert) and sub cert (intermediate cert) and sometime temp cert, then you might need to renew those too
+
+2>then you need to inspect new ssl cert and look for what root cert and intermediate cert to add with your ssl cert.
