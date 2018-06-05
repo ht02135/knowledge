@@ -52,7 +52,12 @@ CALL keytool -list -v -storepass "aloha" -keystore %KEYSTORE% > %KEYSTORE%.listi
 
 use
 http://certificate.fyicenter.com/
+
 1>type Serial number: c79a944b08c11952092615fe26b1d83
+http://certificate.fyicenter.com/1703_DigiCert_SHA2_Extended_Validation_Server_CA_Certificate-3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F.html
+
+Home > Intermediate CA
+
 Certificate Summary:
 Subject Common Name (CN): DigiCert SHA2 Extended Validation Server CA
 Issuer Common Name (CN): DigiCert High Assurance EV Root CA
@@ -83,3 +88,39 @@ Serial Number: 16582437038678467094619379592629788035
 
 Full Name:
   URI:http://crl4.digicert.com/DigiCertHighAssuranceEVRootCA.crl
+  
+////////////
+2>type Serial number: 2ac5c266a0b409b8f0b79f2ae462577
+
+http://certificate.fyicenter.com/578_DigiCert_High_Assurance_EV_Root_CA_Certificate-B13EC36903F8BF4701D498261A0802EF63642BC3.html
+
+Home > Root CA
+
+Subject: DigiCert High Assurance EV Root CA 
+Issuer: DigiCert High Assurance EV Root CA 
+Expiration: 2031-11-10 00:00:00 UTC 
+
+Name:
+/C=US/O=DigiCert Inc/OU=www.digicert.com/CN=DigiCert High Assurance EV R
+oot CA
+
+Subject: 
+   Common Name (CN): DigiCert High Assurance EV Root CA
+   Organizational Unit Name (OU): www.digicert.com
+   Organization Name (O): DigiCert Inc
+   Locality Name (L): 
+   State or Province Name (ST): 
+   Country Name (C): US
+   Email Address: 
+Issuer: 
+   Common Name (CN): DigiCert High Assurance EV Root CA
+   Organizational Unit Name (OU): www.digicert.com
+   Organization Name (O): DigiCert Inc
+   Locality Name (L): 
+   State or Province Name (ST): 
+   Country Name (C): US
+   Email Address: 
+Valid From: Fri, 10 Nov 2006 00:00:00 +0000 
+Valid To: Mon, 10 Nov 2031 00:00:00 +0000 
+Serial Number: 3553400076410547919724730734378100087 
+
