@@ -29,4 +29,8 @@ CALL keytool -list -v -storepass "aloha" -keystore aloha.jks > aloha.jks.listing
 
 and check 'aloha.jks.listing.old'.  if your keystore contain root alias (root cert) and sub cert (intermediate cert) and sometime temp cert, then you might need to renew those too
 
-2>then you need to inspect new ssl cert and look for what root cert and intermediate cert to add with your ssl cert.
+2>then you need to inspect new ssl cert and look for what root cert and intermediate cert to add with your ssl cert.  usually you inspect Issuer and Subject
+
+Issuer: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 Extended Validation Server CA
+
+
