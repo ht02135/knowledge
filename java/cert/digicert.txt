@@ -33,4 +33,17 @@ and check 'aloha.jks.listing.old'.  if your keystore contain root alias (root ce
 
 Issuer: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 Extended Validation Server CA
 
+3>you find out root, intermediate, and then ssl cert and run this batch
 
+SET KEYSTORE=aloha.jks
+SET ROOT=ca-root.pem
+SET INTERMEDIATE=ca-intermediate.pem
+SET CERTIFICATE=aloha.com.pem
+CALL keytool -list -v -storepass "aloha" -keystore %KEYSTORE% > %KEYSTORE%.listing.old
+CALL keytool -delete -alias root -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -import -trustcacerts -alias root -file %ROOT% -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -delete -alias sub -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -import -trustcacerts -alias sub -file %INTERMEDIATE% -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -delete -alias certificate -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -import -trustcacerts -alias certificate -file %CERTIFICATE% -keystore %KEYSTORE% -storepass "aloha"
+CALL keytool -list -v -storepass "aloha" -keystore %KEYSTORE% > %KEYSTORE%.listing.new
