@@ -1,5 +1,21 @@
 https://www.digicert.com/digicert-root-certificates.htm
 
 1>Root Certificates (figure out which cert is used by serial#)
+Alias name: root
+Creation date: Jun 30, 2011
+Entry type: trustedCertEntry
+
+Owner: CN=VeriSign Class 3 Public Primary Certification Authority - G5, OU="(c) 2006 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+Issuer: CN=VeriSign Class 3 Public Primary Certification Authority - G5, OU="(c) 2006 VeriSign, Inc. - For authorized use only", OU=VeriSign Trust Network, O="VeriSign, Inc.", C=US
+Serial number: 18dad19e267de8bb4a2158cdcc6b3b4a
+Valid from: Tue Nov 07 19:00:00 EST 2006 until: Wed Jul 16 19:59:59 EDT 2036
 
 2>Intermediate Certificates
+
+Alias name: temp
+Creation date: Dec 31, 2009
+Entry type: trustedCertEntry
+
+Owner: OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+Issuer: OU=VeriSign Trust Network, OU="(c) 1998 VeriSign, Inc. - For authorized use only", OU=Class 3 Public Primary Certification Authority - G2, O="VeriSign, Inc.", C=US
+Serial number: 7dd9fe07cfa81eb7107967fba78934c6
