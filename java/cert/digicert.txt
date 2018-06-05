@@ -47,3 +47,33 @@ CALL keytool -import -trustcacerts -alias sub -file %INTERMEDIATE% -keystore %KE
 CALL keytool -delete -alias certificate -keystore %KEYSTORE% -storepass "aloha"
 CALL keytool -import -trustcacerts -alias certificate -file %CERTIFICATE% -keystore %KEYSTORE% -storepass "aloha"
 CALL keytool -list -v -storepass "aloha" -keystore %KEYSTORE% > %KEYSTORE%.listing.new
+
+///////////
+
+use
+http://certificate.fyicenter.com/
+1>you can type in Serial number: c79a944b08c11952092615fe26b1d83
+2>then you can copy cert in PEM
+Certificate in PEM Format
+http://certificate.fyicenter.com/1703_DigiCert_SHA2_Extended_Validation_Server_CA_Certificate-3DD350A5D6A0ADEEF34A600A65D321D4F8F8D60F.html
+
+Subject: 
+   Common Name (CN): DigiCert SHA2 Extended Validation Server CA
+   Organizational Unit Name (OU): www.digicert.com
+   Organization Name (O): DigiCert Inc
+   Locality Name (L): 
+   State or Province Name (ST): 
+   Country Name (C): US
+   Email Address: 
+Issuer: 
+   Common Name (CN): DigiCert High Assurance EV Root CA
+   Organizational Unit Name (OU): www.digicert.com
+   Organization Name (O): DigiCert Inc
+   Locality Name (L): 
+   State or Province Name (ST): 
+   Country Name (C): US
+   Email Address: 
+Valid From: Tue, 22 Oct 2013 12:00:00 +0000 
+Valid To: Sun, 22 Oct 2028 12:00:00 +0000 
+Serial Number: 16582437038678467094619379592629788035 
+
