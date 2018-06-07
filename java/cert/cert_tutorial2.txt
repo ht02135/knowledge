@@ -1,0 +1,19 @@
+
+1>go to https://www.ssllabs.com/ssldb/index.html and enter 'www.aloha.com'
+
+https://www.ssllabs.com/ssltest/analyze.html?d=www.aloha.com&latest
+Valid from	Thu, 01 Dec 2016 00:00:00 UTC
+Valid until	Sun, 16 Dec 2018 23:59:59 UTC (expires in 6 months and 9 days)
+
+Issuer	thawte SSL CA - G2 
+
+2>furhter bottom shows intermediate cert
+
+intermediate cert
+Subject : thawte SSL CA - G2 
+Issuer : thawte Primary Root CA
+
+3>further bottom shows root cert (Self-signed)
+
+Subject : thawte Primary Root CA
+Issuer : thawte Primary Root CA  (Self-signed)
