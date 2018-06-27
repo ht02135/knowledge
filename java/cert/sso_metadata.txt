@@ -1,0 +1,40 @@
+usually, you will get say aloha_metadata.xml
+you will use it to replace aloha-test-IDP.xml
+
+http://xacmlinfo.org/2013/12/24/how-to-saml-generating-saml-metadata-for-saml2-sso-idp/
+
+In SAML metadata profile,  It describes how IDP can provides the information about its endpoints, keys, profile support, processing requirements and etc for the service providers as metadata. But some of the SAML2 SSO IDP provider does not support to export its details as SAML metadata. 
+
+<?xml version="1.0"?>
+<EntityDescriptor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="https://localhost:9443/samlsso" validUntil="2023-09-23T06:57:15.396Z">
+ <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+ <KeyDescriptor use="signing">
+ <ds:KeyInfo>
+ <ds:X509Data>
+ <ds:X509Certificate>MIICNTCCAZ6gAwIBAgIES343gjANBgkqhkiG9w0BAQUFADBVMQswCQYDVQQGEwJVUzELMAkGA1UE
+ CAwCQ0ExFjAUBgNVBAcMDU1vdW50YWluIFZpZXcxDTALBgNVBAoMBFdTTzIxEjAQBgNVBAMMCWxv
+ Y2FsaG9zdDAeFw0xMDAyMTkwNzAyMjZaFw0zNTAyMTMwNzAyMjZaMFUxCzAJBgNVBAYTAlVTMQsw
+ CQYDVQQIDAJDQTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzENMAsGA1UECgwEV1NPMjESMBAGA1UE
+ AwwJbG9jYWxob3N0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCUp/oV1vWc8/TkQSiAvTou
+ sMzOM4asB2iltr2QKozni5aVFu818MpOLZIr8LMnTzWllJvvaA5RAAdpbECb+48FjbBe0hseUdN5
+ HpwvnH/DW8ZccGvk53I6Orq7hLCv1ZHtuOCokghz/ATrhyPq+QktMfXnRS4HrKGJTzxaCcU7OQID
+ AQABoxIwEDAOBgNVHQ8BAf8EBAMCBPAwDQYJKoZIhvcNAQEFBQADgYEAW5wPR7cr1LAdq+IrR44i
+ QlRG5ITCZXY9hI0PygLP2rHANh+PYfTmxbuOnykNGyhM6FjFLbW2uZHQTY1jMrPprjOrmyK5sjJR
+ O4d1DeGHT/YnIjs9JogRKv4XHECwLtIVdAbIdWHEtVZJyMSktcyysFcvuhPQK8Qc/E/Wq8uHSCo=
+ </ds:X509Certificate>
+ </ds:X509Data>
+ </ds:KeyInfo>
+ </KeyDescriptor>
+ <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://localhost:9443/samlsso" ResponseLocation="https://localhost:9443/samlsso"/>
+ <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://localhost:9443/samlsso"/>
+ <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://localhost:9443/samlsso"/>
+ </IDPSSODescriptor>
+</EntityDescriptor>
+
+You need to configure following according to your configuration
+
+entityID  -> You can find this value from identity.xml file under EntityId configuration or  in management console under SAML2 SSO Web Configuration in Resident Identity Provider configuration.  Default value for this is “localhost”
+
+Location/ResponseLocation  -> It is url of Identity Server  https://{host name}:{port}/samlsso
+
+X509Certificate -> One important thing is to generate the X509Certificate data. You need to locate the certificate file that is used to sign the SAML Assertion. By default it is in the keystore that has been configured in carbon.xml file (This is for super tenant,  other tenants, you can find the keystore in management console).  Then you need to configure the X509Certificate data within the metadata file. You can find more details about generating X509Certificate data from here.  Here you can find the X509 certificate data for default wso2carbon.jks file
