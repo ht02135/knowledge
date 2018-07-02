@@ -9,3 +9,20 @@ https://serverfault.com/questions/9708/what-is-a-pem-file-and-how-does-it-differ
 .der - A way to encode ASN.1 syntax in binary, a .pem file is just a Base64 encoded .der file. OpenSSL can convert these to .pem (openssl x509 -inform der -in to-convert.der -out converted.pem).
 
 .cert .cer .crt - A .pem (or rarely .der) formatted file with a different extension, one that is recognized by Windows Explorer as a certificate, which .pem is not.
+
+/////////
+
+
+CALL keytool -list -v -storepass "aloha" -keystore aloha.jks > aloha.jks.listing
+
+--Export the certificate:
+keytool -export -alias "certificate" -file "aloha_certificate.der" -keystore "aloha.jks" -storepass "aloha"
+
+--Convert the exported certificate from DER format to PEM
+openssl x509 -inform DER -outform PEM -in aloha_certificate.der -out aloha_certificate.pem
+
+--Get the information about the old cert
+openssl x509 -text -in  aloha_certificate.pem > aloha_certificate.pem.info
+
+--Generating 'X509Certificate' to add into 'X509Certificate' in alohaSP.xml
+keytool -exportcert -rfc -alias "certificate" -file aloha_certificate.X509Certificate.txt -keystore "aloha.jks" -storepass "aloha"
