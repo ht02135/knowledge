@@ -1,0 +1,21 @@
+https://kb.globalscape.com/KnowledgebaseArticle11342.aspx
+
+WinSCP has a setting enabled by default that transfers files larger than 100kb to a temporary file name (with the .filepart extension) and then renames the file. The original file transfer is being recognized as an upload and it’s moving the file before WinSCP has a chance to rename the file. The easiest fix is to disable this feature in WinSCP.
+
+Click Options > Preferences.
+In the Preferences dialog box, click to expand the Transfer node, then click Endurance.
+Under Enable transfer resume/transfer to temporary filename for, click Disable.
+Click OK to save the changes.
+
+////////
+
+https://winscp.net/eng/docs/message_transfer_finished_could_not_rename
+
+Transfer was successfully finished, but temporary transfer file ... could not be renamed to target file name ...
+
+With SFTP protocol, when automatic transfer resume is enabled, WinSCP first uploads the file to a temporary file with .filepart extension. Only after the transfer is completed the file is renamed to its actual name.
+
+For you the renaming failed, for which there are many possible reasons including:
+1>Your SFTP server does not support renaming files;
+2>There’s some process that takes the uploaded file away immediately, before WinSCP is able to rename it.
+3>There’s antivirus (or similar application) that starts inspecting the uploaded file, locking it while doing that, what conflicts with WinSCP attempt to rename the file.
