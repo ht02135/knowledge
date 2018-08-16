@@ -1,0 +1,5 @@
+keytool -list -v -keystore %JAVA_HOME%\jre\lib\security\cacerts -storepass changeit > cacerts.listing.verbose
+
+keytool -list -keystore %JAVA_HOME%\jre\lib\security\cacerts -storepass changeit > cacerts.listing
+
+keytool -import -v -keystore %JAVA_HOME%\jre\lib\security\cacerts -storepass changeit -file GeoTrust_Global_CA.txt
