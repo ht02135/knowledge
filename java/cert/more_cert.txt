@@ -1,0 +1,77 @@
+https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs
+
+--General OpenSSL Commands
+
+--Generate a new private key and Certificate Signing Request
+openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout privateKey.key
+
+--Generate a self-signed certificate
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate.crt
+
+------------
+
+--Converting Using OpenSSL
+
+--Convert a DER file (.crt .cer .der) to PEM
+penssl x509 -inform der -in certificate.cer -out certificate.pem
+
+--Convert a PEM file to DER
+openssl x509 -outform der -in certificate.pem -out certificate.der
+
+/////////////
+
+This command creates a 2048-bit private key (domain.key) and a CSR (domain.csr) from scratch:
+
+openssl req \
+       -newkey rsa:2048 -nodes 
+       -keyout domain.key 
+       -out domain.csr
+
+The -newkey rsa:2048 option specifies that the key should be 2048-bit, generated using the RSA algorithm
+
+---------
+
+Generate a CSR from an Existing Private Key
+
+openssl req \
+       -key domain.key \
+       -new -out domain.csr
+       
+-------------
+
+Generate a CSR from an Existing Certificate and Private Key
+
+penssl x509 \
+       -in domain.crt \
+       -signkey domain.key \
+       -x509toreq -out domain.csr
+       
+The -x509toreq option specifies that you are using an X509 certificate to make a CSR.
+
+---------
+
+Generate a Self-Signed Certificate
+
+openssl req \
+       -newkey rsa:2048 -nodes -keyout domain.key \
+       -x509 -days 365 -out domain.crt
+
+The -x509 option tells req to create a self-signed cerificate. The -days 365 option specifies that the certificate will be valid for 365 days.
+
+-------------
+
+Generate a Self-Signed Certificate from an Existing Private Key and CSR
+
+This command creates a self-signed certificate (domain.crt) from an existing private key (domain.key) and (domain.csr):
+
+openssl x509 \
+       -signkey domain.key \
+       -in domain.csr \
+       -req -days 365 -out domain.crt
+       
+---------
+
+Verify a Certificate was Signed by a CA
+Use this command to verify that a certificate (domain.crt) was signed by a specific CA certificate (ca.crt):
+
+openssl verify -verbose -CAFile ca.crt domain.crt
