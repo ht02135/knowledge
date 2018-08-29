@@ -1,0 +1,10 @@
+https://9to5google.com/2018/02/15/how-to-disable-autoplay-videos-chrome/
+
+Disable autoplay on your desktop
+Just like with Chrome for Android, the desktop version will eventually get the same type of controls in the settings menu. Until then, you’ll have to use Chrome’s flags to disable autoplaying videos.
+
+First, copy and paste ‘chrome://flags/#autoplay-policy‘ into Google Chrome’s URL bar. This will take you directly to a Chrome flag that you can be changed.
+
+The Autoplay policy should be set to Default when you load the page. You’ll need to set the drop box option box to Document user activation is required so that you have to approve any video to play on a website.
+
+Lastly, you’ll need to click on the blue Relaunch Now button found at the bottom of the page. This will restart the Chrome browser and activate the change.
