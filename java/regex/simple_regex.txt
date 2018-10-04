@@ -1,0 +1,8 @@
+
+1> jobName=(.*)
+
+2> (.*)Detail threw an exception(.*)
+
+3> (.*)org.springframework.beans.factory.BeanCreationException(.*)
+
+4> (.*)hallmark(.*)Detail threw an exception(.*)
