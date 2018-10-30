@@ -1,0 +1,153 @@
+1>web.xml
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application-context.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>QuartzJobRunner</servlet-name>  
+        <servlet-class>com.aloha.batch.job.runner.QuartzJobRunner</servlet-class>  
+    </servlet>  
+
+   <servlet-mapping>  
+       <servlet-name>QuartzJobRunner</servlet-name>  
+       <url-pattern>/qJobRunner</url-pattern>  
+   </servlet-mapping>  
+
+    <servlet>
+        <servlet-name>InstanceValidator</servlet-name>  
+        <servlet-class>com.aloha.batch.util.InstanceValidator</servlet-class>  
+    </servlet>  
+
+   <servlet-mapping>  
+       <servlet-name>InstanceValidator</servlet-name>  
+       <url-pattern>/instanceValidator</url-pattern>  
+   </servlet-mapping>  
+   
+2>QuartzJobRunner.java
+
+package com.aloha.batch.job.runner;
+
+import 	javax.servlet.http.HttpServletRequest;
+import	javax.servlet.http.HttpServletResponse;
+import	javax.servlet.http.HttpServlet;
+
+import	javax.servlet.ServletContext;
+import	javax.servlet.ServletException;
+
+import  java.io.Reader;
+import 	java.io.PrintWriter;
+import	java.io.IOException;
+
+import	org.springframework.web.context.support.WebApplicationContextUtils;
+import	org.springframework.web.context.WebApplicationContext;
+
+import	org.quartz.impl.StdScheduler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import	org.quartz.JobDetail;
+import	org.quartz.SchedulerException;
+import 	org.quartz.Trigger;
+import	org.quartz.TriggerUtils;
+
+import	java.util.Date;
+
+import com.aloha.batch.item.writer.IPWCreativesCopier;
+import 	com.ibatis.common.resources.Resources;
+
+import	java.sql.DriverManager;
+import	java.sql.Connection;
+import	java.sql.Statement;
+
+import  java.util.Properties;
+
+public class QuartzJobRunner extends HttpServlet {
+	private static Log log = LogFactory.getLog(QuartzJobRunner.class);
+	private static final long serialVersionUID = 101L;
+	
+	private static int triggerRunId = 0;
+
+	public QuartzJobRunner()
+	{		
+	}
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException
+	{
+		
+		log.info("[Ondemand job runner] remote host = " + req.getRemoteHost() + ", remote user = " + req.getRemoteUser());
+		
+		res.setContentType("text/html");	//setting the content type  
+
+		String jobName = req.getParameter("name");
+		if((jobName == null) || (jobName.length() <= 0)) {
+			PrintWriter pw = res.getWriter(); 
+			
+			pw.println("<html><body>");  
+			pw.println("Job name is null, thus not doing anything!");
+			pw.println("</body></html>");  
+			
+			pw.close();
+			
+			return;
+		}
+		
+		String groupName = req.getParameter("group");
+		if((groupName == null) || (groupName.length() <= 0)) {
+			groupName = "quartz-batch";
+		}
+		
+		// invoke quartz job on demand
+		ServletContext servletCtx = getServletContext();
+		WebApplicationContext webAppCtx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletCtx);		
+		
+		//test29a:23432/qJobRunner?name=bulkOrderIPWJobDetail?group=<group-name>?orders=o1,o2,o3
+		
+		try
+		{
+			StdScheduler scheduler = (StdScheduler) webAppCtx.getBean("quartzScheduler");
+		
+			JobDetail jd = scheduler.getJobDetail(jobName, "quartz-batch");
+			if(jd == null) {
+				return;
+			}
+			
+			JobDetail jd2 = (JobDetail) jd.clone();
+			Date dtNow = new Date();
+			String jobInvocationName = jd2.getName() + "-" + dtNow.getTime();
+			jd2.setName(jobInvocationName);
+			
+			String triggerName = null;
+			synchronized( this )
+			{
+				triggerRunId++;				
+				triggerName = "ipwNow" + triggerRunId;
+			}
+			
+			log.info("[Ondemand job runner] triggerName = " + triggerName + ", will invoke quartz job now");
+			
+			Trigger triggerNow = TriggerUtils.makeImmediateTrigger(triggerName, 1, 36000000);			
+			scheduler.scheduleJob(jd2, triggerNow);
+			
+			PrintWriter pw=res.getWriter();		//get the stream to write the data  
+			pw.println("<html><body>");  
+			pw.println("Invoked job " + jobName + " as " + jobInvocationName + "/" + groupName);
+			pw.println("</body></html>");  
+			
+			pw.close();			
+		}
+		catch(SchedulerException se)
+		{
+			throw new ServletException(se.toString());
+		}
+	}
+}  
