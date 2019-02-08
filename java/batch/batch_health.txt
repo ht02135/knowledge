@@ -1,0 +1,16 @@
+
+say you installed batchApp instance on TEST29c at port 8147.
+
+but you tried http://TEST29C:8147/ to test health and cant access.  it might be some other process is running on that port 8147
+
+1>netstat -ano | findstr :8147
+
+to find out
+  TCP    0.0.0.0:8147           0.0.0.0:0              LISTENING       5420
+  TCP    [::]:8147              [::]:0                 LISTENING       5420
+  
+you see PID=5420 process is running on port 8147
+  
+2>taskkill /pid 5420 /f
+
+to kill PID=5420 process
