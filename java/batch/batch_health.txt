@@ -14,3 +14,28 @@ you see PID=5420 process is running on port 8147
 2>taskkill /pid 5420 /f
 
 to kill PID=5420 process
+
+////////////
+
+aloha-stderr.2019-02-08.log
+
+Caused by: java.net.BindException: Address already in use: JVM_Bind <null>:8147
+	at org.apache.tomcat.util.net.JIoEndpoint.bind(JIoEndpoint.java:413)
+	at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:728)
+	at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:452)
+	at org.apache.coyote.http11.AbstractHttp11JsseProtocol.init(AbstractHttp11JsseProtocol.java:119)
+	at org.apache.catalina.connector.Connector.initInternal(Connector.java:978)
+	... 13 more
+Caused by: java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(DualStackPlainSocketImpl.java:106)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:382)
+	at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:190)
+	at java.net.ServerSocket.bind(ServerSocket.java:375)
+	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+	at java.net.ServerSocket.<init>(ServerSocket.java:181)
+	at org.apache.tomcat.util.net.DefaultServerSocketFactory.createSocket(DefaultServerSocketFactory.java:49)
+	at org.apache.tomcat.util.net.JIoEndpoint.bind(JIoEndpoint.java:400)
+	... 17 more
+
+that means some other process bind to that port
