@@ -1,0 +1,19 @@
+		SELECT 10000 as RANK, creative_search_id as [KEY] 
+		from creative_search with (nolock) 
+		where 1=1
+		and inventory_code like '%Here%for%You%'     
+		UNION ALL     
+		SELECT RANK * 100 as RANK ,[KEY] 
+		from CONTAINSTABLE (creative_search, inventory_code, '"Here for You*"')      
+		UNION ALL         
+		SELECT RANK, [KEY]  from FREETEXTTABLE (creative_search, search_content, 'Here for You')  
+    
+    //////////////
+    
+select * from creative_search with (nolock) where inventory_code like '%Here%for%You%' 
+SELECT * FROM CONTAINSTABLE (creative_search, inventory_code, '"Here for You*"') ORDER BY RANK DESC;  
+SELECT * FROM FREETEXTTABLE (creative_search, inventory_code, 'Here for You') ORDER BY RANK DESC; 
+
+select * from creative_search with (nolock) where search_content like '%Here%for%You%' 
+SELECT * FROM CONTAINSTABLE (creative_search, search_content, '"Here for You*"') ORDER BY RANK DESC; 
+SELECT * FROM FREETEXTTABLE (creative_search, search_content, 'Here for You') ORDER BY RANK DESC; 
