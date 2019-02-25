@@ -17,3 +17,26 @@ SELECT * FROM FREETEXTTABLE (creative_search, inventory_code, 'Here for You') OR
 select * from creative_search with (nolock) where search_content like '%Here%for%You%' 
 SELECT * FROM CONTAINSTABLE (creative_search, search_content, '"Here for You*"') ORDER BY RANK DESC; 
 SELECT * FROM FREETEXTTABLE (creative_search, search_content, 'Here for You') ORDER BY RANK DESC; 
+
+////////////////
+
+some queries to interrogate the stop-words list:
+
+select * from sys.fulltext_stoplists
+
+select * from sys.fulltext_stopwords --sys.fulltext_system_stopwords 
+where stoplist_id=5
+and language_id=0 
+--and stopword in ('in','me','on','or')
+order by 2
+
+//////////////
+
+follow steps  to remove the keywords here & you from STOPLIST
+1>Copied the system stop word list to a new 'alohaDefaultStoplist' in the erie_user_testnew database:
+  CREATE FULLTEXT STOPLIST alohaDefaultStoplist FROM SYSTEM STOPLIST;
+2>use ms sql server management studio to drop words: here & you
+  action: delete stop word
+  stop word: here & you
+3>I then associated the new stoplist with the aloha_search full-text index:
+  ALTER FULLTEXT INDEX ON aloha_search SET STOPLIST alohaDefaultStoplist
