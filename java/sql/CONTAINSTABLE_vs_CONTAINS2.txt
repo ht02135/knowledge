@@ -45,5 +45,7 @@ follow steps  to remove the keywords here & you from STOPLIST
 
 https://docs.microsoft.com/en-us/sql/relational-databases/search/configure-and-manage-stopwords-and-stoplists-for-full-text-search?view=sql-server-2017
 
-To prevent a full-text index from becoming bloated, SQL Server has a mechanism that discards commonly occurring strings that do not help the search. These discarded strings are called stopwords. During index creation, the Full-Text Engine omits stopwords from the full-text index. This means that full-text queries will not search on stopwords
+To prevent a full-text index from becoming bloated, SQL Server has a mechanism that discards commonly occurring strings that do 
+not help the search. These discarded strings are called stopwords. During index creation, the Full-Text Engine omits stopwords 
+from the full-text index. This means that full-text queries will not search on stopwords
 
