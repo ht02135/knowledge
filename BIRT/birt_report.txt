@@ -1,0 +1,6 @@
+https://o7planning.org/en/10215/install-birt-report-tools-into-eclipse
+
+https://wiki.eclipse.org/BIRT_Update_Site_URL
+http://download.eclipse.org/birt/update-site/4.4
+
+https://o7planning.org/en/10243/birt-reporting-programming-tutorial-for-beginners
