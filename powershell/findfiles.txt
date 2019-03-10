@@ -1,0 +1,7 @@
+
+$filename = '*payroll*'
+$searchinfolder = '\\pdc\Shared\Accounting'
+Get-ChildItem -Path $searchinfolder -Filter $filename -Recurse | %{$_.FullName}
+
+/////////////
+
