@@ -14,3 +14,11 @@ Select-Object FullName, CreationTime |
 Export-Csv $exportCsvFile
 
 ///////////////
+
+$include=@("*ftp*","EmailBuilder.java","*properties")
+$searchinFolder = '\\pdc\Shared\Accounting'
+$exportCsvFile = 'c:\scans.csv'
+Get-ChildItem -Path $searchinFolder  -include $Include -Recurse |
+Where-Object {$_.CreationTime -gt "01/01/2001" -and $_.CreationTime -lt "01/01/2019"} | 
+Select-Object FullName,CreationTime | 
+Export-Csv $exportCsvFile
