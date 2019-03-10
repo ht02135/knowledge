@@ -5,9 +5,9 @@ Get-ChildItem -Path $searchinfolder -Filter $filename -Recurse | %{$_.FullName}
 
 /////////////
 
-$filename = '*ftp*'
-$searchinFolder = 'F:\Hung\Work\batchApp\ERIE\'
-$exportCsvFile = 'F:\Hung\Work\batchApp\scans.csv'
+$filename = '*payroll*'
+$searchinFolder = '\\pdc\Shared\Accounting'
+$exportCsvFile = 'c:\scans.csv'
 Get-ChildItem -Path $searchinFolder -Filter $filename -Recurse |
 Where-Object {$_.CreationTime -gt "01/01/2001" -and $_.CreationTime -lt "01/01/2019"} | 
 Select-Object FullName, CreationTime | 
