@@ -48,20 +48,22 @@ Export-Csv -Path $exportCsvFile -Append
 //////////////////
 
 $creativeFolder = '\\gr-prod\prod1\creativedirs\erieprod\creatives*'
-$logFile = 'C:\Users\hungtsai\Bugs\ERIE-4238\scan.log'
+$logCsvFile = 'C:\Users\hungtsai\Bugs\ERIE-4238\scan.csv'
 
-$a = Get-ChildItem -Path $creativeFolder -include "*AC655*" -Recurse 
+$a = Get-ChildItem -Path $creativeFolder -include "*AC655*" -Recurse | Select-Object -First 1
 if ($a) {
-	add-content -path $logFile -value "`r`nYes, AC655 files exist"
+	add-content -path $logCsvFile -value "`r`nYes,AC655,File exist"
 } else {
-	add-content -path $logFile -value "`r`nNo, AC655 file not exist"
+	add-content -path $logCsvFile -value "`r`nNo,AC655,File not exist"
 }
 
-$a = Get-ChildItem -Path $creativeFolder -include "*AC519_o2*" -Recurse 
+$a = Get-ChildItem -Path $creativeFolder -include "*AC519_o2*" -Recurse | Select-Object -First 1
 if ($a) {
-	add-content -path $logFile -value "`r`nYes, AC519_o2 files exist"
+	add-content -path $logCsvFile -value "`r`nYes,AC519_o2,File exist"
 } else {
-	add-content -path $logFile -value "`r`nNo, AC519_o2 file not exist"
+	add-content -path $logCsvFile -value "`r`nNo,AC519_o2,File not exist"
 }
+
+
 
 /////////////////
