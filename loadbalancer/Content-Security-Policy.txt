@@ -1,0 +1,23 @@
+conf/httpd.conf
+
+/////////////////
+
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+
+1>A policy needs to include a default-src or script-src directive to prevent inline scripts from running, as well as blocking the use of eval()
+
+2>A policy needs to include a default-src or style-src directive to restrict inline styles from being applied from a <style> element or a style attribute.
+
+////////////////////////
+Header set Content-Security-Policy "default-src *; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google-analytics.com https://api.tiles.mapbox.com https://gitcdn.github.io http://cdnjs.cloudflare.com https://tagmanager.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://jstest.authorize.net/v1/Accept.js https://js.authorize.net/v1/Accept.js https://jstest.authorize.net/v1/AcceptCore.js https://js.authorize.net/v1/AcceptCore.js https://core.spreedly.com https://www.youtube.com/iframe_api https://s.ytimg.com/yts/jsbin/  https://fonts.googleapis.com https://www.google-analytics.com https://api.tiles.mapbox.com https://gitcdn.github.io http://cdnjs.cloudflare.com https://tagmanager.google.com https://www.googletagmanager.com; img-src 'self' data: http://www.direxxis.net https://www.google-analytics.com *.tiles.mapbox.com https://embed-ssl.wistia.com"
+/////////////////////////
+
+Header set Content-Security-Policy "default-src *; 
+
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.google-analytics.com https://api.tiles.mapbox.com https://gitcdn.github.io http://cdnjs.cloudflare.com https://tagmanager.google.com; 
+
+script-src 'self' 'unsafe-inline' 'unsafe-eval' https://jstest.authorize.net/v1/Accept.js https://js.authorize.net/v1/Accept.js https://jstest.authorize.net/v1/AcceptCore.js https://js.authorize.net/v1/AcceptCore.js https://core.spreedly.com https://www.youtube.com/iframe_api https://s.ytimg.com/yts/jsbin/  https://fonts.googleapis.com https://www.google-analytics.com https://api.tiles.mapbox.com https://gitcdn.github.io http://cdnjs.cloudflare.com https://tagmanager.google.com https://www.googletagmanager.com; 
+
+img-src 'self' data: http://www.direxxis.net https://www.google-analytics.com *.tiles.mapbox.com https://embed-ssl.wistia.com"
+///////////////////
