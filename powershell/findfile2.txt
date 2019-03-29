@@ -1,3 +1,14 @@
+
+#C:\HungTsai\Bugs\ERIE-4238\psl_src\ERIE-4238_creative_search_v7_20190311.ps1
+#c:\HungTsai\Bugs\ERIE-4238\psl_src\ERIE-4238_creative_search_v7_20190311.ps1
+#powershell -ExecutionPolicy Bypass "c:\HungTsai\Bugs\ERIE-4238\psl_src\ERIE-4238_creative_search_v7_20190311.ps1"
+
+#c:\HungTsai\Bugs\ERIE-4238\psl_src\original_file_name\original_file_name.txt
+#c:\HungTsai\Bugs\ERIE-4238\psl_src\system_file_name\system_file_name.txt
+#c:\HungTsai\Bugs\ERIE-4238\psl_src\template_file\template_file.txt
+#c:\HungTsai\Bugs\ERIE-4238\psl_src\zip_archive_file\zip_archive_file.txt
+#|inventory_code|view_file_id|status|original_file_name|system_file_name|template_file|zip_archive_file|
+
 $logCsvFile = 'c:\HungTsai\Bugs\ERIE-4238\psl_src\scan.csv'
 
 if (Test-Path $logCsvFile) 
@@ -17,18 +28,19 @@ if (Test-Path $original_file_name) {
 	$original_file_name_exists = 'TRUE'
 }
 $system_file_name_exists = 'FALSE'
-if (Test-Path $original_file_name) {
+if (Test-Path $system_file_name) {
 	$system_file_name_exists = 'TRUE'
 }
 $template_file_exists = 'FALSE'
-if (Test-Path $original_file_name) {
+if (Test-Path $template_file) {
 	$template_file_exists = 'TRUE'
 }
 $zip_archive_file_exists = 'FALSE'
 if (Test-Path $original_file_name) {
-	$zip_archive_file_exists = 'TRUE'
+	$zip_archive_file = 'TRUE'
 }
 
 add-content -path $logCsvFile -value "AC655,2,ACTIVE,$($original_file_name_exists),$($system_file_name_exists),$($template_file_exists),$($zip_archive_file_exists)"
 
 add-content -path $logCsvFile -value "AC655,1,INACTIVE,$($original_file_name_exists),$($system_file_name_exists),$($template_file_exists),$($zip_archive_file_exists)"
+
