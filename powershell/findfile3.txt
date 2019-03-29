@@ -1,0 +1,140 @@
+begin transaction
+
+
+SELECT
+       CONVERT(VARCHAR(24), cr.creation_date, 121) as 'cr.creation_date',
+       cr.inventory_code as 'cr.inventory_code',
+       cr.status as 'cr.status',
+       CAST(vc.view_id AS VARCHAR) as 'vc.view_id',
+       CAST(vf.view_file_id AS VARCHAR) as 'vf.view_file_id',
+       CONVERT(VARCHAR(24), vf.creation_date, 121) as 'vf.creation_date',
+       vf.status as 'vf.status',
+	   vf.template_file as 'vf.template_file'
+from creative cr WITH(NOLOCK)
+LEFT JOIN viewc vc WITH(NOLOCK) ON vc.creative_id = cr.creative_id
+LEFT JOIN view_file vf WITH(NOLOCK) ON vf.view_id = vc.view_id
+WHERE 1=1
+--and cr.status in ('ACTIVE')
+and cr.creation_date <= DATEADD(YEAR,-5,GETDATE())
+ORDER BY cr.creation_date desc, cr.inventory_code desc, vc.view_id desc, vf.view_file_id desc
+
+
+--//////////////////////////
+
+--powershell -ExecutionPolicy Bypass "C:\temp\ERIE-4238_creative_scan_20190329.ps1"
+
+PRINT '$logFile = ''C:\temp\creative_scan.csv'''
+PRINT 'if (Test-Path $logFile)'
+PRINT '{'
+PRINT '  Remove-Item $logFile'
+PRINT '}'
+PRINT 'New-Item $logFile -ItemType file'
+PRINT 'add-content -path $logFile -value "cr.creation_date,cr.inventory_code,cr.status,vc.view_id,vf.view_file_id,vf.creation_date,vf.status,vf.template_file,exists"'
+PRINT ''
+PRINT '$viewFile = ''\\gr-prod\prod1\creativedirs\erieprod\creatives\viewfile\'''
+PRINT ''
+
+
+--///////////////////////////
+
+
+DECLARE @cr_creation_date VARCHAR(MAX);
+DECLARE @vf_creation_date VARCHAR(MAX);
+
+DECLARE @cr_inventory_code VARCHAR(MAX);
+DECLARE @cr_status VARCHAR(MAX);
+DECLARE @vf_status VARCHAR(MAX);
+DECLARE @vf_template_file VARCHAR(MAX);
+
+DECLARE @vc_view_id VARCHAR(MAX);
+DECLARE @vf_view_file_id VARCHAR(MAX);
+
+DECLARE @count INT;
+SET @count = 0;
+
+SET NOCOUNT ON;
+
+DECLARE loopCursor CURSOR
+
+FOR SELECT
+       CONVERT(VARCHAR(24), cr.creation_date, 121) as 'cr.creation_date',
+       cr.inventory_code as 'cr.inventory_code',
+       cr.status as 'cr.status',
+       CAST(vc.view_id AS VARCHAR) as 'vc.view_id',
+       CAST(vf.view_file_id AS VARCHAR) as 'vf.view_file_id',
+       CONVERT(VARCHAR(24), vf.creation_date, 121) as 'vf.creation_date',
+       vf.status as 'vf.status',
+	   vf.template_file as 'vf.template_file'
+from creative cr WITH(NOLOCK)
+LEFT JOIN viewc vc WITH(NOLOCK) ON vc.creative_id = cr.creative_id
+LEFT JOIN view_file vf WITH(NOLOCK) ON vf.view_id = vc.view_id
+WHERE 1=1
+--and cr.status in ('ACTIVE')
+and cr.creation_date <= DATEADD(YEAR,-5,GETDATE())
+ORDER BY cr.creation_date desc, cr.inventory_code desc, vc.view_id desc, vf.view_file_id desc
+
+OPEN loopCursor
+
+FETCH loopCursor INTO @cr_creation_date, @cr_inventory_code, @cr_status, @vc_view_id, @vf_view_file_id, @vf_creation_date, @vf_status, @vf_template_file
+WHILE (@@FETCH_STATUS=0) BEGIN
+
+--------------------------------------------
+
+PRINT ''
+PRINT '#-- check begin ---------------------------'
+PRINT '$template_file_path_' + cast(@count as varchar) + ' = "$($viewFile)' + @vf_template_file + '"'
+PRINT '$template_file_name_exists_' + cast(@count as varchar) + ' = ''FALSE'''
+PRINT 'if (Test-Path $template_file_path_' + cast(@count as varchar) + ') {'
+PRINT '	$template_file_name_exists_' + cast(@count as varchar) + ' = ''TRUE'''
+PRINT '}'
+
+PRINT 'add-content -path $logFile -value "' + @cr_creation_date + ',' + @cr_inventory_code + ',' + @cr_status + ',' + @vc_view_id + ',' + @vf_view_file_id + ',' + @vf_creation_date + ',' + @vf_status + ',' + '$($template_file_path_' + cast(@count as varchar) + '),' + '$($template_file_name_exists_' + cast(@count as varchar) + ')"'
+
+PRINT '#-- check end ---------------------------'
+PRINT ''
+
+SET @count = @count + 1;
+
+--------------------------------------------
+
+	-- Fetch the next row
+	FETCH loopCursor INTO @cr_creation_date, @cr_inventory_code, @cr_status, @vc_view_id, @vf_view_file_id, @vf_creation_date, @vf_status, @vf_template_file
+	
+END --WHILE (@@FETCH_STATUS=0)
+
+CLOSE loopCursor
+DEALLOCATE loopCursor
+;
+
+SET NOCOUNT OFF;
+
+
+rollback
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+$logFile = 'C:\temp\creative_scan.csv'
+if (Test-Path $logFile)
+{
+  Remove-Item $logFile
+}
+New-Item $logFile -ItemType file
+add-content -path $logFile -value "cr.creation_date,cr.inventory_code,cr.status,vc.view_id,vf.view_file_id,vf.creation_date,vf.status,vf.template_file,exists"
+ 
+$viewFile = '\\gr-prod\prod1\creativedirs\erieprod\creatives\viewfile\'
+ 
+ 
+#-- check begin ---------------------------
+$template_file_path_0 = "$($viewFile)photo(2)-20140321101215.JPG"
+$template_file_name_exists_0 = 'FALSE'
+if (Test-Path $template_file_path_0) {
+	$template_file_name_exists_0 = 'TRUE'
+}
+add-content -path $logFile -value "2014-03-21 10:16:19.093,LIF99,ACTIVE,2019,3709,2014-03-21 10:16:19.093,ACTIVE,$($template_file_path_0),$($template_file_name_exists_0)"
+#-- check end ---------------------------
+ 
+
+
+
