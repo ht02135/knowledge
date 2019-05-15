@@ -1,0 +1,37 @@
+DECLARE @cutoffDate datetime;
+SET @cutoffDate = '2013-01-01 00:00';
+
+DECLARE @cutoffDate datetime;
+SET @cutoffDate = '2013-01-01 00:00';
+
+/*
+lockJob	3	132	3
+lockJob	2	116	2
+lockJob	4	62	4
+lockJob	5	24	5
+lockJob	6	15	6
+lockJob	7	11	7
+lockJob	11	4	11
+lockJob	8	4	8
+lockJob	10	3	10
+lockJob	9	3	9
+lockJob	12	2	12
+lockJob	168	1	168
+lockJob	123	1	123
+lockJob	71	1	71
+*/
+SELECT
+	bji.JOB_NAME,
+	DATEDIFF(minute, bje.START_TIME, bje.END_TIME) as 'delta',
+	COUNT(*) as 'count',
+	max(DATEDIFF(minute, bje.START_TIME, bje.END_TIME)) AS 'max delta'
+FROM
+	BATCH_JOB_INSTANCE AS bji WITH (nolock)
+	left outer JOIN
+	BATCH_JOB_EXECUTION AS bje WITH (nolock)
+		ON bji.JOB_INSTANCE_ID = bje.JOB_INSTANCE_ID
+WHERE 1 = 1
+	AND bje.create_time > @cutoffDate
+	AND bji.JOB_NAME like '%lock%'
+group by bji.JOB_NAME, DATEDIFF(minute, bje.START_TIME, bje.END_TIME)
+ORDER BY bji.JOB_NAME desc, COUNT(*) desc, DATEDIFF(minute, bje.START_TIME, bje.END_TIME) desc
