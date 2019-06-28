@@ -1,4 +1,66 @@
-you do this bridge join when communication might be missing couple label rows, but you still want to see/display as null
+-- key thing is order of join : ccrc left join ctag.
+SELECT
+       c.communication_id,
+       cr.inventory_code,
+       ctag.label,
+       ctag.customization_name,
+       ccrc.communication_creative_customization_id as 'ccrc.communication_creative_customization_id',
+       ccrc.name AS 'customizationName',
+       ccrc.value AS 'customizationValue'
+FROM communication AS c WITH (nolock)
+LEFT JOIN communication_wave AS cw WITH (nolock) ON c.communication_id = cw.communication_id
+LEFT JOIN communication_wave_creative AS cwcr WITH (nolock) ON cw.communication_wave_id = cwcr.communication_wave_id
+LEFT JOIN communication_creative_customization AS ccrc WITH (nolock) ON cwcr.communication_wave_creative_id = ccrc.communication_wave_creative_id
+left JOIN creative cr WITH(NOLOCK) ON cr.creative_id = cwcr.creative_id
+LEFT JOIN customization_template AS ctmpl WITH (nolock) ON ctmpl.customization_template_id = cr.customization_template_id 
+LEFT JOIN customization_template_tag AS ctt WITH (nolock) ON ctmpl.customization_template_id = ctt.customization_template_id 
+left join customization_tag AS ctag WITH (nolock) ON ctag.customization_tag_id = ctt.customization_tag_id and ctag.customization_name = ccrc.name
+WHERE 1 = 1
+and c.communication_id in (1000)
+and (ctag.label like '%Select%Graphic%' or
+     ctag.label like '%Select%Second%Graphic%' or
+     ctag.label like '%Select%Display%Style%' or
+     ctag.label like '%Return%Date%' or
+	 ctag.label like '%Date%Needed%' or
+	 ctag.label like '%Select%Brochures%(optional)%'
+)
+ORDER BY c.communication_id desc, cr.inventory_code desc, ctag.label desc
+
+
+//////////////////////////////
+
+-- key thing is order of join : ctag left join ccrc.
+SELECT
+       c.communication_id,
+       cr.inventory_code,
+       ctag.label,
+       ctag.customization_name,
+       ccrc.communication_creative_customization_id as 'ccrc.communication_creative_customization_id',
+       ccrc.name AS 'customizationName',
+       ccrc.value AS 'customizationValue'
+FROM communication AS c WITH (nolock)
+LEFT JOIN communication_wave AS cw WITH (nolock) ON c.communication_id = cw.communication_id
+LEFT JOIN communication_wave_creative AS cwcr WITH (nolock) ON cw.communication_wave_id = cwcr.communication_wave_id
+left JOIN creative cr WITH(NOLOCK) ON cr.creative_id = cwcr.creative_id
+LEFT JOIN customization_template AS ctmpl WITH (nolock) ON ctmpl.customization_template_id = cr.customization_template_id 
+LEFT JOIN customization_template_tag AS ctt WITH (nolock) ON ctmpl.customization_template_id = ctt.customization_template_id 
+left join customization_tag AS ctag WITH (nolock) ON ctag.customization_tag_id = ctt.customization_tag_id 
+LEFT JOIN communication_creative_customization AS ccrc WITH (nolock) ON cwcr.communication_wave_creative_id = ccrc.communication_wave_creative_id and ccrc.name = ctag.customization_name
+WHERE 1 = 1
+and c.communication_id in (1000)
+and (ctag.label like '%Select%Graphic%' or
+     ctag.label like '%Select%Second%Graphic%' or
+     ctag.label like '%Select%Display%Style%' or
+     ctag.label like '%Return%Date%' or
+	 ctag.label like '%Date%Needed%' or
+	 ctag.label like '%Select%Brochures%(optional)%'
+)
+ORDER BY c.communication_id desc, cr.inventory_code desc, ctag.label desc
+
+//////////////////////////////
+
+-- key thing is order of join : ctag left join ccrc.
+--you do this bridge join when communication might be missing couple label rows, but you still want to see/display as null
 
 select
 	   rs2.communication_id,
@@ -39,9 +101,7 @@ left join (
 	LEFT JOIN customization_template_tag AS ctt WITH (nolock) ON ctmpl.customization_template_id = ctt.customization_template_id 
 	left join customization_tag AS ctag WITH (nolock) ON ctag.customization_tag_id = ctt.customization_tag_id and ctag.customization_name = ccrc.name
 	WHERE 1 = 1
-	and c.communication_id in (
-		1000
-	)
+	and c.communication_id in (1000)
 ) as rs2 on rs2.communication_id = rs.communication_id and rs2.label = rs.label
 where 1=1
 and (rs2.label like '%Select%Graphic%' or
