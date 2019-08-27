@@ -1,0 +1,23 @@
+--AlohaTest
+
+openssl x509 -text -in AlohaTest.cer > AlohaTest.cer.info
+openssl x509 -outform PEM -in AlohaTest.cer -out AlohaTest.pem
+openssl x509 -text -in AlohaTest.pem > AlohaTest.pem.info
+
+openssl x509 -outform PEM -in AlohaTest.cer -out AlohaTest_X509Certificate.pem
+openssl x509 -text -in AlohaTest_X509Certificate.pem > AlohaTest_X509Certificate.pem.info
+
+--------------
+
+--Delete the old certificate:
+keytool -delete -alias "certificate" -keystore "erie_test_np.jks" -storepass "AlohaTest"
+
+--Import the new certificate:
+keytool -import -trustcacerts -alias "certificate" -file "AlohaTest.cer" -keystore "AlohaTest.jks" -storepass "AlohaTest"
+
+--Generating 'X509Certificate'
+keytool -exportcert -rfc -alias "certificate" -file "AlohaTest_Keystore_X509Certificate.pem" -keystore "AlohaTest.jks" -storepass "AlohaTest"
+
+-------------
+
+then add to 'X509Certificate' of IDP file
