@@ -1,0 +1,12 @@
+
+status check
+---------------------------
+sc \\APP23A query haha_service_name
+
+you set service to manual via:
+----------------------------------
+sc \\APP23A config haha_service_name start= demand 
+
+you set service to auto via:
+----------------------
+sc \\APP23A config haha_service_name start= AUTO 
