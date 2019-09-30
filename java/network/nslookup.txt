@@ -2,6 +2,9 @@
 test 'aloha.test.com' using 
 http://www.steves-internet-guide.com/using-nslookup/
 
+or https://dnschecker.org/
+display UI
+
 //////////////
 
 http://www.steves-internet-guide.com/using-nslookup/
