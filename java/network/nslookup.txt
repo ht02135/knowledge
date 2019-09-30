@@ -1,0 +1,19 @@
+
+test 'aloha.test.com' using 
+http://www.steves-internet-guide.com/using-nslookup/
+
+//////////////
+
+http://www.steves-internet-guide.com/using-nslookup/
+
+To use in interactive mode type nslookup
+nslookup
+
+To use in non-interactive mode type nslookup options at the command prompt
+nslookup aloha.test.com
+
+H:\>nslookup aloha.test.com
+Server:  edipvwwdca06.bsg.ad.adp.com
+Address:  10.23.16.98
+
+*** edipvwwdca06.bsg.ad.adp.com can't find aloha.test.com: Non-existent domain
