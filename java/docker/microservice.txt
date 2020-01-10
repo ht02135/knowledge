@@ -1,0 +1,80 @@
+
+Attach to running container
+docker exec -ti dm-listener /bin/bash
+
+Restart a running container
+docker restart dm-listener
+
+////////////////////////////////////////////////
+
+Tranfer_File_Image_toDocker.bat :
+############################
+@echo off
+
+set TAR_FILE=%1
+ 
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  hungtsai@docker.nedv.hahaha.com:/home/DIREXXISDC/hungtsai/%TAR_FILE%
+############################
+
+EX : 
+Tranfer_File_Image_toDocker dm-admin-5.23.0_149.tar.gz
+
+---------------------------------
+
+Tranfer_File_From_Server_To_Local.bat :
+############################
+@echo off
+
+set TAR_FILE=%1
+set DIRECTORY=%2
+
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp hungtsai@docker.nedv.hahaha.com:/%DIRECTORY%/%TAR_FILE% %TAR_FILE%  
+############################
+
+EX :
+1>Tranfer_File_From_Server_To_Local application-default.properties opt/aloha/test/dm-admin/environment
+
+2>Tranfer_File_From_Server_To_Local docker.run.sh opt/aloha/test/dm-admin/bin
+
+--------------------------------------------------
+
+Tranfer_File_From_Local_To_Server.bat
+############################
+@echo off
+
+set TAR_FILE=%1
+set DIRECTORY=%2
+
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  hungtsai@docker.nedv.hahaha.com:/%DIRECTORY%/%TAR_FILE%
+############################
+
+EX : 
+
+Tranfer_File_From_Local_To_Server application-default.properties opt/aloha/prod/dm-admin/environment
+
+Tranfer_File_From_Local_To_Server docker.run.sh opt/aloha/prod/dm-admin/bin
+
+////////////////////////////////////////////////
+
+logon to docker server using putty
+
+Deploy image to docker: /usr/local/bin/docker_load_image.sh
+/usr/local/bin/docker_load_image.sh dm-listener-5.22.0_180.tar.gz
+
+run new image
+./docker.run.sh dm-listener-5.22.0:180
+
+docker stop dm-listener-amptest
+docker start dm-listener-amptest
+docker restart dm-listener-amptest
+
+tail -20 listenerServer.log
+tail -f listenerServer.log
+
+confirm new build is running
+docker image ls
+docker image ls | grep dm-listen
+docker container ls | grep dm-listen
