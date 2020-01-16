@@ -1,0 +1,3 @@
+https://www.base64decode.org/
+
+saml usually base 64 encoded.  you can decode it using this site
