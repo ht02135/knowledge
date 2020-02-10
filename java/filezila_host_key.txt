@@ -1,0 +1,45 @@
+https://stackoverflow.com/questions/44089/how-to-extract-sftp-ssh-key-from-key-cache-in-filezilla-ftp-client
+
+If you use the standard openssh console client (cygwin or from linux), host keys are stored, one-per-line, in ~/.ssh/known_hosts. From there, it's a simple matter of figuring out which bit of that host key is needed for your library.
+
+Putty also stores host keys, but it appears to encode them in hex. Those can be found at HKCUR\Software\SimonTatham\PuTTY\SshHostKeys
+
+Thomas was correct. FileZilla piggybacks on PuTTY's PSFTP program and stores the saved keys encoded in a hex format at the registry key he listed (HKCUR\Software\SimonTatham\PuTTY\SshHostKeys). I needed the key in known_hosts format, so I has able to install a windows version of openssh at his recommendation and used the ssh-keyscan tool to hit the server and save the key info out in the correct format:
+
+ssh-keyscan -t rsa <my_ftp_ip_address> > c:\known_hosts
+ssh-keyscan -t dsa <my_ftp_ip_address> > c:\known_hosts
+
+//////////
+
+https://ubccr.freshdesk.com/support/solutions/articles/13000036435-using-ssh-keys-with-filezilla-windows-
+
+Protocol: SFTP - SSH File Transfer Protocol (select from drop down menu)
+
+Hostname: transfer.ccr.buffalo.edu  NOTE: we recommend using the transfer server for faster networking; however, you can enter any CCR login server name here
+
+Port: 22
+
+Logon Type: Key file (select from drop down menu)
+
+User:  Your CCR Username
+
+Key file:  Click browse and navigate to the location of your PRIVATE keyfile ending in .ppk
+
+///////////
+
+http://www.hawaii.edu/askus/1468
+
+FileZilla
+1.  Open FileZilla.
+2.  Under "Edit" menu, select "Settings.
+3.  In left column, under "Connection, select "SFTP."
+4.  In right window, highlight they key and click on "Remove key."
+5.  Click on "OK."
+
+///////////////
+
+filezila, when it connect to ftp site via sftp port 22, it need host key of ftp site.
+
+filezila uses putty to save host key of ftp site.  you need to use putty to add new host key for the ftp host you want to connect to
+
+
