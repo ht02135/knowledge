@@ -37,3 +37,14 @@ select distinct ct.reporting_segment
 from communication_template as ct with(nolock)
 where 1=1
 and ct.communication_template_type in ('Email')
+		  
+select distinct ct.*
+from communication_template as ct with(nolock)
+where 1=1
+and ct.communication_template_id in (
+	select max(ct2.communication_template_id)
+	from communication_template as ct2 with(nolock)
+	where 1=1
+	and ct2.communication_template_type in ('Email')
+	group by ct2.reporting_segment
+)
