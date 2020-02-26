@@ -27,5 +27,13 @@ select
 	count(case when ct.communication_template_type in ('Email') then ct.reporting_segment end) as count,
 	count(distinct case when ct.communication_template_type in ('Email') then ct.reporting_segment end) as unique_count
 from communication_template as ct with(nolock)
-		  
-		  
+
+select ct.reporting_segment
+from communication_template as ct with(nolock)
+where 1=1
+and ct.communication_template_type in ('Email')
+
+select distinct ct.reporting_segment
+from communication_template as ct with(nolock)
+where 1=1
+and ct.communication_template_type in ('Email')
