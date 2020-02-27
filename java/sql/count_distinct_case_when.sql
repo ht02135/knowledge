@@ -48,3 +48,27 @@ and ct.communication_template_id in (
 	and ct2.communication_template_type in ('Email')
 	group by ct2.reporting_segment
 )
+
+	-----------------
+	
+		select min(email_statistic_id)
+	from email_statistic WITH(NOLOCK)
+	where 1=1
+	and comm_wave_event_id = 62880
+	group by email_address
+	
+	select min(email_statistic_id), email_address
+	from email_statistic WITH(NOLOCK)
+	where 1=1
+	and comm_wave_event_id = 62880
+	group by email_address
+	
+select em2.*
+FROM email_statistic em2 WITH(NOLOCK)
+where 1=1
+and em2.email_statistic_id in (
+	select min(email_statistic_id)
+	from email_statistic WITH(NOLOCK)
+	where 1=1
+	group by comm_wave_event_id,email_address
+	having comm_wave_event_id = 62880
