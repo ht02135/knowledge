@@ -16,8 +16,17 @@ order by --communication_id,
 	Hour
 
 /////////////////
-				      
-				      select --communication_id,
+
+DECLARE @StartDate DATETIME,
+        @EndDate DATETIME,
+        @ExecutionDates DATETIME,
+        @NumberOfMonths BIGINT 
+        SET @NumberOfMonths = 0 /* Use "-" + the number of months you want to pull the report for (For Example 6 months = -6) */ 
+        SET @StartDate = dateadd(mm, @NumberOfMonths, getdate()) 
+        SET @StartDate = dateadd(dd, datepart(dd, getdate())*-1, @StartDate) 
+        SET @EndDate = dateadd(mm, 0, getdate()) 
+			       
+select --communication_id,
     datepart(year,cpe.creation_date) as Year,
     datepart(month,cpe.creation_date) as Month,
     datepart(day,cpe.creation_date) as Day,
