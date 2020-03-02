@@ -113,49 +113,58 @@ SELECT
                       CURRENT_TIMESTAMP AS event_timestamp,
                       em.stored_list_member_id,
                       comm.communication_id
-	FROM email_statistic em WITH(NOLOCK)
-	INNER HASH JOIN stored_list_member slm WITH(NOLOCK) on slm.stored_list_member_id = em.stored_list_member_id
-		and slm.email_addr = em.email_address	
-INNER JOIN communication comm WITH(NOLOCK) on comm.communication_id = em.communication_id
-	INNER JOIN communication_wave cw WITH(NOLOCK) on cw.communication_wave_id = isnull(em.comm_wave_id,0)
-	INNER JOIN communication_wave_event cwe WITH(NOLOCK) on cwe.communication_wave_event_id = isnull(em.comm_wave_event_id,0)
-	WHERE 1 = 1
-AND ((
-		(((@viewId = 1) AND (em.event_id = 1)) OR 			-- Sent (sentCount)
-	 ((@viewId = 5) AND (em.qpcode in (1041,1040)))    	-- Bounces (bounces)
-) 
-AND em.email_statistic_id in (
-			select em2.email_statistic_id 
-			from email_statistic as em2 WITH(NOLOCK)
-			INNER HASH JOIN stored_list_member slm2 on slm2.stored_list_member_id = em2.stored_list_member_id  
-				--and slm2.email_addr = em2.email_address
-				--and em2.comm_wave_event_id = @eventId
-			where 1=1
-			and em2.comm_wave_event_id = @eventId
-	) 
-	 ) OR
-	 (
-		(((@viewId = 2) AND (em.qpcode in (1020,1021))) OR 	-- Unique Opens (uniqueOpensCount)
-	 	 ((@viewId = 3) AND (em.qpcode in (1071,1070))) OR 	-- Clicks (uniqueClicksCount)
-	 	 ((@viewId = 4) AND (em.qpcode in (1042,1043,1044,1045,1046,1052,1054,1055,1056,1058,1064,1103))) 	-- Opt Outs (optOutCount)
-		)
-		AND em.email_statistic_id in (
-			select max(em3.email_statistic_id)
-			from email_statistic as em3 WITH(NOLOCK)
-			INNER HASH JOIN stored_list_member slm3 on slm3.stored_list_member_id = em3.stored_list_member_id
-				--and slm3.email_addr = em3.email_address
-				--and em3.comm_wave_event_id = @eventId
-			where 1=1
-			group by em3.comm_wave_event_id, em3.email_address, em3.qpcode
-			having em3.comm_wave_event_id = @eventId
-		)
-	 )
-)
+FROM communication_wave_event cwe WITH(NOLOCK) 
+INNER JOIN communication_wave cw WITH(NOLOCK) ON cw.communication_wave_id = cwe.communication_wave_id
+INNER JOIN communication comm WITH(NOLOCK) ON comm.communication_id = cw.communication_id
+inner join email_statistic em WITH(NOLOCK) ON cwe.communication_wave_event_id = isnull(em.comm_wave_event_id,0)
 	AND em.comm_wave_event_id = @eventId
-	AND comm.user_id = @currentUserId
+	AND ((
+			(((@viewId = 1) AND (em.event_id = 1)) OR 						-- Sent (sentCount)
+		 	 ((@viewId = 5) AND (em.qpcode in (1041,1040)))    				-- Bounces (bounces)
+			) 
+			AND em.email_statistic_id in (
+				select em2.email_statistic_id 
+				FROM communication_wave_event cwe2 WITH(NOLOCK) 
+				INNER JOIN email_statistic as em2 WITH(NOLOCK) ON cwe2.communication_wave_event_id = isnull(em2.comm_wave_event_id,0)
+					and em2.comm_wave_event_id = @eventId
+					and (((@viewId = 1) AND (em2.event_id = 1)) OR 			-- Sent (sentCount)
+		 			 	 ((@viewId = 5) AND (em2.qpcode in (1041,1040)))    -- Bounces (bounces)
+					)
+				INNER JOIN stored_list_member slm2 WITH(NOLOCK) on slm2.stored_list_member_id = em2.stored_list_member_id 
+					and slm2.email_addr = em2.email_address
+			) 
+	 	) OR
+	 	(
+			(((@viewId = 2) AND (em.qpcode in (1020,1021))) OR 					-- Unique Opens (uniqueOpensCount)
+	 	 	 ((@viewId = 3) AND (em.qpcode in (1071,1070))) OR 					-- Clicks (uniqueClicksCount)
+	 	 	 ((@viewId = 4) AND (em.qpcode in (1042,1043,1044,1045,1046,1052,1054,1055,1056,1058,1064,1103))) 	-- Opt Outs (optOutCount)
+			)
+			AND em.event_timestamp in (
+				select min(em3.event_timestamp)
+				FROM communication_wave_event cwe3 WITH(NOLOCK) 
+				INNER JOIN email_statistic as em3 WITH(NOLOCK) ON cwe3.communication_wave_event_id = isnull(em3.comm_wave_event_id,0)
+					and em3.comm_wave_event_id = @eventId
+					and (((@viewId = 2) AND (em3.qpcode in (1020,1021))) OR 	-- Unique Opens (uniqueOpensCount)
+	 	 			 	 ((@viewId = 3) AND (em3.qpcode in (1071,1070))) OR 	-- Clicks (uniqueClicksCount)
+	 	 			 	 ((@viewId = 4) AND (em3.qpcode in (1042,1043,1044,1045,1046,1052,1054,1055,1056,1058,1064,1103))) 	-- Opt Outs (optOutCount)
+					)	
+				INNER JOIN stored_list_member as slm3 WITH(NOLOCK) on slm3.stored_list_member_id = em3.stored_list_member_id 
+					and slm3.email_addr = em3.email_address
+				where 1=1
+				group by em3.comm_wave_event_id, em3.qpcode, em3.email_address
+				having em3.comm_wave_event_id = @eventId
+			)
+	 	)
+	)
+INNER JOIN stored_list_member slm WITH(NOLOCK) ON slm.stored_list_member_id = em.stored_list_member_id 
+	and slm.email_addr = em.email_address
+WHERE 1 = 1
+AND comm.user_id = @currentUserId
      )AS a) AS b
 WHERE (@pageSize = 0)
   OR (num BETWEEN @firstRecord AND @lastRecord)
 ORDER BY num
+
+	
 
 
