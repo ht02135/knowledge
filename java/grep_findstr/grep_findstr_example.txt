@@ -1,0 +1,43 @@
+findstr /M transactionId=12345 \\test\c$\application-logs\testApp\*
+
+/////////////
+
+https://mkyong.com/linux/grep-for-windows-findstr-example/
+
+1.1 Classic example to filter a listing result.
+
+#Linux
+$ ls -ls | grep mkyong
+
+#Windows
+c:\> dir | findstr mkyong
+
+////////////
+
+1.2 Add ignore case, and filter the listing result with multiple strings.
+
+#Linux - Need '-E' option and Uses "|" to separate multiple search strings.
+$ ls -ls | grep -iE "mkyong|music"
+
+#Windows - Use spaces to separate multiple search strings
+c:\> dir | findstr -i "mkyong music"
+
+/////////////////////
+
+2.1 Search matched string in a file.
+
+#Linux 
+$ grep mkyong test.txt
+
+#Windows
+c:\> findstr mkyong test.txt
+
+/////////////
+
+3.1 Search matched string in a list of files.
+
+#Linux
+$ grep mkyong -lr /path/folder
+
+#Windows
+c:\> findstr /M mkyong c:\folder\*
