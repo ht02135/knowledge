@@ -1,0 +1,32 @@
+
+dir | findstr -i "FTP server refused connection"
+
+dir | findstr -i "FTP login failed"
+
+dir | findstr -i "FTP cd failed"
+
+dir | findstr -i "FTP binary failed"
+
+dir | findstr -i "could not connect to ftp site"
+
+////////////
+
+https://bobcares.com/blog/ftp-read-timed-out/
+
+The standard FTP ports are 20 and 21, and these ports should be opened in the server for proper functioning of FTP.
+
+telnet aloha.com 20
+telnet aloha.com 21
+telnet aloha.com 22
+
+C:\Users\hungtsai>telnet aloha.com 20
+Connecting To aloha.com...Could not open connection to the host, on port
+ 20: Connect failed
+ 
+C:\Users\hungtsai>telnet aloha.com 21
+Connecting To aloha.com...Could not open connection to the host, on port
+ 21: Connect failed
+ 
+C:\Users\hungtsai>telnet aloha.com 22
+Connecting To aloha.com...Could not open connection to the host, on port
+ 22: Connect failed
