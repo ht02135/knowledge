@@ -1,17 +1,4 @@
-# Read the token/properties file
-#
-if [[ -e $tokenFile ]]; then
-    set -Ee    
-    while read -r line
-    do
-        cleanLine=${line//[$'\t\r\n']} && cleanLine=${cleanLine%%*( )}
-        if [ -z "$cleanLine" ]; then
-            # Blank line, do nothing
-            :
-        elif [[ $cleanLine =~ ^"#" ]]; then
-            # Comment line, do nothing
-            :
-        else
+
             IFS="=" arrToken=($cleanLine)
             key="@$(echo -e "${arrToken[0]}" | sed -e 's/[[:space:]]*$//')@"
             value="$(echo -e "${arrToken[1]}" | sed -e 's/^[[:space:]]*//')"
@@ -23,54 +10,8 @@ if [[ -e $tokenFile ]]; then
                value=${value//\~/\\~}
             fi
             tokens[$key]="${value}"
-        fi
-    done < ${tokenFile}
 
-    if [[ "$veryVerbose" == "on" ]]; then
-        for token in "${!tokens[@]}"
-        do
-            echo "token file token -> $token = ${tokens[$token]}";
-        done
-        echo ""
-    fi
-
-fi
-
-# ==============================================================================
-# Find the files and do the token replacement
-# ==============================================================================
-for scanDir in "${scanDirectories[@]}"
-do
-    if [[ "$verbose" == "on" ]]; then
-        echo "================================================================================"
-        echo "Scanning ${scanDir}..."
-        echo "================================================================================"
-    fi
-    unset intermediates; declare -a intermediates
-	# Does this require "--only-matching"?
-    readarray intermediates < <(grep --recursive --include='*.css' --include='*.htm' --include='*.html' --include='*.ini' --include='*.js' --include='*.json' --include='*.jsp' --include='*.less' --include='*.properties' --include='*.rptdesign' --include='*.xml' --files-with-matches --ignore-case --fixed-strings --file ${grepFile} ${scanDir})
-
-    scanLoopCounter=1
-    while [[ ${#intermediates[@]} -gt 0 ]]; do
-        if [[ "$verbose" == "on" ]]; then
-            echo "    Pass #${scanLoopCounter}:"
-        fi
-
-        # Remove any tabs, carriage-returns and newlines from the file names
-        #   and add to an associative array
-        #
-        unset cleanCandidates; declare -A cleanCandidates=()
-        for item in "${intermediates[@]}"; do
-            cleanItem=${item//[$'\t\r\n']} && cleanItem=${cleanItem%%*( )}
-            cleanCandidates[$cleanItem]=1
-        done
-
-        # Grab the keys from the associative array (ensures uniqueness)
-        #
-        unset finalCandidates; declare -a finalCandidates
-        for key in "${!cleanCandidates[@]}"; do
-            finalCandidates+=(${key})
-        done
+-------------------------------
 
         # Do the token replacement for the candidate files
         #
@@ -82,19 +23,6 @@ do
             fi
             sed -b -f ${sedFile} -i ${candidate}
         done
-
-        readarray intermediates < <(grep --recursive --include='*.css' --include='*.htm' --include='*.html' --include='*.ini' --include='*.js' --include='*.json' --include='*.jsp' --include='*.less' --include='*.properties' --include='*.rptdesign' --include='*.xml' --files-with-matches --ignore-case --fixed-strings --file ${grepFile} ${scanDir})
-        scanLoopCounter=$(expr $scanLoopCounter + 1)
-        if [[ scanLoopCounter -gt ${scanLoopLimit} ]]; then
-            echo "The directory '${scanDir}' has been scanned ${scanLoopCounter} times and still has tokens that need to be replaced; there's probably a property missing."
-            break
-        fi
-    done
-    if [[ "$verbose" == "on" ]]; then
-        echo "================================================================================"
-        echo ""
-    fi
-done
 
 /////////////////////////
 
