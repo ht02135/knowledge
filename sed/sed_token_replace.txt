@@ -95,3 +95,20 @@ do
         echo ""
     fi
 done
+
+/////////////////////////
+
+sed --debug -b -f ${sedFile} -i ${candidate}
+
+sed --debug -b -f C:/Temp/target/tmp/test.sed -i C:/Temp/target/tmp/index.jsp
+
+test.sed contains
+s~@jdbc.password@~aoha~g
+
+which parse from environment.properties
+password=aoha
+
+sed --debug -b -e "s~@password@~aoha~g" -i C:/Temp/target/tmp/index.jsp
+
+
+
