@@ -1,0 +1,81 @@
+https://www.tecmint.com/18-tar-command-examples-in-linux/
+
+1>Create tar Archive File
+# tar -cvf tecmint-14-09-12.tar /home/tecmint/
+
+/home/tecmint/phpmyadmin-2.11.11.3-1.el5.rf.noarch.rpm
+/home/tecmint/rpmforge-release-0.5.2-2.el5.rf.i386.rpm
+
+c – Creates a new .tar archive file.
+v – Verbosely show the .tar file progress.
+f – File name type of the archive file.
+
+--------------------
+
+2>Create tar.gz Archive File
+# tar cvzf MyImages-14-09-12.tar.gz /home/MyImages
+
+/home/MyImages/
+/home/MyImages/Sara-Khan-and-model-Priyanka-Shah.jpg
+/home/MyImages/RobertKristenviolent101201.jpg
+
+create a compressed gzip archive file we use the option as z
+
+---------------------------
+
+3>Untar tar Archive File
+## Untar files in Current Directory ##
+# tar -xvf public_html-14-09-12.tar
+
+## Untar files in specified Directory ##
+# tar -xvf public_html-14-09-12.tar -C /home/public_html/videos/
+
+---------------------------------------
+
+4>Uncompress tar.gz Archive File
+# tar -xvf thumbnails-14-09-12.tar.gz
+
+--------------------------------------
+
+5>List Content tar.gz Archive File
+# tar -tvf staging.tecmint.com.tar.gz
+
+-rw-r--r-- root/root         0 2012-08-30 04:03:57 staging.tecmint.com-access_log
+-rw-r--r-- root/root       587 2012-08-29 18:35:12 staging.tecmint.com-access_log.1
+-rw-r--r-- root/root       156 2012-01-21 07:17:56 staging.tecmint.com-access_log.2
+-rw-r--r-- root/root       156 2011-12-21 11:30:56 staging.tecmint.com-access_log.3
+
+---------------------------
+
+6>strip
+
+## Untar files in specified Directory ##
+# tar -xvf public_html-14-09-12.tar -C /home/public_html/videos/
+
+# tar xvzf FILE --strip-components 1 -C DESTINATION
+
+////////////////////
+
+# tar -cvf tecmint-14-09-12.tar /home/tecmint/
+# tar cvzf MyImages-14-09-12.tar.gz /home/MyImages
+
+C:\Temp\erietestrelease\dm-admin
+
+# create archive
+# tar cvzf dm-admin-image.tar.gz C:\Temp\erietestrelease
+
+# list content
+tar -tvf dm-admin-image.tar.gz
+
+drwxrwxrwx  0 0      0           0 Nov 12 22:00 Temp/erietestrelease/
+drwxrwxrwx  0 0      0           0 Nov 12 22:01 Temp/erietestrelease/dm-admin/
+drwxrwxrwx  0 0      0           0 Nov 12 22:02 Temp/erietestrelease/dm-admin/bin/
+drwxrwxrwx  0 0      0           0 Nov 12 22:02 Temp/erietestrelease/dm-admin/environment/
+drwxrwxrwx  0 0      0           0 Nov 12 22:00 Temp/erietestrelease/dm-admin/log/
+-rw-rw-rw-  0 0      0        1714 Nov 12 22:02 Temp/erietestrelease/dm-admin/environment/application.txt
+-rw-rw-rw-  0 0      0        1714 Nov 12 22:02 Temp/erietestrelease/dm-admin/bin/run.txt
+
+# strip
+# tar xvzf dm-admin-image.tar.gz --strip-components 2 -C C:\Temp\erieprod
+
+
