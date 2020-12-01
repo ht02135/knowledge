@@ -1,0 +1,18 @@
+
+sc queryex remote_server_aloha
+sc \\APP100A queryex remote_server_aloha
+
+SERVICE_NAME: remote_server_aloha
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 4  RUNNING
+                                (STOPPABLE, NOT_PAUSABLE, ACCEPTS_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x0
+        PID                : 1234
+        FLAGS              :
+        
+taskkill /f /pid 1234
+Taskkill /S APP100A /f /PID 1234
+
