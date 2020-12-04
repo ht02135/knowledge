@@ -1,0 +1,27 @@
+# is the id selector which is used to specify a style for a single, unique element.
+. is the class selector is used to specify a style for a group of elements.
+
+--------------
+
+apply to global class selector
+{code}
+.glyphicon-chevron-left:before {
+    content: "\e079";
+    margin-left: -125px;
+}
+.glyphicon-chevron-right:before {
+    content: "\e080";
+    margin-right: -147px;
+}
+{code}
+
+apply only to class selector within 'recommendationsComponent' element.  it override global one
+{code}
+#recommendationsComponent .glyphicon-chevron-left:before {
+  margin-left:-1px
+}
+
+#recommendationsComponent .glyphicon-chevron-right:before {
+  margin-right:-1px
+}
+{code}
