@@ -1,0 +1,65 @@
+
+https://regexr.com/
+
+regex_url=[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)
+
+regex_url=^(http|https|ftp):[\/]{2}([a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4})(:[0-9]+)?\/?([a-zA-Z0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~]*
+
+regex_url=^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$
+
+regex_url=[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)
+
+//////////////////////////////////////
+
+erie_regex=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)$
+
+erie_regex_enhance=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)(\/[a-zA-Z0-9-]*)*$
+
+^(http:\/\/www.|https:\/\/www.|www.) = begin with http://www. or https://www. or www.
+
+[a-zA-Z0-9-]+ = match lower or upper letter or number. + is one or more
+
+cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU) = match these
+
+(\/[a-zA-Z0-9-]*)* = match /blabla/blabla.  how to avoid ////
+
+we want match
+http://www.test.com
+http://www.test.com/
+http://www.test.com/erie
+http://www.test.com/erie/
+http://www.test.com/erie/erie
+http://www.test.com/erie/erie/
+
+///////////////////////////////////////
+
+anchor
+^The        matches any string that starts with The -> Try it!
+end$        matches a string that ends with end
+^The end$   exact string match (starts and ends with The end)
+
+Quantifiers — * + ? and {}
+abc+        matches a string that has ab followed by one or more c
+abc?        matches a string that has ab followed by zero or one c
+a(bc)*      matches a string that has a followed by zero or more copies of the sequence bc
+
+OR operator — | or []
+a(b|c)     matches a string that has a followed by b or c (and captures b or c)
+a[bc]      same as previous, but without capturing b or c
+
+Character classes — \d \w \s and .
+\d         matches a single character that is a digit
+\w         matches a word character (alphanumeric character plus underscore)
+\s         matches a whitespace character (includes tabs and line breaks)
+.          matches any character 
+
+need to use '\' to escape '^.[$()|*+?'
+
+Grouping and capturing — ()
+a(bc)           parentheses create a capturing group with value bc 
+
+Bracket expressions — []
+[abc]          a or b or c
+[a-c]          same as previous
+[^abc] 	       any character _except_ a, b, or c (negation)
+[a-zA-Z]       a through z or A through Z, inclusive (range)
