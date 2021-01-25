@@ -15,6 +15,8 @@ erie_regex=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|or
 
 erie_regex_enhance=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)(\/[a-zA-Z0-9-]*)*$
 
+erie_regex_enhance2="^(http://www.|https://www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)([/][a-zA-Z0-9-]*)?$"
+
 ^(http:\/\/www.|https:\/\/www.|www.) = begin with http://www. or https://www. or www.
 
 [a-zA-Z0-9-]+ = match lower or upper letter or number. + is one or more
@@ -30,6 +32,10 @@ http://www.test.com/erie
 http://www.test.com/erie/
 http://www.test.com/erie/erie
 http://www.test.com/erie/erie/
+
+///////////////////////////////////////
+
+validationRegexEmail="^\S+@\S+\.\S{2,6}$"
 
 ///////////////////////////////////////
 
@@ -63,3 +69,9 @@ Bracket expressions — []
 [a-c]          same as previous
 [^abc] 	       any character _except_ a, b, or c (negation)
 [a-zA-Z]       a through z or A through Z, inclusive (range)
+[D]an - Matches “Dan”, not very useful.
+[DB]an - Matches “Dan” and “Ban” (first letter can be "D" or "B").
+[DBTP]an - Matches “Dan”, “Ban”, “Tan”, and “Pan”.
+
+\s matches whitespace (spaces, tabs and new lines). \S is negated \s
+\S matches anything but a whitespace
