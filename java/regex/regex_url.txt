@@ -11,11 +11,11 @@ regex_url=[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-
 
 //////////////////////////////////////
 
-erie_regex=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)$
+regex=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)$
 
-erie_regex_enhance=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)(\/[a-zA-Z0-9-]*)*$
+regex_enhance=^(http:\/\/www.|https:\/\/www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)(\/[a-zA-Z0-9-]*)*$
 
-erie_regex_enhance2="^(http://www.|https://www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)([/][a-zA-Z0-9-]*)?$"
+regex_enhance2="^(http://www.|https://www.|www.)[a-zA-Z0-9-]+.(cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU)([/][a-zA-Z0-9-]*)?$"
 
 ^(http:\/\/www.|https:\/\/www.|www.) = begin with http://www. or https://www. or www.
 
@@ -28,10 +28,7 @@ cc|bz|CC|BZ|com|org|net|mil|biz|edu|us|US|co|CO|COM|ORG|NET|MIL|EDU) = match the
 we want match
 http://www.test.com
 http://www.test.com/
-http://www.test.com/erie
-http://www.test.com/erie/
-http://www.test.com/erie/erie
-http://www.test.com/erie/erie/
+http://www.test.com/lala
 
 ///////////////////////////////////////
 
