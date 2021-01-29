@@ -10,3 +10,33 @@ sc \\APP23A config haha_service_name start= demand
 you set service to auto via:
 ----------------------
 sc \\APP23A config haha_service_name start= AUTO 
+
+////////////////////////////////////////
+////////////////////////////////////////
+
+remote set manual
+sc \\APP100A config alohaApp start= demand
+
+remote set AUTO
+sc \\APP100A config alohaApp start= AUTO
+
+////////////////////////////////////////
+////////////////////////////////////////
+
+sc \\APP100A queryex alohaApp
+
+SERVICE_NAME: alohaApp
+        TYPE               : 10  WIN32_OWN_PROCESS
+        STATE              : 4  RUNNING
+                                (STOPPABLE, NOT_PAUSABLE, ACCEPTS_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x0
+        PID                : 1111
+        FLAGS              :
+
+Taskkill /S APP100A /f /PID 1111
+
+////////////////////////////////////////
+////////////////////////////////////////
