@@ -4,14 +4,21 @@ www.oloha1.com.cert -- site cert
 keytool -delete -alias "oloha1" -keystore "oloha1-identity.jks" -storepass "hahapwd"
 keytool -list -v -keystore "oloha1-identity.jks" -storepass "hahapwd"
 
-1>Generate pkcs12 type keystore with openssl
+1>Generate pkcs12 type keystore with openssl (www.oloha1.com.p12 is PKCS12 file)
 openssl pkcs12 -export -in www.oloha1.com.cert -inkey www.oloha1.com.key -name oloha1 -password pass:hahapwd -out www.oloha1.com.p12
 
-2>Generate JKS keystore with java keytool
+2>Generate JKS keystore with java keytool (identity-test.jks Java keystore from www.oloha1.com.p12 PKCS12 file)
 keytool -importkeystore -deststorepass hahapwd -destkeystore identity-test.jks -srckeystore www.oloha1.com.p12 -srcstoretype PKCS12 -srcstorepass hahapwd
 
-3>Generate PKCS12 keystore with java keytool
+copy identity-test.jks oloha1-identity.jks
+
+3>Generate PKCS12 keystore with java keytool (probably should be skipped)
 keytool -importkeystore -srckeystore identity-test.jks -srcstorepass hahapwd -deststorepass hahapwd -destkeystore oloha1-identity.jks -deststoretype pkcs12
+
+translate to
+keytool -importkeystore -deststorepass hahapwd destkeystore oloha1-identity.jks -srckeystore identity-test.jks -deststoretype pkcs12 -srcstorepass hahapwd 
+
+note : to me, this is probably wrong.  seems like double down on pkcs12 (probably should be skipped)
 
 4>Verify keystore contents
 keytool -list -v -keystore oloha1-identity.jks -storepass hahapwd
