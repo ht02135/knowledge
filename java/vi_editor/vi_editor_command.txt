@@ -1,0 +1,11 @@
+===============================
+type 'i'   to enter insert mode
+type 'ESC' to exit insert mode
+type ':wq' and 'RETURN' to save file and quit
+===============================
+
+seriously, in term of whole useless vi command.
+you just need those 3 command and directional keys.
+
+
+
