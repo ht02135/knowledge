@@ -2,6 +2,7 @@
 type 'i'   to enter insert mode
 type 'ESC' to exit insert mode
 type ':wq' and 'RETURN' to save file and quit
+type ':q' and 'RETURN' to quit without saying
 ===============================
 
 seriously, in term of whole useless vi command.
