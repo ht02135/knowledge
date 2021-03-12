@@ -7,5 +7,5 @@ type ':wq' and 'RETURN' to save file and quit
 seriously, in term of whole useless vi command.
 you just need those 3 command and directional keys.
 
-
+serious, why people prefer vi editor over other editor is beyond.  doing thing in vi editor is just not productive at all.
 
