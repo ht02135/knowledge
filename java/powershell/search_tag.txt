@@ -1,0 +1,12 @@
+
+look for "*_TMPL.html"
+
+$output = foreach ($file in Get-ChildItem -Path "C:\Hung\creatives\viewfile" -Filter "*TMPL.html" | Select-String -pattern "@[@optout]" | Select-Object -Unique path) {$file.path}
+
+$output | Out-File "C:\Hung\creatives\tmpl_html.txt" -Append 
+
+-----------------------------
+
+run on dos
+
+powershell -ExecutionPolicy Bypass "foreach ($file in Get-ChildItem -Path 'C:\Hung\creatives\viewfile' -Filter '*.html' | Select-String -pattern '@[@optout]' | Select-Object -Unique path) {$file.path}" >> C:\Hung\creatives\tmpl_html.txt
