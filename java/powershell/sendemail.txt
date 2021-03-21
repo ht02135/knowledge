@@ -1,0 +1,8 @@
+dos command
+
+set Subject=robocopy_files_realrun_test 
+set Body=robocopy_files_realrun_test 
+
+set Command="& {Send-MailMessage -To 'hello.aloha@test.com' -From 'hello.aloha@test2.com' -SMTPServer test05.nedv.test2.com -Subject '%Subject%' -Body '%Body%' -Attachments 'robocopy_test_commands.log','robocopy_files_realrun_test_creatives.log','robocopy_files_realrun_test_extracts.log','robocopy_files_realrun_test_ids-docs.log','robocopy_files_realrun_test_psd.log','robocopy_files_realrun_test_qxps-docs.log','robocopy_files_realrun_test_uploads.log','robocopy_files_realrun_test_output.log'}"
+
+powershell -command %Command%
