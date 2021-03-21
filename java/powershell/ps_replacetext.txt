@@ -1,0 +1,28 @@
+https://mcpmag.com/articles/2018/08/08/replace-text-with-powershell.aspx
+
+1>I'll first need to read the text file using the Get-Content cmdlet.
+
+PS C:\> Get-Content -path C:\ReplaceDemo.txt
+The quick brown fox jumped over the lazy dog
+
+-------------
+
+2>To perform a find/replace in a text file, it's much easier to return the contents via single string. We'll add the Raw parameter to do that.
+
+PS C:\> Get-Content -path C:\ReplaceDemo.txt -Raw
+The quick brown fox jumped over the lazy dog
+
+-------------
+
+Notice that the Get-Content command execution is in parentheses. This is required to ensure Get-Content is complete before attempting any replace operation on its output.
+
+PS> (Get-Content -path C:\ReplaceDemo.txt -Raw) -replace 'brown','white'
+The quick white fox jumped over the lazy dog
+
+-------------
+
+Now that we have the code to find and replace the string we're after, it's now time to modify the file itself. We can do that by using Set-Content. Unlike Add-Content, Set-Content overwrites a file
+
+PS C:\> ((Get-Content -path C:\ReplaceDemo.txt -Raw) -replace 'brown','white') | Set-Content -Path C:\ReplaceDemo.txt
+PS C:\> Get-Content -path C:\ReplaceDemo.txt
+The quick white fox jumped over the lazy dog
