@@ -1,6 +1,5 @@
 <#
 file_name = find_and_replace_text.ps1
-
 .SYNOPSIS
     .
 .DESCRIPTION
@@ -21,6 +20,10 @@ file_name = find_and_replace_text.ps1
 	
 	dos prompt
 	powershell -ExecutionPolicy Bypass "C:\Temp\find_and_replace_text.ps1 'C:\Temp\creativeFolder' 'C:\Temp\creativeFolder.log' 'C:\Temp\creativeFolderBackup'"
+	
+	D:\Hung\Work\PowerShell
+	dos prompt
+	powershell -ExecutionPolicy Bypass "D:\Hung\Work\PowerShell\find_and_replace_text.ps1 'D:\Hung\Work\PowerShell\creativeFolder' 'D:\Hung\Work\PowerShell\creativeFolder.log' 'D:\Hung\Work\PowerShell\creativeFolderBackup'"
 #>
 param (
 	[Parameter(Mandatory=$true)][string]$SearchPath,
@@ -56,19 +59,32 @@ $ReplaceString4  = $ReplaceString
 
 <#
 "test_@[@optout]_test" -replace [regex]::escape("@[@optout]"), "(converted_optout)"
+========================
+Out-File -Encoding Ascii -append textfile.txt
+"This is a test" | Add-Content textfile.txt
 #>
 
-## write to log file to clear contents (overwrite)
-Get-Date -UFormat "[%Y-%m-%d %I:%M %p] search path - $SearchPath" | Out-File -Encoding ASCII $LogName
+## remove '-Append' : write to log file to clear contents (overwrite)
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII $LogName
+
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] search path - $SearchPath" | Out-File -Encoding ASCII -Append $LogName
 Get-Date -UFormat "[%Y-%m-%d %I:%M %p] backup folder - $BackupFolder" | Out-File -Encoding ASCII -Append $LogName
 Get-Date -UFormat "[%Y-%m-%d %I:%M %p] log file - $LogName" | Out-File -Encoding ASCII -Append $LogName
-Write-Output "" | Out-File $LogName -Encoding ASCII
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
+
+##########################################################
+
+$output = foreach ($file in Get-ChildItem -Path $SearchPath -Filter "*.html" | Select-String -pattern $SearchString, $SearchString2 | Select-Object -Unique path) {$file.path}
+$output | Out-File -Encoding ASCII -Append $LogName
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
+
+##########################################################
 
 ## test if backup folder exist
 if ((Test-Path -PathType Container $BackupFolder) -eq $False) {
 	Get-Date -UFormat "[%Y-%m-%d %I:%M %p] backup folder does not exist...creating..." | Out-File -Encoding ASCII -Append $LogName
 	New-Item -ItemType Directory -Force -Path $BackupFolder
-	Write-Output "" | Out-File $LogName -Encoding ASCII
+	Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
 }
 
 ##########################################################
@@ -76,14 +92,13 @@ if ((Test-Path -PathType Container $BackupFolder) -eq $False) {
 ## get all *.html containing $SearchString
 $ChildItems=(Get-ChildItem -Path $SearchPath *.html -Recurse | Select-String -Pattern $SearchString, $SearchString2 -List | Select-Object -Expand Path)
 
-## iter thru each html
+## iter thru html
 $ChildItems | foreach-object {
 
 	## set current html
 	$ChildItem = $_
 
 	## copy html to $BackupFolder
-	Write-Output "" | Out-File $LogName -Encoding ASCII
 	Get-Date -UFormat "[%Y-%m-%d %I:%M %p] copying file $ChildItem" | Out-File -Encoding ASCII -Append $LogName
 	Copy-Item -LiteralPath $ChildItem -Destination $BackupFolder
 	
@@ -124,6 +139,8 @@ $ChildItems | foreach-object {
 	catch {
 		Get-Date -UFormat "[%Y-%m-%d %I:%M %p] [ERROR] could not update file $ChildItem" | Out-File -Encoding ASCII -Append $LogName
 	}	
+	
+	Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
 }
 
 ##### pad log
