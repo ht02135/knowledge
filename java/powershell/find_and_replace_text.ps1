@@ -60,6 +60,12 @@ $ReplaceString4  = $ReplaceString
 <#
 "test_@[@optout]_test" -replace [regex]::escape("@[@optout]"), "(converted_optout)"
 ========================
+'@[@optout]' -match '@\[@(.+)\]'
+true
+
+'@[@optout]' -match '@\[@([a-zA-Z]+)\]'
+true
+========================
 Out-File -Encoding Ascii -append textfile.txt
 "This is a test" | Add-Content textfile.txt
 #>
