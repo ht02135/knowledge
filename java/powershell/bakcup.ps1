@@ -20,7 +20,7 @@ file_name = bakcup.ps1
 	C:\PS> .\bakcup.ps1 'C:\creativeFolder' 'C:\creativeFolder.log' 'C:\creativeFolderBackup'
 	
 	dos prompt
-	powershell -ExecutionPolicy Bypass "C:\Temp\bakcup.ps1 'C:\Temp\creativeFolder' 'C:\Temp\creativeFolder.log' 'C:\Temp\creativeFolderBackup'"
+	powershell -ExecutionPolicy Bypass "D:\Hung\Work\PowerShell\bakcup.ps1 'C:\Temp\creativeFolder' 'C:\Temp\creativeFolder.log' 'C:\Temp\creativeFolderBackup'"
 	
 	C:\PS> .\bakcup.ps1 '\\gr-test\test\creativedirs\Dm5ErieTestRelease\creatives\viewfile' '.\Dm5ErieTestRelease.log' '.\Dm5ErieTestRelease_Backup'
 #>
@@ -71,6 +71,11 @@ Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $
 
 ##########################################################
 
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] all matches" | Out-File -Encoding ASCII -Append $LogName
+Get-ChildItem -Path $SearchPath *.html -Recurse | Select-String -Pattern $SearchString -allmatch | foreach-object {$_.matches.value} | Select-Object -unique | Out-File -Encoding ASCII -Append $LogName
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
+
+Get-Date -UFormat "[%Y-%m-%d %I:%M %p] all files" | Out-File -Encoding ASCII -Append $LogName
 $output = foreach ($file in Get-ChildItem -Path $SearchPath -Filter "*.html" | Select-String -pattern $SearchString | Select-Object -Unique path) {$file.path}
 $output | Out-File -Encoding ASCII -Append $LogName
 Get-Date -UFormat "[%Y-%m-%d %I:%M %p] ===" | Out-File -Encoding ASCII -Append $LogName
@@ -104,3 +109,4 @@ $ChildItems | foreach-object {
 Write-Output "" | Out-File -Encoding ASCII -Append $LogName
 
 Get-Date -UFormat "[%Y-%m-%d %I:%M %p] Exiting" | Out-File -Encoding ASCII -Append $LogName
+
