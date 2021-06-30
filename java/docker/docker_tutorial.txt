@@ -5,7 +5,7 @@ Tranfer_File_Image_to_Docker.bat
 @echo off
 set TAR_FILE=%1
 ECHO Transfer file %TAR_FILE%
-c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  HT@docker10.nedv.HT.com:
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  guest@docker10.haha.com:
 /home/DIREXXISDC/HT/%TAR_FILE%
 =============================
 
@@ -15,7 +15,7 @@ Tranfer_File_From_Server_To_Local.bat
 set TAR_FILE=%1
 set DIRECTORY=%2
 ECHO Transfer file %TAR_FILE%
-c:\"Program Files (x86)"\PuTTY\pscp HT@docker10.nedv.HT.com:/%DIRECTORY%/%TAR_FILE% %TAR_FILE%  
+c:\"Program Files (x86)"\PuTTY\pscp guest@docker10.haha.com:/%DIRECTORY%/%TAR_FILE% %TAR_FILE%  
 =============================
 
 Tranfer_File_From_Local_To_Server.bat
@@ -26,7 +26,7 @@ set TAR_FILE=%1
 set DIRECTORY=%2
 
 ECHO Transfer file %TAR_FILE%
-c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  HT@docker10.nedv.HT.com:/%DIRECTORY%/%TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  guest@docker10.haha.com:/%DIRECTORY%/%TAR_FILE%
 =============================
 
 docker.run.sh
@@ -74,9 +74,14 @@ run image
 docker image ls | grep admin
 docker container ls | grep admin
 
+check docker container health in browser
+http://docker10.haha.com:80/
+
+run in putty
+curl -k -v http://docker10.haha.com:80/
+
 docker stop admin-aloha
 docker start admin-aloha
 docker restart admin-aloha
 
 ####################################################
-
