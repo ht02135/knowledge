@@ -1,2 +1,82 @@
 https://www.youtube.com/watch?v=3c-iBn73dDE
 
+Tranfer_File_Image_to_Docker.bat
+=============================
+@echo off
+set TAR_FILE=%1
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  HT@docker10.nedv.HT.com:
+/home/DIREXXISDC/HT/%TAR_FILE%
+=============================
+
+Tranfer_File_From_Server_To_Local.bat
+=============================
+@echo off
+set TAR_FILE=%1
+set DIRECTORY=%2
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp HT@docker10.nedv.HT.com:/%DIRECTORY%/%TAR_FILE% %TAR_FILE%  
+=============================
+
+Tranfer_File_From_Local_To_Server.bat
+=============================
+@echo off
+
+set TAR_FILE=%1
+set DIRECTORY=%2
+
+ECHO Transfer file %TAR_FILE%
+c:\"Program Files (x86)"\PuTTY\pscp %TAR_FILE%  HT@docker10.nedv.HT.com:/%DIRECTORY%/%TAR_FILE%
+=============================
+
+docker.run.sh
+=============================
+APP_DOCKER_CONTAINER_NAME=admin-aloha
+IMAGE_TO_RUN=$1
+
+echo "Attempting to stop container with name ${APP_DOCKER_CONTAINER_NAME}"
+docker stop  ${APP_DOCKER_CONTAINER_NAME}
+echo "Attempting to remove container with name ${APP_DOCKER_CONTAINER_NAME}"
+docker rm  ${APP_DOCKER_CONTAINER_NAME}
+
+echo "Attempting to run"
+echo "expose the container’s port 8080 (standard http port) on the host’s port 80"
+echo "<host-path>:<container-path>"
+docker run --name ${APP_DOCKER_CONTAINER_NAME} --restart unless-stopped --detach --volume /mnt/gr-test/test:/mnt/gr-test/test --volume /opt/dm/aloha/admin/environment:/opt/dm/application/environment --volume /opt/dm/aloha/admin/logs:/opt/dm/application/logs --publish 80:8080 ${IMAGE_TO_RUN}
+
+RETVAL=$?
+
+if [ ${RETVAL} -ne 0 ]; then
+   echo "An error occurred"
+fi
+echo "done"
+exit ${RETVAL}
+=============================
+
+####################################################
+
+Tranfer_File_From_Server_To_Local docker.run.sh opt/dm/aloha/admin/bin
+Tranfer_File_From_Local_To_Server docker.run.sh opt/dm/aloha/admin/bin
+
+sudo bash
+sudo chown -R dmedge:docker aloha
+sudo chmod -R g+w aloha
+
+deploy image to docker
+/usr/local/bin/docker_load_image.sh admin-5.23.0_149.tar.gz 
+
+transfer image
+Tranfer_File_Image_toDocker admin-5.23.0_149.tar.gz
+
+run image
+./docker.run.sh admin-5.23.0:149
+
+docker image ls | grep admin
+docker container ls | grep admin
+
+docker stop admin-aloha
+docker start admin-aloha
+docker restart admin-aloha
+
+####################################################
+
