@@ -1,4 +1,8 @@
+docker container tutorial
 https://www.youtube.com/watch?v=3c-iBn73dDE
+
+jenkin pipeline using groovy
+https://www.youtube.com/watch?v=7KCS70sCoK0&t=337s
 
 Tranfer_File_Image_to_Docker.bat
 =============================
