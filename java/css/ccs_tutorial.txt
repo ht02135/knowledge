@@ -1,9 +1,13 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<title>CSS Tutorial</title>
-<style>
-
+	<title>CSS Tutorial</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
 /* ERIE CSS */
         #carousel_zone img{
             height: 250px;
@@ -87,7 +91,7 @@
  border: solid 1px #ccc;
  display: inline-block;
 }
-</style>
+	</style>
 </head>
 <body>
 
@@ -110,29 +114,13 @@
 <br>
 <br>
 
-ERIE message_code=HPQUICKLINKS
-<div class="row" id='m1'>
-<div class="htmlitem" style="display: inline-block;" >
-<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://www.test.com/ReachCustomersProspects_HmPg.png" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
+ERIE message_code=HPQUICKLINKS<br>
+<div class="row col-md-12" id='m1' style="border: 5px solid #000000;">
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
+<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
 </div>
-<div class="htmlitem" style="display: inline-block;">
-<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://www.test.com/ReachCustomersProspects_HmPg.png" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
-</div>
-</div>
-
-<br>
-<br>
-////////////////////////////////////////
-<br>
-<br>
-
-ERIE message_code=HPQUICKLINKS
-<div class="row" id='m2'>
-<div class="htmlitem" style="display: inline-block;" >
-<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://www.test.com/ReachCustomersProspects_HmPg.png" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
-</div>
-<div class="htmlitem" style="display: inline-block;">
-<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://www.test.com/ReachCustomersProspects_HmPg.png" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
+<a style="color:#474747" href="reachMyCustomers.jsp"> <div class="homeWhiteRow"> <img src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg" style="margin-left:auto; margin-right:auto; display: block;margin-bottom:5px;"> <div class="col-md-12"> <p class="homeBlueLabel text-center"> Reach My <br>Customers/Prospects </p> </div> <div class="col-md-12 homeBottomContainer" style="position: absolute; bottom: 10px; right: 0; left: 0;"> <p  class="text-center"> Email, direct mail, lists, cross sell, retention & prospecting programs such as Bullseye </p> </div> </div> </a>
 </div>
 </div>
 
@@ -142,13 +130,13 @@ ERIE message_code=HPQUICKLINKS
 <br>
 <br>
 
-ERIE message_code=SPOTLIGHT
-<div class="row" id='m3'>
-<div class="htmlitem" style="display: inline-block;" >
-<a style="color:white" href="https://02dfa05.netsolhost.com/erie/email/S1174_WhatWorks_x3-20210526092946.pdf#zoom=100" target="new"> <div style="background-color:#0b486b;width:100%;display:table;table-layout:fixed; box-shadow: 1px 1px 1px 1px #888888;padding: 20px 30px; height: 90px; " class="bg-primary"> <div style= "display:table-cell;vertical-align:middle;text-align:center;" class="row"> <div class="col-md-12"> <img style="display:block;margin-left:auto;margin-right:auto;"  src="https://www.eriemymarketing2.com/dmEdge5/img/AgentTestimonials_HmPg.png"></div> <div class="row" style="height:10px;"></div> <div class="col-md-12"> <p style="font-size:20px;" class="text-center"> What Works</p> </div> </div> </div> </a>
+ERIE message_code=SPOTLIGHT<br>
+<div class="row col-md-12" id='m3' style="border: 5px solid #000000;">
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
+<a style="color:white" href="https://02dfa05.netsolhost.com/erie/email/S1174_WhatWorks_x3-20210526092946.pdf#zoom=100" target="new"> <div style="background-color:#0b486b;width:100%;display:table;table-layout:fixed; box-shadow: 1px 1px 1px 1px #888888;padding: 20px 30px; height: 90px; " class="bg-primary"> <div style= "display:table-cell;vertical-align:middle;text-align:center;" class="row"> <div class="col-md-12"> <img style="display:block;margin-left:auto;margin-right:auto;"  src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg"></div> <div class="row" style="height:10px;"></div> <div class="col-md-12"> <p style="font-size:20px;" class="text-center"> What Works</p> </div> </div> </div> </a>
 </div>
-<div class="htmlitem" style="display: inline-block;" >
-<a style="color:white" href="https://02dfa05.netsolhost.com/erie/email/S1174_WhatWorks_x3-20210526092946.pdf#zoom=100" target="new"> <div style="background-color:#0b486b;width:100%;display:table;table-layout:fixed; box-shadow: 1px 1px 1px 1px #888888;padding: 20px 30px; height: 90px; " class="bg-primary"> <div style= "display:table-cell;vertical-align:middle;text-align:center;" class="row"> <div class="col-md-12"> <img style="display:block;margin-left:auto;margin-right:auto;"  src="https://www.eriemymarketing2.com/dmEdge5/img/AgentTestimonials_HmPg.png"></div> <div class="row" style="height:10px;"></div> <div class="col-md-12"> <p style="font-size:20px;" class="text-center"> What Works</p> </div> </div> </div> </a>
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
+<a style="color:white" href="https://02dfa05.netsolhost.com/erie/email/S1174_WhatWorks_x3-20210526092946.pdf#zoom=100" target="new"> <div style="background-color:#0b486b;width:100%;display:table;table-layout:fixed; box-shadow: 1px 1px 1px 1px #888888;padding: 20px 30px; height: 90px; " class="bg-primary"> <div style= "display:table-cell;vertical-align:middle;text-align:center;" class="row"> <div class="col-md-12"> <img style="display:block;margin-left:auto;margin-right:auto;"  src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg"></div> <div class="row" style="height:10px;"></div> <div class="col-md-12"> <p style="font-size:20px;" class="text-center"> What Works</p> </div> </div> </div> </a>
 </div>
 </div>
 
@@ -158,12 +146,12 @@ ERIE message_code=SPOTLIGHT
 <br>
 <br>
 
-NYL message_code=home_page_reservedSlot1_message
-<div class="row" id='m4'>
-<div class="htmlitem" style="display: inline-block;" >
+NYL message_code=home_page_reservedSlot1_message<br>
+<div class="row col-md-12" id='m4' style="border: 5px solid #000000;">
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
 <div style="background-image: url('https://www.test.com/clientimg/border.png'); background-size: 100% 100%; height: 360px; color: #53555c;"> <p style="font-size: 21px; padding: 10px; width: auto; height: auto; background-color: #586f9b; color: white; padding-left: :7px;"><strong>New Agent Marketing Package</strong></p> <div style="text-align: right; margin-top: -50px; margin-right: 5px;"> <p>&nbsp;</p> </div> <div style="padding: 20px;"><br /><br /> <div style="position: relative; float: left; height: 150px; padding-right: 10px;"><img src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg" width="125px" height="135px" /></div> <div style="padding-right: 5px; color: #53555c;"> <p>As a brand new agent, our goal is to help you get off to a fast start! Enroll today in this <strong>FREE</strong> program, which includes the multi-touch Relationship Marketing System (RMS). See below for the other great items included in this package and how you can best leverage this program as you begin your new career.</p> </div> <a style="text-decoration: underline;" href="https://www.test.com/LandingPage_newAgentBundle.jsp" target="_blank" rel="opener">Start your order process</a> <p>&nbsp;</p> </div> </div>
 </div>
-<div class="htmlitem" style="display: inline-block;" >
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
 <div style="background-image: url('https://www.test.com/clientimg/border.png'); background-size: 100% 100%; height: 360px; color: #53555c;"> <p style="font-size: 21px; padding: 10px; width: auto; height: auto; background-color: #586f9b; color: white; padding-left: :7px;"><strong>New Agent Marketing Package</strong></p> <div style="text-align: right; margin-top: -50px; margin-right: 5px;"> <p>&nbsp;</p> </div> <div style="padding: 20px;"><br /><br /> <div style="position: relative; float: left; height: 150px; padding-right: 10px;"><img src="https://02dfa05.netsolhost.com/nylife/email/AgentImage2-20210121115641.jpg" width="125px" height="135px" /></div> <div style="padding-right: 5px; color: #53555c;"> <p>As a brand new agent, our goal is to help you get off to a fast start! Enroll today in this <strong>FREE</strong> program, which includes the multi-touch Relationship Marketing System (RMS). See below for the other great items included in this package and how you can best leverage this program as you begin your new career.</p> </div> <a style="text-decoration: underline;" href="https://www.test.com/LandingPage_newAgentBundle.jsp" target="_blank" rel="opener">Start your order process</a> <p>&nbsp;</p> </div> </div>
 </div>
 </div>
@@ -174,12 +162,12 @@ NYL message_code=home_page_reservedSlot1_message
 <br>
 <br>
 
-NYL message_code=home_page_reservedSlot5_message
-<div class="row" id='m5'>
-<div class="htmlitem" style="display: inline-block;" >
+NYL message_code=home_page_reservedSlot5_message<br>
+<div class="row col-md-12" id='m5' style="border: 5px solid #000000;">
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
 <a href="https://www.test.com/helpcenter_new.jsp">       <div style="height: 290px; padding: 0px; margin: 0px;color: #FFF;background-size: 100% 100%; text-align:center;background-image:url('https://www.test.com/clientimg/help_center_img.png');color: #53555C;">        <p style="font-size: 15px; text-align:left; padding: 20px;color: #53555C;">         Everything you need to know is just a click away! Start exploring our How-To's, Step-by-Step tutorials and FAQs today.        </p>        <br />        <br />        <br />        <p style="font-size: 46px">         Help Center        </p>       </div>      </a>      <div style="height:70px;text-align:center; background-color: #D1D1D1; padding:0px; margin:0px; font-style:bold;font-size:17px; height: 70px;">      </div>
 </div>
-<div class="htmlitem" style="display: inline-block;" >
+<div class="htmlitem col-md-6" style="border: 5px solid #A40000;">
 <a href="https://www.test.com/helpcenter_new.jsp">       <div style="height: 290px; padding: 0px; margin: 0px;color: #FFF;background-size: 100% 100%; text-align:center;background-image:url('https://www.test.com/clientimg/help_center_img.png');color: #53555C;">        <p style="font-size: 15px; text-align:left; padding: 20px;color: #53555C;">         Everything you need to know is just a click away! Start exploring our How-To's, Step-by-Step tutorials and FAQs today.        </p>        <br />        <br />        <br />        <p style="font-size: 46px">         Help Center        </p>       </div>      </a>      <div style="height:70px;text-align:center; background-color: #D1D1D1; padding:0px; margin:0px; font-style:bold;font-size:17px; height: 70px;">      </div>
 </div>
 </div>
