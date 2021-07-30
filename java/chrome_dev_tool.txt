@@ -1,0 +1,19 @@
+1>launch chrome dev tool.  control+F to turn on search by css or xpath
+
+2>search by css (go to ebay)
+
+2a>search by id
+type '#gh-ac'
+
+2b>search by class 
+type '.gh-tb'
+
+2c>combine search by id and class
+#gh-ac-box2 > .gh-tb
+
+3>search by xpath (go to ebay)
+syntax ==> xpath=//tagname[@Attribute='value']
+
+example
+//input[@placeholder="Search for anything"]
+
