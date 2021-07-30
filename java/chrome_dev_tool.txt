@@ -16,4 +16,4 @@ syntax ==> xpath=//tagname[@Attribute='value']
 
 example
 //input[@placeholder="Search for anything"]
-
+//input[@id="gh-ac"]
