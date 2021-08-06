@@ -3,14 +3,8 @@ begin transaction
 
 --query 'xxx'
 select '' as 'm',
-       m.message_type as 'm.message_type',
-       m.message_format as 'm.message_format',
-       m.message_priority as 'm.message_priority',
        m.message_code as 'm.message_code',
-       m.subject as 'm.subject',
        m.message_body as 'm.message_body',
-       m.url as 'm.url',
-       m.status as 'm.status',
        '---' as '---',
        m.*
 from [message] as m WITH (nolock) 
@@ -25,14 +19,8 @@ order by m.message_type, m.message_format, m.message_priority, m.message_code, m
 
 
 select 'BACKUP' as 'm',
-       m.message_type as 'm.message_type',
-       m.message_format as 'm.message_format',
-       m.message_priority as 'm.message_priority',
        m.message_code as 'm.message_code',
-       m.subject as 'm.subject',
        m.message_body as 'm.message_body',
-       m.url as 'm.url',
-       m.status as 'm.status',
        '---' as '---',
        m.*
 from [message] as m WITH (nolock) 
@@ -132,14 +120,8 @@ drop table #candidates
 
 --qc 'xxx'
 select 'after insert' as 'qc m',
-       m.message_type as 'm.message_type',
-       m.message_format as 'm.message_format',
-       m.message_priority as 'm.message_priority',
        m.message_code as 'm.message_code',
-       m.subject as 'm.subject',
        m.message_body as 'm.message_body',
-       m.url as 'm.url',
-       m.status as 'm.status',
        '---' as '---',
        m.*
 from [message] as m WITH (nolock) 
