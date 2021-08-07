@@ -41,10 +41,10 @@ make sure software can gracefully handle invalid input or unexpected user behavi
 (8:36:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=27581s)
 
 smoke test
-test after build.  broad range testing insure stability of build
+test after build.  shallow and wide range testing insure stability of build
 
 sanity test
-test after smoke test and regression test.  deep testing of new feacture or fix added
+test after smoke test and regression test.  narrow and deep testing of new feacture or fix added to the build
 
 ////////////////////////////////////
 
