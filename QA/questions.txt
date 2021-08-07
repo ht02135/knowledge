@@ -46,6 +46,24 @@ test after build.  shallow and wide range testing insure stability of build
 sanity test
 test after smoke test and regression test.  narrow and deep testing of new feacture or fix added to the build
 
+//////////////////////////////////////
+
+https://www.guru99.com/static-dynamic-testing.html
+tatic Testing vs Dynamic Testing
+
+Static Testing (requirement verification) is a type of software testing in which software application is tested without code execution. Manual or automated reviews of code, requirement documents and document design are done in order to find the errors. The main objective of static testing is to improve the quality of software applications by finding errors in early stages of software development process.
+
+Requirement specifications
+Design document
+Source Code
+Test Plans
+Test Cases
+Test Scripts
+
+Under Dynamic Testing (requirement validation), a code is executed. It checks for functional behavior of software system, memory/cpu usage and overall performance of the system. Hence the name "Dynamic"
+
+The main objective of this testing is to confirm that the software product works in conformance with the business requirements. This testing is also called an Execution technique or validation testing.
+
 ////////////////////////////////////
 
 
