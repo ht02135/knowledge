@@ -26,6 +26,14 @@ Once the product is completed and it is delivered to the customers and if the cu
 test closure (8:28 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=27581s)
 document summary of all test cases during sdlc + detail analysis of defect and error found/removed
 
+//////////////////////////
+
+positive test
+software works according to requirement.  works as expected
+
+negative test
+make sure software can gracefully handle invalid input or unexpected user behavior
+
 ////////////////////////////////////
 
 
