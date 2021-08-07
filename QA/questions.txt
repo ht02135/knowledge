@@ -48,6 +48,8 @@ test after smoke test and regression test.  narrow and deep testing of new feact
 
 //////////////////////////////////////
 
+(8:38:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=27581s)
+
 https://www.guru99.com/static-dynamic-testing.html
 tatic Testing vs Dynamic Testing
 
