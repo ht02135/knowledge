@@ -21,4 +21,7 @@ error : programing mistake created by software developer
 Bug
 Once the product is completed and it is delivered to the customers and if the customer find any issues in product or software then this condition should be called as a `bug`. People widely say the bug is an informal name for the defect.bugg  In other words, if an end user finds an issue in product then that particular issue is called as bug.
 
+//////////////////////////
 
+test closure
+document summary of all test cases during sdlc + detail analysis of defect and error found/removed
