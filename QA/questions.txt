@@ -16,5 +16,9 @@ current product does not correspond to the customer`s requirements
 Error
 n software engineer error can have two definitions: it can be a programming mistake generated due to incorrect loops or wrong syntax, and an error expected from customer`s requirements.
 
+error : programing mistake created by software developer
+
 Bug
 Once the product is completed and it is delivered to the customers and if the customer find any issues in product or software then this condition should be called as a `bug`. People widely say the bug is an informal name for the defect.bugg  In other words, if an end user finds an issue in product then that particular issue is called as bug.
+
+
