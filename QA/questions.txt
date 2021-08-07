@@ -60,9 +60,17 @@ Test Plans
 Test Cases
 Test Scripts
 
+1>implement at verification (requirement verification) stage.
+2>performed before code deployment
+
+-------------------
+
 Under Dynamic Testing (requirement validation), a code is executed. It checks for functional behavior of software system, memory/cpu usage and overall performance of the system. Hence the name "Dynamic"
 
 The main objective of this testing is to confirm that the software product works in conformance with the business requirements. This testing is also called an Execution technique or validation testing.
+
+1>implement at validation (requirement validation) stage.
+2>performed after code deployment
 
 ////////////////////////////////////
 
