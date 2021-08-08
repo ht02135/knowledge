@@ -80,6 +80,21 @@ The main objective of this testing is to confirm that the software product works
 
 boundary value analysis = boundary value test is good test case, because most of error are found in boundary value test
 
+///////////////////////////////////////
+
+(08:53:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=31115s)
+
+Test automation frameworks
+a set of rules and corresponding tools that are used for building test cases. It is designed to help engineering functions work more efficiently.
+
+A Test Automation Framework is a set of guidelines like coding standards, test-data handling, object repository treatment etc... which when followed during automation scripting produces beneficial outcomes like increased code re-usage, higher portability, reduced script maintenance cost etc. These are just guidelines and not rules; they are not mandatory and you can still script without following the guidelines. But you will miss out on the advantages of having a Framework.
+
+it is a collection of tools and processes working together to support automated testing of any application
+
+Similarly, a test automation framework is a platform that is a combination of programs, compilers, features, tools, etc. It provides an environment where you can execute automated test scripts.
+
+In short, a test automation framework is a set of components that facilitate executing tests and comprehensive reporting of test results. The major components that implement a test automation framework successfully are equipment, testing tools, scripts, procedures, and most importantly, test automation engineers. 
+
 ////////////////////////////////////
 
 
