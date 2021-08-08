@@ -78,7 +78,7 @@ The main objective of this testing is to confirm that the software product works
 
 (08:46:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=31115s)
 
-boundary value analysis = most of error are found in boundary value test
+boundary value analysis = boundary value test is good test case, because most of error are found in boundary value test
 
 ////////////////////////////////////
 
