@@ -95,6 +95,17 @@ Similarly, a test automation framework is a platform that is a combination of pr
 
 In short, a test automation framework is a set of components that facilitate executing tests and comprehensive reporting of test results. The major components that implement a test automation framework successfully are equipment, testing tools, scripts, procedures, and most importantly, test automation engineers. 
 
+///////////////////////////////////
+
+(08:56:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=31115s)
+
+type of test automation framework
+1>linear script framework
+2>data-driven framework
+3>keyword-driven framework
+4>modular testing framework
+5>hybrid testing framework
+
 ////////////////////////////////////
 
 
