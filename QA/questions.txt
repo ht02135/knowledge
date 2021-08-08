@@ -117,6 +117,18 @@ automation candidate
 4>timing screen response task
 5>non-functional task like performance test (load, stress, performance, security test)
 
+//////////////////////////////////////
+
+(09:19:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=31115s)
+
+important module of test automation framework
+1>test assertion tool
+2>data setup
+3>build management tool
+4>CI/CD tool
+5>reporting tool
+6>logging tool
+
 ////////////////////////////////////
 
 
