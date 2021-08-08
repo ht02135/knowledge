@@ -108,4 +108,15 @@ type of test automation framework
 
 ////////////////////////////////////
 
+(09:09:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=31115s)
+
+automation candidate
+1>repetive task
+2>capture result
+3>multiple data entry task
+4>timing screen response task
+5>non-functional task like performance test (load, stress, performance, security test)
+
+////////////////////////////////////
+
 
