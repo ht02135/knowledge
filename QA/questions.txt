@@ -165,4 +165,28 @@ Benchmark Testing: Benchmark testing is used to test and verify the application 
 
 ////////////////////////////////////
 
+(09:58:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=34076s)
+https://www.softwaretestinghelp.com/jmeter-components/#Thread_Group
+
+jmeter sampler
+Samplers in JMeter allows JMeter to send different types of requests to a server. Samplers are the actual requests, JMeter sends to the web server under test
+
+t is through Samplers. Samplers are a must to add to a Test Plan as only it can let Jmeter know what type of request need to go to which server and with any predefined parameters or not. Requests could be HTTP, HTTP(s), FTP, TCP, SMTP, SOAP etc
+
+-------------------------------------
+
+jmeter thread group
+A Thread Group is a set of threads executing the same scenario. It is the base element for every JMeter test plan
+
+Thread Group is a group of users which will be hitting the server under test either concurrently or in some predefined sequence
+
+--------------------------------------
+
+Listeners
+So, till now we have seen few samplers sending requests to the server but haven’t analyzed the response yet. Performance testing is all about analyzing server responses in various form and then presenting the same to the client.
+
+Listeners are used to display the results of test execution so that testers get to know the stats. We have around 15 listeners in Jmeter but mostly used ones are table, tree, and Graph.
+
+////////////////////////////////////
+
 
