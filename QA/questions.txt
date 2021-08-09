@@ -141,6 +141,12 @@ performance test type
 5>sppike test ==> test application reaction to spike in user request
 6>stress test ==> test application umder extreme workload
 
+performance problem faced by user
+1>long load time
+2>poor response time
+3>poor stability
+4>bottleneck
+
 ////////////////////////////////////
 
 
