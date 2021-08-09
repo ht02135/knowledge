@@ -149,4 +149,20 @@ performance problem faced by user
 
 ////////////////////////////////////
 
+https://www.perfrunners.com/2019/11/baseline-vs-benchmark-testing.html?m=1
+
+A baseline is an evaluation or state at some point in time.
+Baseline testing is the process of running a set of tests to capture performance information.
+
+Baseline Testing:When an application is tested for the first time, we capture the performance metrics like response time, throughput, CPU utilisation etc and use it as a Baseline is a for future tests to compare with.
+
+-------------------------------------
+
+A benchmark is an assessment of an industry-standard, best practice, or competitor.
+Benchmark testing is the process of comparing application performancewith respect to industry standard that is given by some other organization.
+
+Benchmark Testing: Benchmark testing is used to test and verify the application performance against industry standerds.
+
+////////////////////////////////////
+
 
