@@ -131,4 +131,16 @@ important module of test automation framework
 
 ////////////////////////////////////
 
+(09:36:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=34076s)
+
+performance test type
+1>load test ==> test unanticipated user load
+2>endurance test ==> make sure app can handle unanticipated user load in extended time
+3>volume test ==> large volume data is in db and absorbe application behavior
+4>stability test ==> to check if application scale up can support rising user load
+5>sppike test ==> test application reaction to spike in user request
+6>stress test ==> test application umder extreme workload
+
+////////////////////////////////////
+
 
