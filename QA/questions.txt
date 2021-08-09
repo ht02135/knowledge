@@ -198,4 +198,17 @@ type of assertion in jmeter
 
 ////////////////////////////////////
 
+(10:03:01 https://www.youtube.com/watch?v=sO8eGL6SFsA&t=34076s)
+
+execution order of test element
+1>config element
+2>pre-precessor = run before sampler request
+3>timer
+4>sampler
+5>post-precessor
+6>assertion
+7>listener populating table or tree or blabla
+
+////////////////////////////////////
+
 
