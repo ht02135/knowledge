@@ -189,4 +189,13 @@ Listeners are used to display the results of test execution so that testers get 
 
 ////////////////////////////////////
 
+type of assertion in jmeter
+1>html
+2>response
+3>duration
+4>size 
+5>xml
+
+////////////////////////////////////
+
 
