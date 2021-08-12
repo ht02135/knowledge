@@ -212,8 +212,38 @@ node {
   }
 }
 
+//////////////////////////////////
 
+Recording tests and artifacts
+Jenkins can record and aggregate test results so long as your test runner can output test result files. Jenkins typically comes bundled with the JUnit step, but if your test tools cannot output JUnit-style XML reports, then there are additional plugins which process practically any widely-used test report format.
 
+To collect our test results and artifacts, we will use the post section.
 
+pipeline {
+  agent any
+  stages {
+    stage('Test') {
+      steps {
+        sh './gradlew test'
+      }
+    }
+  }
+  post {
+    always {
+      junit 'build/reports/**/*.xml'    }  } }
+      
+//////////////////////////////////////
+
+Sending notifications
+When the pipeline succeeds or fails the current status notification needs to be sent to the concerned team. We can add some notification or other steps in the pipeline to perform finalization, notification, or other end-of-pipeline tasks.
+
+Email notification
+post {
+  failure {
+    mail to: 'team@test.com',
+      subject: "Pipeline has failed: ${currentBuild.fullDisplayName}",
+      body: "Error in ${env.BUILD_URL}"
+  }
+}
 
 //////////////////////////////////
