@@ -1,0 +1,408 @@
+@Grapes([
+        @Grab(group = 'org.apache.commons', module = 'commons-io', version = '1.3.2'),
+        @Grab(group = 'commons-lang', module = 'commons-lang', version = '2.6'),
+		@Grab(group = 'org.zeroturnaround', module = 'zt-zip', version = '1.11'),
+        @Grab(group = 'org.slf4j', module = 'slf4j-api', version = '1.7.5'),
+		@Grab(group = 'org.slf4j', module = 'slf4j-simple', version = '1.6.4'),
+		@Grab(group=  'javax.mail', module='mail', version='1.4.1'),
+		@Grab(group=  'javax.activation', module='activation', version='1.1')
+        
+])
+@GrabConfig(systemClassLoader = true)
+
+import org.apache.commons.lang.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import org.apache.commons.io.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+import org.zeroturnaround.zip.ZipUtil;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import javax.mail.*
+import javax.mail.internet.*
+import javax.activation.*
+
+
+
+class DxxCleanupFiles {
+
+        def verbose = true
+        def force = false
+		def email = false
+		def exceptionCount = 0
+		
+		SimpleDateFormat dateFormatforFileName
+		Calendar calForFileName1
+		Calendar calForFileName2
+				
+		Path path1
+		
+        public DxxCleanupFiles() {
+			
+        }
+
+        static void main(args) {
+			def lc = new DxxCleanupFiles()
+            lc.exec(args)
+        }
+
+        void exec(args) {
+			def cli = new CliBuilder(usage: 'DxxCleanupFiles.groovy [options] ')
+			cli.with {
+				h   longOpt: 'help',
+					'usage information'
+	
+				v   longOpt: 'verbose',
+					args: 0,
+					required: true,
+					type: Boolean,
+					'Verbose'
+				
+				d   longOpt: 'deleteDays',
+					args: 1,
+					required: true,
+					'deleteDays'
+					
+				e   longOpt: 'extractDays',
+					args: 1,
+					required: true,
+					'extractDays'
+					
+				
+			}
+
+			def options  = cli.parse(args)
+			if (!options) return
+			this.verbose = (options.verbose)
+			if (options.h) {
+				cli.usage()
+				return
+			}
+	
+			def deleteDays = options.'deleteDays'
+			def extractDays = options.'extractDays'
+			
+			def d = deleteDays
+			Long deDays= new Long(d)
+			def ex = extractDays
+			Long exDays= new Long(ex)
+			
+			DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+			
+			println "=================================================================================="
+			println (" For Test Delete old files for ${deleteDays} days.." )
+			println (" For Prod archive and Delete old files for ${extractDays} days.." )
+			
+			println "=================================================================================="
+			println "=================================================================================================================="
+			println (" ::::: Test Extract Directories - CleanUp Start with time : ${dateFormat1.format(cal.getTime())} ::::")
+			println "=================================================================================================================="
+			String tCreativesDir ="////test/creativedirs"
+			String tExtractsDir ="////test/extractdirs"
+			
+			File testCreativeDirectory = new File(tCreativesDir) 
+			File testExtractDirectory = new File(tExtractsDir) 
+			
+			println "---------------------------------------------"
+			println ("For the Extracts:: ")
+			println "---------------------------------------------"
+			getAllFilesForDelete(testExtractDirectory, deDays)
+			
+			println "---------------------------------------------"
+			println ("For the Creatives:: ")
+			println "---------------------------------------------"
+			getAllFilesForDelete(testCreativeDirectory, deDays)
+			Calendar cal1 = Calendar.getInstance();
+			println "=================================================================================================================="
+			println (" ::::: Test Extract Directories - CleanUp End with time : ${dateFormat1.format(cal1.getTime())}::::: ")
+			println "=================================================================================================================="
+			
+			println "'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"
+			Calendar cal2 = Calendar.getInstance();
+			println ""
+			println "===================================================================================================================================="
+			println (" :::: Production Extract Directories - Creating archives and Cleanup Start with time : ${dateFormat1.format(cal2.getTime())} ::::")
+			println "====================================================================================================================================="
+			
+			String creativesDir ="////aloha-path/creativedirs"
+			String extractsDir ="////aloha-path/extractdirs"
+		
+			File creativesDirectory = new File(creativesDir) 
+			File extractsDirectory = new File(extractsDir) 
+			
+			println "---------------------------------------------"
+			println ("For the Extracts:: ")
+			println "---------------------------------------------"
+			getAllFilesForArchive(extractsDirectory, exDays)
+			
+			println "---------------------------------------------"
+			println ("For the Creatives:: ")
+			println "---------------------------------------------"
+			getAllFilesForArchive(creativesDirectory, exDays)
+			
+			Calendar cal3 = Calendar.getInstance();
+			println "==================================================================================================================================="
+			println (" :::: Production Extract Directories - Creating archives and Cleanup End with time : ${dateFormat1.format(cal3.getTime())} ::::")
+			println "==================================================================================================================================="
+			
+			println "======================================================================"
+			println " Sending Email...!!!"
+			
+			//String toMail = "checker@aloha.com"
+			String fromEmailAdd = "support@aloha1.com"
+			String notificationToMail = "tester@aloha.com"
+			
+			
+				//Creating the Properties file for EMAIL Sending
+				String wikiPath = "<wikiPath>"
+				String mailBody
+				String ccMailSuccess = "tester@aloha.com"
+				String mailSubject
+				
+				
+				String toMail = "checker@aloha.com"
+				String ccMail = "tester@aloha.com"
+				
+				String[] ccEmailAddList = ccMail.split(",");
+				String[] toEmailAddList = toMail.split(",");
+				
+				if(exceptionCount == 0){
+					mailSubject = "Success status for 'Archived Extracts'" 
+					mailBody = "Extracts were Archived successfully for the period "+ "'<b>"+ dateFormatforFileName.format(calForFileName2.getTime()) + " to " + dateFormatforFileName.format(calForFileName1.getTime()) +"</b>'" +"<br><br><b>Note: This is a auto generated mail from script <br>"
+				}
+				else{
+					mailSubject="Failure Status for Archiving Extracts" 
+					mailBody="Extract Files Archiving failed for the period "+ "'"+ dateFormatforFileName.format(calForFileName2.getTime()) + " to " + dateFormatforFileName.format(calForFileName1.getTime()) +"'" +"Please check wiki link:${wikiPath} and the output log for the script for failure."
+				}
+				try{
+					sendEmail(toEmailAddList,fromEmailAdd,ccEmailAddList,mailSubject,mailBody)
+				}catch (MessagingException me) {
+					println "--------------------Exception-------------------"
+								println me.printStackTrace()
+					println "--------------------Exception-------------------"
+				}
+					
+				finally{
+					println "Sending email closed..!!"
+					println "======================================================================"
+				}
+			
+		}
+		
+		// Method to create Archives for 'creativedirs' and 'extractdirs'
+		public void getAllFilesForArchive(File directory, Long days){
+			File[] fList = directory.listFiles();
+			String extracts = "extracts"
+			def paths = []
+			for (File file : fList){
+				if (file.isDirectory()){
+					paths.add(file.getPath()+File.separator + extracts)
+				}
+			}
+			paths.each{
+				createArchive(days, it)
+			}
+		}
+		
+		// Method to get list of paths for 'creativedirs' and 'extractdirs'
+		public void getAllFilesForDelete(File directory, Long days){
+			File[] fList = directory.listFiles();
+			String extracts = "extracts"
+			def paths = []
+			for (File file : fList){
+				if (file.isDirectory()){
+					paths.add(file.getPath()+File.separator + extracts)
+				}
+			}
+			paths.each{
+				delete (days, it)
+			}
+		}
+		
+		public void delete(long days, String path) {
+				File folder = new File(path)
+				path1 = Paths.get(path);
+				println "---------------------"
+				int count = 0
+				if (folder.exists()) {
+					println ("Checking  from the path::${path}")
+					File[] listFiles = folder.listFiles()
+					long eligibleForDeletion = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000 )
+					for (File listFile: listFiles) {
+						if (listFile.lastModified() < eligibleForDeletion) {
+						count++
+						println("Deleting the file  :: ${listFile.getName()}")
+								try{
+									if (!listFile.delete()) {
+										println("Sorry Unable to Delete Files..")
+									}
+								}
+								catch (IOException ioe) {
+									exceptionCount++
+									println("IOException : ${ioe}");
+								}
+							}
+					}
+					if(count==0){
+						println "No files were persent older than ${days} days..!!"
+					}else{
+						println "${count} file(s) deleted from path : ${path} "
+					}
+					
+				}
+				else{
+					println "Extracts folder not present in the folder : ${path1.getParent().toString()}"
+				}
+			
+			
+		}
+			
+		public void createArchive(long days, String path) {
+				File folder = new File(path)
+				path1 = Paths.get(path);
+				println "---------------------"
+				int count = 0
+				boolean success = false
+				String archPath= path1.getParent().toString();
+				
+				FileOutputStream fos
+				ZipOutputStream zos				
+				File archiveFolder = new File(archPath+"\\Archived Extracts")
+				if(archiveFolder.exists()){
+					println ("Archived Extracts Folder already exists in path : ${archPath}")
+				} else{
+					println ("Creating Archived Extracts Folder...")
+					archiveFolder.mkdir();
+				}
+				
+				dateFormatforFileName = new SimpleDateFormat("yyyyMMdd");
+				calForFileName1 = Calendar.getInstance();
+				calForFileName2 = Calendar.getInstance();
+		
+				calForFileName1 = Calendar.getInstance();
+				calForFileName1.add(Calendar.DATE, -180);
+				calForFileName2 = Calendar.getInstance();
+				calForFileName2.add(Calendar.DATE, -187);
+
+				try {
+					println ("Zip file name is::${dateFormatforFileName.format(calForFileName2.getTime()) + " to " + dateFormatforFileName.format(calForFileName1.getTime())}.zip")
+					fos = new FileOutputStream(archiveFolder.toString()+File.separator +dateFormatforFileName.format(calForFileName2.getTime()) + " to " + dateFormatforFileName.format(calForFileName1.getTime())+".zip");
+					
+					zos = new ZipOutputStream(fos);
+					File srcFile = new File(path);
+					
+					if (folder.exists()) {
+						File[] files = srcFile.listFiles();
+						long eligibleForDeletion = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000 )
+						for (File i: files) {
+							if (i.lastModified() < eligibleForDeletion) {
+								count++
+								FileInputStream fis
+								try {
+									println("File name adding to zip :: ${i.getName()}");
+									ZipEntry outEntry = new ZipEntry(i.getName());
+									outEntry.setTime(i.lastModified());
+									
+									// create byte buffer
+									byte[] buffer = new byte[1024];
+									fis = new FileInputStream(i);
+									zos.putNextEntry(outEntry);
+									int length;
+									while ((length = fis.read(buffer)) > 0) {
+										zos.write(buffer, 0, length);
+									}
+									zos.closeEntry();
+									success=true
+									
+								} catch (IOException ioe) {
+									exceptionCount++
+									System.out.println("IOException :" + ioe);
+								}
+								finally{
+									// close the InputStream
+									fis.close();
+								}
+							}	
+						}
+					}
+					else{
+						println "Extracts folder not present in the folder : ${path1.getParent().toString()}"
+					}
+					
+				}
+				catch (IOException ioe) {
+					exceptionCount++
+					System.out.println("Error creating zip file: " + ioe);
+				}
+				finally{
+					// close the ZipOutputStream
+					zos.close();
+				}
+				
+				if(count==0){
+					println "No files were persent older than ${days} days..!!"
+				}else{
+					println "${count} file(s) were Archived  from path : ${path} "
+				}
+				
+				if (success){
+						println "Archiving success..!!"
+						delete(days,path)
+						
+					}
+		}
+		
+		public static void sendEmail(String[] to, String from, String[] cc, String subject, String body){
+			Properties properties = System.getProperties()
+			properties.setProperty("mail.smtp.host", "172.20.1.226")
+			Session session = Session.getDefaultInstance(properties, null)
+			
+			String fromEmailAdd = from
+			String[] toEmailAdd = to
+			String[] ccEmailAdd = cc
+			String mailSubject = subject
+			String mailBody = body
+			
+			println "======================================================================"
+			println "Email sent FROM :: ${fromEmailAdd} "
+			println "Email sent TO   :: ${toEmailAdd} "
+			println "Email sent CC   :: ${ccEmailAdd} "
+			println "Email SUBJECT   :: ${mailSubject} "
+			println "Email BODY      :: ${mailBody} "
+			println "======================================================================"
+			
+			MimeMessage message = new MimeMessage(session)
+				message.setFrom(new InternetAddress(fromEmailAdd))
+				
+				for ( int i = 0; i< toEmailAdd.size(); i++){
+					message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmailAdd[i]))
+				}	
+				for ( int i = 0; i< ccEmailAdd.size(); i++){
+					message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccEmailAdd[i]))
+				}	
+				message.setSubject(mailSubject)
+				
+				// create MimeBodyPart object and set your message text
+				BodyPart messageBodyPart1 = new MimeBodyPart()
+				messageBodyPart1.setContent(mailBody, "text/html");
+				
+				// create Multipart object and add MimeBodyPart objects to this object
+				Multipart multipart = new MimeMultipart()
+				multipart.addBodyPart(messageBodyPart1)
+				message.setContent(multipart)
+	
+				// send message
+				Transport.send(message)
+			
+		}
+		
+	//groovy DxxCleanupFiles.groovy -verbose -d 30 -e 180 
+    }
+
