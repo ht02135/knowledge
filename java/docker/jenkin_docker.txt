@@ -1,0 +1,92 @@
+
+https://tutorials.releaseworksacademy.com/learn/building-your-first-docker-image-with-jenkins-2-guide-for-developers
+
+Dockerfile 
+# use a node base image
+FROM node:7-onbuild
+
+# set maintainer
+LABEL maintainer "academy@release.works"
+
+# set a health check
+HEALTHCHECK --interval=5s \
+            --timeout=5s \
+            CMD curl -f http://127.0.0.1:8000 || exit 1
+
+# tell docker what port to expose
+EXPOSE 8000
+In short, the above Dockerfile instructs Docker to do the following:
+
+Use the node:7-onbuild image as the base for our image
+Set a label with the maintainer (not required, but good practice)
+Set a health check for the container (for Docker to be able to tell if the server is actually up or not)
+Tell Docker which port our server runs on
+Additionally, our image inherits the following actions from the official node onbuild image:
+
+Copy all files in the current directory to /usr/src/app inside the image
+Run npm install to install any dependencies for app (if we had any)
+Specify npm start as the command Docker runs when the container starts
+
+///////////////////////////////////////////////////////////
+
+Building the image locally
+To build the image on your own computer, navigate to the project directory (the one with your application code and the Dockerfile), and run docker build:
+
+docker build . -t getintodevops-hellonode:1
+This instructs Docker to build the Dockerfile in the current directory with the tag getintodevops-hellonode:1. You will see Docker execute all the actions we specified in the Dockerfile
+
+////////////////////////////////////////////////////////////////////////
+
+Running the image locally
+If the above build command ran without errors, congratulations: your first Docker image is ready!
+
+Let’s make sure the image works as expected by running it:
+
+docker run -it -p 8000:8000 getintodevops-hellonode:1
+The above command tells Docker to run the image interactively with a pseudo-tty, and map the port 8000 in the container to port 8000 in your machine.
+
+You should now be able to check if the server responds in your local port 8000:
+
+curl http://127.0.0.1:8000
+
+//////////////////////////////////////////////////////////////////////
+We’ll need to tell Jenkins what our stages are, and what to do in each one of them. For this we’ll write a Jenkins Pipeline specification in a Jenkinsfile.
+
+Place the following into a file called Jenkinsfile in the same directory as the rest of the files
+
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+
+        checkout scm
+    }
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("getintodevops/hellonode")
+    }
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }
+}
