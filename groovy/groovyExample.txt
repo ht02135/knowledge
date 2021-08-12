@@ -1,0 +1,304 @@
+
+/**
+ * groovy c:\GroovyExample.groovy --service-name <service-name> --host-name <host-name> --input-file C:\GroovyExample\GroovyExample.xls --output-directory C:\GroovyExample\
+ * example read/write excel.  example read/write databadse
+ */
+@Grapes([
+		@Grab(group = 'org.apache.commons', module = 'commons-io', version = '1.3.2'),
+		@Grab(group = 'commons-lang', module = 'commons-lang', version = '2.6'),
+		@Grab(group = 'net.sourceforge.jtds', module = 'jtds', version = '1.2.7'),
+		@Grab(group='org.apache.poi', module='poi', version='3.14'),
+		@Grab(group='org.apache.poi', module='poi-ooxml', version='3.14'),
+		@Grab(group='org.apache.poi', module='poi-ooxml-schemas', version='3.14')
+])
+
+@GrabConfig(systemClassLoader = true)
+
+import groovy.sql.Sql
+import org.apache.commons.lang.*
+import org.apache.poi.hssf.usermodel.*
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.util.*
+import org.apache.poi.xssf.usermodel.*
+import java.text.SimpleDateFormat
+
+class GroovyExample {
+
+	def verbose = false
+	def insert = false
+	def update = false
+
+	public GroovyExample() {
+	}
+
+	static void main(args) {
+		def lc = new GroovyExample()
+		lc.exec(args)
+	}
+
+	void exec(args) {
+		def cli = new CliBuilder(usage: 'GroovyExampleValidator.groovy [options] --input-file --service-name --host-name --output-directory --insert --update')
+		cli.with {
+			h longOpt: 'help',
+					'usage information'
+
+			v longOpt: 'verbose',
+					args: 0,
+					required: false,
+					type: Boolean,
+					'Verbose'
+		}
+		def options = cli.parse(args)
+
+		if (!options) return
+
+		this.verbose = (options.verbose)
+
+		if (options.h) {
+			cli.usage()
+			return
+		}
+	
+		String getInvDetails = """
+               	|SELECT 
+				|	c.*
+                | FROM 
+                |	communication c  WITH(NOLOCK) 				
+				|  WHERE  
+                |   c.communication_id =? 
+				|   AND c.invoice_id IS NULL""".stripMargin("|")
+
+		String serviceQueryString = """
+                |SELECT
+                |    *
+                |FROM
+                |    server_info
+                |WHERE
+                |       service_name  = '${serviceName}'
+				|     AND  host_name  ='${hostName}'""".stripMargin("|")
+		
+		String database = 'aloha_server_info'
+		String url = ""
+		String driver = ""
+		String databaseServer = "MDB20"
+		String databasePort = "1433"
+		short totalServicesCount = 0
+		short exceptionCount = 0
+		String appInfoUser              = 'xxx'
+		String appInfoPassword          = 'yyy'
+		
+		// Getting connection for app server info
+		//
+		url = "jdbc:jtds:sqlserver://${databaseServer}:${databasePort}/${database}"
+		driver = 'net.sourceforge.jtds.jdbc.Driver'
+		def sql = Sql.newInstance(url, appInfoUser, appInfoPassword, driver)
+
+		try {
+			//reading details from input file
+			FileInputStream xlsxIn =new FileInputStream(inputFileLocation)
+
+			def listOfOrders = []
+			if (verbose) {
+				println("")
+				println("Reading order id's from the file ${inputFileLocation}")
+				println ""
+			}
+			try{
+				DataFormatter fmt = new DataFormatter()
+				Workbook workbookIn = WorkbookFactory.create(xlsxIn)
+				def sheetIs = workbookIn.getSheetAt 0
+				int firstRowToGet = 1; // 0 based
+				for (int i = firstRowToGet; i <= sheetIs.getLastRowNum(); i++) {
+					Row row = sheetIs.getRow(i);
+					if (row == null) {
+						println "row is empty at ${i}, so skipping it"
+						//break
+					}
+					else {
+						def cellNumber=row.getFirstCellNum()
+						Cell orderIdCell = row.getCell(cellNumber, Row.RETURN_BLANK_AS_NULL);
+						if (orderIdCell == null) {
+						     if (verbose) {
+							    println "cell is empty at row ${i},cell ${cellNumber}, so skipping it"
+								}
+							//break
+						} else {
+							String value = fmt.formatCellValue(orderIdCell);
+							listOfOrders.push(value.toInteger())
+						}
+
+					}
+				}
+			}
+			finally {
+				xlsxIn.close()
+			}
+				
+			def uniqueList = listOfOrders.unique( false )
+			if( listOfOrders == uniqueList){
+				println "listOfOrders  :  ${listOfOrders}"
+			}else{
+				println "There are duplicate records in orders entered in Excel, check and try again"
+				return
+			}
+
+			Date now                 = new Date()
+			def fileSdf              = new SimpleDateFormat("yyyyMMdd")
+			String fileTimestamp     = fileSdf.format(now)
+			String excelFile         = "ReverseInvoiceOutput_${fileTimestamp}.xls"
+			File outputFile = new File(outputDirectoryLocation, excelFile)
+
+			Workbook workBook = new HSSFWorkbook()
+			FileOutputStream xlsxOut = new FileOutputStream(outputFile)
+
+			// Styles for Header record
+			//
+			CellStyle headerStyle = workBook.createCellStyle()
+			headerStyle.setBorderBottom(CellStyle.BORDER_THIN)
+			headerStyle.setBorderTop(CellStyle.BORDER_THIN)
+			headerStyle.setBorderRight(CellStyle.BORDER_THIN)
+			headerStyle.setBorderLeft(CellStyle.BORDER_THIN)
+			headerStyle.setAlignment(CellStyle.ALIGN_RIGHT)
+			headerStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP)
+			headerStyle.setWrapText(true)
+
+			HSSFFont font = workBook.createFont()
+			font.setFontName(HSSFFont.FONT_ARIAL)
+			font.setFontHeightInPoints((short) 10)
+			font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD)
+			headerStyle.setFont(font)
+
+			// Styles for records with data
+			//
+			CellStyle dataStyle = workBook.createCellStyle()
+			dataStyle.setBorderBottom(CellStyle.BORDER_THIN)
+			dataStyle.setBorderTop(CellStyle.BORDER_THIN)
+			dataStyle.setBorderRight(CellStyle.BORDER_THIN)
+			dataStyle.setBorderLeft(CellStyle.BORDER_THIN)
+			dataStyle.setAlignment(CellStyle.ALIGN_RIGHT)
+			dataStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP)
+			dataStyle.setWrapText(true)
+			Sheet sheet= null
+			if(insert.toBoolean() == true){
+				sheet = workBook.createSheet("INSERT MODE")
+			}
+			else{
+				sheet = workBook.createSheet("VERIFY MODE")
+			}
+
+			short rowid = 0
+			//setting header for the sheet 
+			def headerData = ["Order Id", "Invoice ID", "Version", "PaymentStatus", "Comments"];
+			writeToExcel(headerData, headerStyle, sheet, rowid++)
+
+			//Loading DB Username and Password from Instance.properties file of server
+			//
+			def serverDetails = sql.firstRow(serviceQueryString)
+			Properties props = new Properties()
+			File propsFile=null
+			if(serverDetails != null){
+				propsFile = new File("\\\\" + serverDetails.host_name + "\\C\$\\app-instances\\" + serverDetails.service_name + "\\webapps\\ROOT\\WEB-INF\\classes\\jdbc\\batch-sqlserver.properties")
+       			props.load(propsFile.newDataInputStream())
+				if (verbose) {
+					println "Loaded instance.properties file of service ${serverDetails.service_name}"
+					println ""
+				}
+
+				// Getting DB Connection of Server
+				def prodUrl = "jdbc:jtds:sqlserver://" + serverDetails.db_host_name + ":${databasePort}/" + serverDetails.db_name
+				def innerSql = Sql.newInstance(prodUrl, props.getProperty('batch.jdbc.user'), props.getProperty('batch.jdbc.password'), driver)
+				try {
+
+					listOfOrders.each {
+								orderId ->
+						//getting data from DB
+						//
+						def getInvDetailsRecord
+						getInvDetailsRecord = innerSql.firstRow(getInvDetails, [orderId])
+						if(getInvDetailsRecord != null){
+						
+						//if validation successfully
+							def rowdata =null
+							if(insert.toBoolean() == true){
+							//if user opted to insert in reverse invoice table
+								def params = [ getInvDetailsRecord.version.toInteger(), getInvDetailsRecord.invoiceId.toInteger()]
+								def commId=[getInvDetailsRecord.communicationId.toInteger()]
+								def storedListId=[getInvDetailsRecord.storedListId.toInteger()]							
+								def insertSql = 'INSERT reverse_invoice (version,invoice_id) VALUES (?,?)'
+								try {
+									innerSql.connection.autoCommit = false
+									def insertQerResult=innerSql.execute(insertSql,params)
+									def comment="Validation Successful, Inserted Record in Reverse Invoice Table"
+									if(update.toBoolean() == true){
+										//if user opted to update in communication,holdout_suppression,stored_list tables
+										def canclOrderResult =  innerSql.executeUpdate(canclOrder,commId)
+										def inactivateListResult =  innerSql.executeUpdate(inactivateList,storedListId)
+										def holdOutResult =  innerSql.executeUpdate(updateHoldoutSuppression,commId)
+										comment=comment+" and also updated communication,holdout_suppression,stored_list tables"
+										
+										if (verbose) {
+										println "Number of rows updated on communication table       : ${canclOrderResult}"
+										println "Number of rows updated on Stored_list table         : ${inactivateListResult}"
+										println "Number of rows updated on holdout_suppression table :${holdOutResult}"
+										
+										}
+
+									}
+									innerSql.commit()
+									rowdata = ["${getInvDetailsRecord.communicationId}", "${getInvDetailsRecord.invoiceId}", "${getInvDetailsRecord.version}", "${getInvDetailsRecord.paymentStatus}","${comment}"]
+
+								}catch(Exception ex) {
+									innerSql.rollback()
+									println("Transaction rollbacked")
+									println ex
+									rowdata = ["${getInvDetailsRecord.communicationId}", "${getInvDetailsRecord.invoiceId}", "${getInvDetailsRecord.version}", "${getInvDetailsRecord.paymentStatus}","Exception occurred while inserting in reverse invoice table or while updating any one of following tabels (holdout_suppression,communication,stored_list), try again"]
+
+								}
+
+							}
+							else{
+								rowdata = ["${getInvDetailsRecord.communicationId}", "${getInvDetailsRecord.invoiceId}", "${getInvDetailsRecord.version}", "${getInvDetailsRecord.paymentStatus}","Reverse Invoice Not happened, To Insert record give insert  in arguments"]
+
+
+							}
+							writeToExcel(rowdata, dataStyle, sheet, rowid++)
+						}
+						if (verbose) {
+							println ""
+							println "Processed Record : ${orderId} "
+						}
+					}
+
+				}
+				finally {
+					innerSql.close()
+					workBook.write(xlsxOut)
+					xlsxOut.close()
+
+				}
+			}
+			else{
+				println "no service found with the given service name and host in server info table "
+			}
+
+		}
+		finally {
+			sql.close()
+
+		}
+		println "------------------------"
+		println "report generated at  location : ${outputDirectoryLocation}"
+	}
+
+	static void writeToExcel(def data, CellStyle style, Sheet sheet, short rowid) {
+		short cellid = 0
+		Row firstRow = sheet.createRow(rowid)
+		data.each() {
+			def cell = firstRow.createCell(cellid++)
+			cell.setCellValue(it)
+			cell.setCellStyle(style)
+			sheet.autoSizeColumn(cellid)
+		}
+
+	}
+}
