@@ -1,0 +1,19 @@
+
+REM =========== check out branch for proj
+
+SVNURL=http://<put in svn url>
+SET BRANCHNAME=<put in branch>
+
+svn checkout %SVNURL%/aloha/branches/%BRANCHNAME% aloha-release-branch
+
+REM =========== check out tag for proj
+
+SET TAGNAME=<put in tag>
+
+svn checkout %SVNURL%/aloha/tags/%TAGNAME%-BackEnd aloha-release-branch
+
+REM =========== copy tag to proj
+
+SET MESSAGE=Creating %BRANCHNAME% branch from %TAGNAME% tag
+
+svn copy %SVNURL%/aloha/tags/%TAGNAME%-BackEnd %SVNURL%/aloha/branches/%BRANCHNAME% -m "%MESSAGE%"
