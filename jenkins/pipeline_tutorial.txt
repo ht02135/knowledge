@@ -1,0 +1,219 @@
+https://www.eficode.com/blog/jenkins-groovy-tutorial
+
+Node/agent
+
+This defines where to execute the code on which machine.
+
+pipeline {
+  node any
+}
+or
+
+pipeline {
+  agent { node { label 'labelName' } }
+}
+
+////////////////////////////////
+
+Stage
+We have multiple stages in our build in which each stage section has a different steps and commands to follow. When most of the Jenkins Pipeline’s work is performed it contains a sequence of one or more stages. It is recommended that the stages contain at least one stage directive for connecting various delivery processes, such as build, test, and deploy.
+
+stages {
+  stage('Build') {
+    steps {
+      sh 'echo "This is my first step"'
+    }
+  }
+  stage('Test') {
+    steps
+      sh 'echo "This is my Test step"'
+    }
+  }
+  stage('Deploy') {
+    steps {
+      sh 'echo "This is my Deploy step"'
+    }
+  }
+}
+
+//////////////////////////////////////
+
+Parallel Stages
+Stages in pipeline may declare a number of nested stages within a parallel block, which can be used to improve operational efficiency for stages that are time consuming and have no dependencies on each other. In addition, multiple steps in a single parallel can also be executed in parallel.
+
+stage("Parallel") {
+  steps {
+    parallel (
+      "Taskone" : {
+        //do some stuff
+      },
+      "Tasktwo" : {
+        // Do some other stuff in parallel
+      }
+    )
+  }
+}
+
+/////////////////////////////////////////////
+
+Steps
+The core and basic part of the pipeline is step. Pipelines are made up of multiple steps that allow you to build, test, and deploy applications. Fundamentally, steps are the most basic building blocks of the declarative pipeline and the scripted pipeline syntax to tell Jenkins what to do.
+
+When all the steps in the pipeline have successfully completed, the pipeline is considered to have successfully executed
+
+stages {
+  stage('Build') {
+    steps {
+      sh 'echo "Step 1"'
+      sh 'echo "Step 2"'
+      sh 'echo "Step 3"'
+    }
+  }
+}
+
+///////////////////////////////////////////
+
+Timeout and retries
+pipeline {
+  agent any
+  stages {
+    stage('Dev Deployment') {
+      steps {
+        retry(x) { // It Retries x number of times mentioned until its successful
+          sh './dev-deploy.sh'
+        }
+        timeout(time: x, unit: 'MINUTES') { // Time out option will make the step wait for x mins to execute if it takes more than that it will fail
+          sh './readiness-check.sh'
+        }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////
+
+Triggers
+The triggers directive defines the automated way how Pipeline automates triggers. According to the Jenkins documentation, the triggers currently available are cron, pollSCM and upstream.
+
+Cron
+
+Accepts a cron-style string to define the regular interval that the pipeline triggers, for example:
+
+triggers { cron('H */2 * * 1-3') } 
+pollSCM
+
+Accepts a cron-style string to define Jenkins to check SCM source changes Regular interval. If there are new changes, the pipeline will be retriggered.
+
+pipeline {
+  agent any
+  triggers {
+    cron('H */2 * * 1-3')
+  }
+  stages {
+    stage('Hello World') {
+      steps {
+        echo 'Hello World'
+      }
+    }
+  }
+}
+
+///////////////////////////////
+
+When
+The when command allows the pipeline to determine whether to perform this phase based on the given conditions. The when command must contain at least one condition. More complex pipeline conditional structures can be built using nested conditions: not, allOf or anyOf. If the when directive contains multiple conditions, then all sub-conditions must return true for stage execution. Nested conditions can be nested to any depth.
+
+Mostly it’s been used to skip or execute a step/stage
+
+when { anyOf { branch 'develop'; branch 'test' } }
+
+  stage('Sample Deploy') {
+    when {
+      branch 'production'
+      anyOf {
+        environment name: 'DEPLOY_TO', value: 'prod'
+        environment name: 'DEPLOY_TO', value: 'test'
+      }
+    }
+    steps {
+      echo 'Deploying application'
+    }
+  }
+  
+  ///////////////////////////////////
+  
+  Post-build sections
+Define the operation at the end of the pipeline or stage run. You may need to run clean-up steps or perform some actions based on the outcome of the pipeline. The post-condition block supports the following components: always, changed, failure, success, unstable, and aborted. These blocks allow the steps to be performed at the end of the pipeline or stage run, depending on the status of the pipeline.
+
+pipeline {
+  agent any
+  stages {
+    stage('Test') {
+      steps {
+        sh 'echo "Fail!"; exit 1'
+      }
+    }
+  }
+  post {
+    always {
+      echo 'always runs regardless of the completion status of the Pipeline run'
+    }
+    success {
+      echo 'step will run only if the build is successful'
+    }
+    failure {
+      echo 'only when the Pipeline is currently in a "failed" state run, usually expressed in the Web UI with the red indicator.'
+    }
+    unstable {
+      echo 'current Pipeline has "unstable" state, usually by a failed test, code violations and other causes, in order to run. Usually represented in a web UI with a yellow indication.'
+    }
+    changed {
+      echo 'can only be run if the current Pipeline is running at a different state than the previously completed Pipeline'
+    }
+  }
+}
+
+///////////////////////////////////
+
+Environment variables
+Environment variables can be set globally, like the example below, or per stage. As you might expect, setting environment variables per stage means they will only apply to the stage in which they’re defined.
+
+pipeline {
+  agent any
+
+  environment {
+    USE_JDK = 'true'
+    JDK ='c:/Java/jdk1.8'
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        sh 'printenv'
+      }
+    }
+  }
+}
+
+///////////////////////////////////
+
+Exception handling in Jenkins Pipeline
+For exception handling you can now use the try catch block in order to execute the step and catch exceptions.
+
+node {
+  stage('SampleTryCatch') {
+    try {
+      sh 'exit 1'
+    }
+    catch (exc) {
+      echo 'Something didn't work and got some exceptions'
+      throw
+    }
+  }
+}
+
+
+
+
+
+//////////////////////////////////
