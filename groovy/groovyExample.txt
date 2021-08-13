@@ -63,16 +63,16 @@ class GroovyExample {
                	|SELECT 
 				|	c.*
                 | FROM 
-                |	communication c  WITH(NOLOCK) 				
+                |	XXX c  WITH(NOLOCK) 				
 				|  WHERE  
-                |   c.communication_id =? 
-				|   AND c.invoice_id IS NULL""".stripMargin("|")
+                |   c.ddd_id =? 
+				|   AND c.xxx_id IS NULL""".stripMargin("|")
 
 		String serviceQueryString = """
                 |SELECT
                 |    *
                 |FROM
-                |    server_info
+                |    XXX_info
                 |WHERE
                 |       service_name  = '${serviceName}'
 				|     AND  host_name  ='${hostName}'""".stripMargin("|")
