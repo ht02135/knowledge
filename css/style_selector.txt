@@ -78,6 +78,7 @@ h2[class=subtitle] {
 
 (1:03 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
 // ^= select all "../img/*"
+// to be honest, it is shitty, why cant just be src="../img/*" ??? wont that be more intuitive?
 img[src^="../img/"] {
     color = blue;
 }
