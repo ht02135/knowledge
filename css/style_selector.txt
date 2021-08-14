@@ -16,6 +16,11 @@ like 'a'
 
 4>psuedo selector
 
+/* Selects the second <li> element in a list */
+li:nth-child(2) {
+  color: lime;
+}
+
 a:hoover     (a tag element)
 a:link
 a:visited
