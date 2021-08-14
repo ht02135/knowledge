@@ -101,3 +101,59 @@ img[src*="../img/"] {
 <img src="../img/test2.png"> 
 
 ////////////////////////////////////////////
+
+////////////////////////////////////
+//////////////////////////////
+
+.col-md-12 {
+	color = black;
+}
+.homeBottomContainer {
+	margin-left:15px;
+}
+.hello {
+	font-weight:bold;
+}
+
+// you can specify multiple class
+
+<div class="col-md-12 homeBottomContainer hello" style="position: absolute; bottom: 10px; right: 0; left: 0;">
+
+/////////////////////////////
+
+selector {
+	property1: value1;
+	proprerty2: value2;
+}
+
+//////////////////////////////
+//////////////////////////////
+
+https://www.rapidtables.com/web/css/css-color.html
+
+css color codeRed colors
+Orange colors
+Yellow colors
+Green colors
+
+CSS color
+Hex format: #rrggbb
+RGB format: rgb(red, green, blue)
+Name format: name
+
+For orange color:
+Hex format: #FFA500
+RGB format: rgb(255,165,0)
+Name format: orange
+
+<element style="color: code;"></element>
+
+<style>
+   element { color: code; }
+</style>
+
+//////////////////////////////
+//////////////////////////////
+
+
+
