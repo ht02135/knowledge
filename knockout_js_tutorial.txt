@@ -1,0 +1,541 @@
+
+dx.ko.utils.js
+
+dx.ko.utils.js
+Knockout JavaScript library v3.2.0
+
+knockout.validation.js
+Validation Library for KnockoutJS
+
+public\publicTop.jsp
+    <script type="text/javascript" src="../js/core/xmlToJson.js"></script>
+
+    <script type="text/javascript" src="../js/core/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/libraries/bootstrap-slider.js"></script>
+    <script type="text/javascript" src="../js/libraries/growl.js"></script>
+    <script type="text/javascript" src="../js/libraries/moment.js"></script>
+    <script type="text/javascript" src="../js/libraries/moment-range.js"></script>
+    <script type="text/javascript" src="../js/libraries/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="../js/libraries/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../js/libraries/knockout.js"></script>
+    <script type="text/javascript" src="../js/libraries/knockout.validation.js"></script>
+
+    <script type="text/javascript" src="../js/libraries/underscore.js"></script>
+    <script type="text/javascript" src="../js/libraries/underscore.string.js"></script>
+    <script type="text/javascript" src="../js/libraries/underscore.collections.walk.js"></script>
+    <script type="text/javascript" src="../js/libraries/koExternalTemplateEngine_all.js"></script>
+	
+public\index.jsp
+<%@ include file="loginApp.jsp" %>
+<%@ include file="publicTop.jsp" %>
+<%@ include file="../templates/inputTemplates.jsp" %>
+
+old home.jsp
+<script>
+$(window).on('load', function(){
+	ko.applyBindings(null, document.getElementById('homepage-content'));
+	});
+</script>
+
+<div id="homepage-content">
+</DIV>
+		
+///////////////
+
+KnockoutJS is open source
+ko.applyBindings = function (viewModelOrBindingContext, rootNode) {
+    // Some code omitted for brevity...
+
+    if (rootNode && (rootNode.nodeType !== 1) && (rootNode.nodeType !== 8))
+        throw new Error("ko.applyBindings: first parameter should be your view model; second parameter should be a DOM node");
+    rootNode = rootNode || window.document.body; // Make "rootNode" parameter optional
+
+    applyBindingsToNodeAndDescendantsInternal(getBindingContext(viewModelOrBindingContext), rootNode, true);
+};
+
+Knockout consists of several steps:
+
+Get data model. In most cases, data will be returned from the remote server in JSON format with AJAX (Asynchronous JavaScript and XML) call
+ 
+Create View. View is a HTML template with Knockout bindings, using “data-bind” attributes. It can contain grids, divs, links, forms, buttons, images and other HTML elements for displaying and editing data.
+
+Create View Model. View model is a pure-code representation of the data operations on a UI. It can have usual properties and observable properties. An observable property means that when it’s changed in the view model, it will automatically be updated in the UI.
+
+Map data from data model to view model. In most cases, data in the data model are independent from UI and don’t have a concept of observables. In this step a map from the data model to the view model should be created. It can be done manually or using Knockout mapping plugin.
+
+Bind view model to the view. When view model is initialized, it can be bound to part of the HTML document, or the whole HTML document.
+
+//////////////////////////////////
+
+To install Knockout 
+<script type="text/javascript" src="knockout-2.2.1.js"></script>
+
+When the script file is added to the HTML document, a global variable ko is created and all exposed functions can be reached using this global Knockout variable:
+
+ko.observableArray();
+ko.observable();
+ko.applyBindings();
+
+//////////////////////////////////
+
+https://knockoutjs.com/examples/helloWorld.html
+
+<p>First name: <input data-bind="value: firstName" /></p>
+<p>Last name: <input data-bind="value: lastName" /></p>
+<h2>Hello, <span data-bind="text: fullName"> </span>!</h2>
+
+ar ViewModel = function(first, last) {
+    this.firstName = ko.observable(first);
+    this.lastName = ko.observable(last);
+ 
+    this.fullName = ko.pureComputed(function() {
+        // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
+        return this.firstName() + " " + this.lastName();
+    }, this);
+};
+ 
+ko.applyBindings(new ViewModel("Planet", "Earth"));
+
+///////////////////////////////
+
+https://www.devbridge.com/articles/knockout-a-real-world-example/
+
+Activating Knockout
+
+To apply Knockout for a part of the HTML document, pass the DOM element as a second parameter:
+
+ko.applyBindings(viewModel, document.getElementById(‘htmlElementId’));
+
+<div class="row" id='m1'></div>
+
+ko.applyBindings(null, document.getElementById('m1'));
+ko.applyBindings(null, document.getElementById('m2'));
+ko.applyBindings(null, document.getElementById('m3'));
+
+viewModel can be null if not have viewModel
+
+/////////////////////////////
+
+https://knockoutjs.com/documentation/text-binding.html
+
+Today's message is: <span data-bind="text: myMessage"></span>
+ 
+<script type="text/javascript">
+    var viewModel = {
+        myMessage: ko.observable() // Initially blank
+    };
+    viewModel.myMessage("Hello, world!"); // Text appears
+</script>
+
+----------------
+
+The item is <span data-bind="text: priceRating"></span> today.
+The item is <span data-bind="text: price() > 50 ? 'expensive' : 'affordable'"></span> today.
+ 
+<script type="text/javascript">
+    var viewModel = {
+        price: ko.observable(24.95)
+    };
+    viewModel.priceRating = ko.pureComputed(function() {
+        return this.price() > 50 ? "expensive" : "affordable";
+    }, viewModel);
+</script>
+
+//////////////////////////////
+
+https://app.wftutorials.com/The-Knockout.js-tutorial-for-beginners-and-programmers
+
+<script type='text/javascript' src='./js/knockout-3.5.0.js'></script>
+
+<p data-bind="text:message">Add a message here</p>
+// Take note of the data-bind attribute. We set it to a text variable called message.
+
+//Now in our javascript section we load our bindings
+<script>
+  function View(){
+      this.message ="Hello world";
+  }
+
+  ko.applyBindings(new View());
+</script>
+
+--------------------------------
+
+//Creating a list of elements
+//first setup data-binding
+<ul data-bind="foreach:items">
+  <li data-bind="text:$data"></li>
+</ul>
+
+//then applyBindings
+function View(){
+      this.items = ['John','James','Jack'];
+  }
+
+  ko.applyBindings(new View());
+
+---------------------------------
+
+Click events
+First we create our html template. It consists of a p element and a button.
+
+<p data-bind="text:message">Output</p>
+<button data-bind="click:registerClick">Click me</button>
+
+We bind a message variable to the p element and a click event called registerClick to the button.
+we bind everything
+  function View(){
+      this.message = ko.observable("Output");
+      this.clickCounter = ko.observable(0);
+      this.registerClick =  function(){
+          this.clickCounter(this.clickCounter() +1);
+          this.message("You have clicked: " + this.clickCounter());
+      }
+  }
+  ko.applyBindings(new View());
+
+----------------------------------------
+
+Two way binding
+
+<p data-bind="text:message">Output Section</p>
+<input data-bind="textInput:message" type="text">
+<button data-bind="click:getMessage" >Click me</button>
+
+  function View(){
+	this.message = ko.observable("Start");
+	this.getMessage =  function(){
+     alert("message is " + this.message());
+  }
+  }
+  ko.applyBindings(new View());
+
+------------------------------------------
+
+Css Styling
+
+<p data-bind="style: {color: timeofday}">Output Section</p>
+<button data-bind="click:changeColor" >Click me</button>
+
+function View(){
+  this.timeofday = ko.observable("red");
+  this.changeColor =  function(){
+     if(this.timeofday() == "red"){
+         this.timeofday("blue");
+     }else{
+         this.timeofday("red");
+     }
+  }
+}
+ko.applyBindings(new View());
+
+---------------------------------------------
+
+Computed observables
+
+<p data-bind="style: {fontSize: currentSize}">Output Section</p>
+<button data-bind="click:changeSize" >Click me</button>
+
+function View(){
+  this.bigger = ko.observable(15);
+  this.currentSize = ko.computed(function() {
+      return this.bigger() + "px";
+  }, this);
+  this.changeSize =  function(){
+      var updatedSize = this.bigger() + 1;
+     this.bigger(updatedSize);
+  }
+}
+ko.applyBindings(new View());
+
+-------------------------------------------
+
+Class bindings
+
+<style>
+  .isvisible{
+    visibility: visible;
+  }
+  .ishidden{
+    visibility: hidden;
+  }
+</style>
+
+<p data-bind="class: isVisible">Can you see me</p>
+<button data-bind="click:toggleVisibility" >Click me</button>
+
+function View(){
+  this.isVisible = ko.observable("isvisible");
+  this.toggleVisibility =  function(){
+      if(this.isVisible() == 'isvisible'){
+          this.isVisible("ishidden");
+      }else{
+          this.isVisible('isvisible');
+      }
+  }
+}
+ko.applyBindings(new View());
+
+///////////////////////
+
+Conditionally Rendering HTML templates
+
+<p data-bind="if: isVisible">Can you see me</p>
+
+function View(){
+  this.isVisible = ko.observable(true);
+  this.toggleVisibility =  function(){
+      if(this.isVisible() == true){
+          this.isVisible(false);
+      }else{
+          this.isVisible(true);
+      }
+  }
+}
+ko.applyBindings(new View());
+
+/////////////////////////
+
+Forms
+
+<form data-bind="submit:showData">
+  <input type="text" data-bind="textInput:name"/><br>
+  <button type="submit">Submit</button>
+</form>
+
+function View(){
+  this.showData =  function(){
+     var results = "The name:" + this.name();
+     this.submission("form data is:" + results);
+}
+}
+ko.applyBindings(new View());
+
+///////////////////////////
+
+https://riptutorial.com/knockout-js
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-debug.js"></script>
+</body>
+
+<script>
+  var ViewModel = function() {
+    this.greeting = ko.observable("Hello");
+    this.name = ko.observable("World");
+
+    this.appHeading = ko.pureComputed(function() {
+      return this.greeting() + ", " + this.name() + "!";
+    }, this);
+  };
+
+  var appVM = new ViewModel();
+
+  ko.applyBindings(appVM);
+</script>
+
+<section>
+  <h1 data-bind="text: appHeading"></h1>
+  <p>Greeting: <input data-bind="textInput: greeting" /></p>
+  <p>Name: <input data-bind="textInput: name" /></p>
+</section>
+
+/////////////////////
+
+https://www.tutorialspoint.com/knockoutjs/with-binding.htm
+
+<script src = "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js" type = "text/javascript"></script>
+		 
+      <script type="text/javascript">
+         function AppViewModel() {
+            self = this;
+            self.siteName = ko.observable( 'TutorialsPoint');
+            self.courses = ko.observable ({
+               courseName:  'Microsoft .Net', 
+               Fees: 20000, startDate: '20-Mar-2016'
+            });
+         };
+         
+         var vm = new AppViewModel();
+         ko.applyBindings(vm);
+      </script>	 
+
+      <h1 data-bind = "text: siteName"> </h1>
+      
+      <table border = "1">
+         <thead>
+            <th>Course Name</th><th>Fees</th><th> Start Date</th>
+         </thead>
+         
+         <tbody data-bind = "with: courses ">
+            <tr>
+               <td><span data-bind = "text: courseName"></span></td>
+               <td><span data-bind = "text: Fees"></span></td>
+               <td><span data-bind = "text: startDate"> </span></td>
+            </tr>
+         </tbody>
+      </table>
+	  
+////////////////
+
+https://www.sitepoint.com/beginners-guide-to-knockoutjs-part-1/
+
+<script type='text/javascript' src='jquery-1.7.1.min.js'></script>
+<script type='text/javascript' src='knockout-2.0.0.js'></script>
+<script type='text/javascript' src='application.js'></script>
+
+ to create a view model just declare any JavaScript object like this:
+
+function viewModel() {
+  this.dayOfWeek = ko.observable('Sunday');
+  this.activity = ko.observable('rest');
+};
+
+ko.applyBindings(new viewModel());
+
+So in order to take effect Knockout has to be activated by inserting ko.applyBindings() function at the end of the script.
+
+--------------------------------------
+
+function viewModel() {
+  this.day = ko.observable('24');
+  this.month = ko.observable('02');
+  this.year = ko.observable('2012');
+
+  this.fullDate = ko.computed(function() {
+   return this.day() + "/" + this.month() + "/" + this.year();
+  },this);
+};
+ko.applyBindings(new viewModel()); 
+
+<p>Day: <input data-bind="value: day" /></p>
+<p>Month: <input data-bind="value: month" /></p>
+<p>Year: <input data-bind="value: year" /></p>
+<p>The current date is <span data-bind="text: fullDate"></span></p>
+
+////////////////////////////////////////
+////////////////////////////////////////
+
+accounts.jsp
+
+			<div data-bind="template:{name:'pageInstructionsTemplate'}"></div>
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"
+					data-bind="visible: !dx.mustBeBoolean($root.hideAccountsBalancesTab()), css: {
+								   active: $data.activeTab() === 'accountsContent'
+							   }">
+					<a href="#" data-tabid="accountsContent"
+					   data-bind="i18n: 'ACCOUNT_SWTICH_SCREEN_ACCOUNT_BALANCES',
+								  click: $data.setActiveTab"></a>
+				</li>
+				
+				<div class="clearfix pad-top-10" >
+					<div class="l clearfix">
+						<span class="recordCountSummary" data-bind="text: pageMessage"></span>
+					</div>
+					<div class="r">
+						<span data-bind="dxpager: currentListSize,  overridePageSize:$data.pagingManager().pageSize(), currentPage: currentPage(), loadPageFunction:'getCurrentPageDetails'" />
+					</div>
+				</div>  
+
+this 
+$root refer to 'MyAccountsViewModel' (accounts.js)
+$data refer to 'setActiveTab' function (accounts.js)
+			
+--------------
+
+accounts.js
+function MyAccountsViewModel(data) {
+	var self = this;
+
+	self.initPageViewModel = function () {
+		self.setPageInstructions('SCREEN_INSTRUCTIONS_ACCOUNTS');
+		ko.applyBindings(self, document.getElementById("MyAccountsContent"));
+		self.pageReady(true);
+	}
+	
+	self.hideAccountsBalancesTab = ko.observable(hideAccounts);
+	self.pageMessage = ko.observable('');
+	self.currentListSize = ko.observable(0);
+	
+	self.setActiveTab = function (_self, $event, newtab) {
+		..
+	};
+	
+	self.pagingManager = ko.computed(function(){
+		..
+	});
+	
+	self.getCurrentPageDetails = function(pageNumber){
+		self.loadPageData(self.activeTab(), pageNumber);
+	};
+}
+
+--------------------------------------
+
+dx.ko.utils.js
+
+ko.bindingHandlers.dxpager = {
+		..
+        var pageSize = parseInt(allBindingsAccessor.get('overridePageSize'),10) || config().maxResultsPerPage;
+        var currentPage = allBindingsAccessor.get('currentPage') || 1;
+        var loadPageFunction = allBindingsAccessor.get('loadPageFunction') || 'loadPage';
+        var validatePageFunction = allBindingsAccessor.get('validatePageFunction');
+
+////////////////////////////////////////
+////////////////////////////////////////
+
+https://www.oreilly.com/library/view/knockoutjs/9781491914298/ch03.html
+
+$root
+This accesses the root context (the ViewModel bound to Knockout) 
+
+accounts.jsp
+<ul class="nav nav-tabs" role="tablist">
+	<li class="active" data-bind="visible: !dx.mustBeBoolean($root.hideAccountsBalancesTab()), css: { active: $data.activeTab() === 'accountsContent'}">
+
+accounts.js
+self.hideAccountsBalancesTab = ko.observable(hideAccounts);
+
+--------------------------------------------
+
+$parent
+When you are in a child context, this will access the current context’s direct parent.
+
+selector.jsp
+<td width="75" class="groupSelectCell">
+<div data-bind="if: $parent.multiSelect" style="width:70px;text-align:center;">
+	<input type="checkbox" data-bind="attr: {id: 'check' + $data.id, name: 'check'}, checked: $data.checked, click: $parent.selectCreative" />
+
+selector.js
+    self.multiSelect = ko.computed(function(){
+        return self.maxCreatives() > 1 ? true : false;
+    });			 
+					 
+------------------------------------------
+
+$data
+This provides access to the current object your context is in. This is quite useful when you are in a context that is a variable and contains no properties.
+
+cart.jsp
+<button id="cmdCheckout" class="btn-default btn" data-bind="click: $data.checkout, css: {'btn-primary-sad': !$data.isValid()}"></button>
+			
+cart.js
+    self.checkout = function () {
+..
+    };
+																	
+/////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
