@@ -240,5 +240,62 @@ body {
 /////////////////////////////////////
 /////////////////////////////////////
 
+/////////////////////////////////
+////////////////////////////////
+
+opacity and transparency
+
+(1:50:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+
+rgba(0,0,150,0.5)
+{
+    background: #000096;
+    opacity: 0.5;
+}
+
+RGBA is a type of CSS color value that allows us to set a color and also its opacity/transparency
+RGB is a three-channel format containing data for Red, Green, and Blue. RGBA is a four-channel format containing data for Red, Green, Blue, and an Alpha value.
+
+/*
+alpa is transparency and opacity.  range from 0 to 1
+0 = is fully transparent, cant see at all
+1 = is fully opacity, can see
+it is good way to make color lighter or darker by adjusting alphha
+*/
+body {
+	background: rgba(0,0,150,0.5)  // 0.5 is alpha,
+}
+
+/////////////////////////////
+////////////////////////////////
+
+(1:54:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+
+gradient = transition to number of colors
+two type of gradient = radial and linear
+
+// top, right, left, bottom
+body {
+	background: linear-gradient(to right, red, blue, black);
+	background: linear-gradient(to right, rgba(0,0,150,1), rgba(0,0,150,0));  // fading blue color
+	background: linear-gradient(to bottom right, rgba(0,0,150,1), rgba(0,0,150,0));  // fading blue color
+}
+
+//angle position 160deg
+body {
+	background: linear-gradient(160deg, rgba(0,0,150,1), rgba(0,0,150,0));  // fading blue color
+}
+
+//you need to start small % at start and end large % in last	
+body {
+	//default shape is oval
+	background: radial-graident(red 20%, green 40%, blue 50%);
+	background: radial-graident(circle, red 20%, green 40%, blue 50%);
+}
+
+/////////////////////////////
+////////////////////////////////
+
+
 
 
