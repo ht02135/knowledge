@@ -48,12 +48,17 @@ it will select 1,2,3
 -----------------------------------------
 
 /*
-hide all p element child
+1>hide all p element children of .test_visible class
+2>color red all p element descendant of .test_visible class
 */
 		 .test_visible > p
 		 {
 			display: none;
 		 }
+		 .test_visible p
+		 {
+			color: red;
+		 }	
      
 <div class="test_visible">
 	<a href="https://02dfa05.netsolhost.com/erie/email/S1174_WhatWorks_x3-20210526092946.pdf#zoom=100" target="new"><p style="font-size:20px;" >show me</p></a>
