@@ -1,0 +1,49 @@
+https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3582s
+
+1>element selector
+like 'body'
+like 'a'
+
+2>class selector
+.class_selector {
+  color : red;
+}
+
+3>id selector
+#id_selector {
+  color : red;
+}
+
+4>psuedo selector
+
+a:hoover     (a tag element)
+a:link
+a:visited
+
+.link_class:hoover     (link_class is class)
+.link_class:link
+.link_class:visited
+
+5>advanced selector 1
+
+h1 + h2  (select h2 below h1)
+
+-----------------------------------------
+<ul>
+   <li>1</li>
+   <li>2</li>
+   <li>
+       <ul>
+           <li>3</li>
+       </ul>
+   </li>
+</ul>
+
+ul > li (select all li children of ul)
+it will select 1,2
+
+ul li (select all decendant of ul)
+it will select 1,2,3
+
+-----------------------------------------
+
