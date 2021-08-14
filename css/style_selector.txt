@@ -130,6 +130,7 @@ selector {
 //////////////////////////////
 
 https://www.rapidtables.com/web/css/css-color.html
+https://htmlcolorcodes.com/color-picker/
 
 css color codeRed colors
 Orange colors
