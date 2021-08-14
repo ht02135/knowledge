@@ -1,4 +1,6 @@
 
+
+
 couple of chart tool i use
 
 1>MACD to spot trend (https://www.youtube.com/watch?v=E3KP1WyLITY&t=375s)
@@ -7,6 +9,13 @@ couple of chart tool i use
 2>(ADX +DI -DI) to check strength of trend (https://www.youtube.com/watch?v=HxUjq6B28Nc)
 ADX black line above 25 (market price is strong trending)
 ADX black line below 25 (market price is not strong trending)
+
+but i use differently
+a>i check ADX black line trend.  if it goes up, then i see trend strengthening.  i dont even care about cross 25 or not
+b>i mainly see +DI cross over -DI go up translate to BUY
+c>i mainly see +DI cross down -DI go down translate to SELL
+
+you dont want to use ADX black cross over/down 25, because by the time most of price up/down already happen if you base on 25
 
 3>RSI to check strength of trend
 RSI > 50 is a buy
