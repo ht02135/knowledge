@@ -1,0 +1,166 @@
+https://knockoutjs.com/documentation/foreach-binding.html
+
+<h4>People</h4>
+<ul data-bind="foreach: people">
+    <li>
+        Name at position <span data-bind="text: $index"> </span>:
+        <span data-bind="text: name"> </span>
+        <a href="#" data-bind="click: $parent.removePerson">Remove</a>
+    </li>
+</ul>
+<button data-bind="click: addPerson">Add</button>
+
+/*
+within foreach, it bind to 'people' observableArray
+
+1>$index is the feature of the knockout.js to point current items index in observableArray
+that is why use data-bind="text: $index">
+
+2>$parent When you are in a child context, this will access the current context’s direct parent.
+that is why use $parent.removePerson
+*/
+
+function AppViewModel() {
+    var self = this;
+ 
+    self.people = ko.observableArray([
+        { name: 'Bert' },
+        { name: 'Charles' },
+        { name: 'Denise' }
+    ]);
+ 
+    self.addPerson = function() {
+        self.people.push({ name: "New at " + new Date() });
+    };
+ 
+    self.removePerson = function() {
+        self.people.remove(this);
+    }
+}
+ko.applyBindings(new AppViewModel());
+
+////////////////
+
+But what if you want to refer to the array entry itself (not just one of its properties)? In that case, you can use the special context property $data
+
+<ul data-bind="foreach: months">
+    <li>
+        The current item is: <b data-bind="text: $data"></b>
+    </li>
+</ul>
+ 
+<script type="text/javascript">
+    ko.applyBindings({
+        months: [ 'Jan', 'Feb', 'Mar', 'etc' ]
+    });
+</script>
+
+/////////////////////
+
+<table>
+    <thead>
+        <tr><th>First name</th><th>Last name</th></tr>
+    </thead>
+    <tbody data-bind="foreach: people">
+        <tr>
+            <td data-bind="text: $data.firstName"></td>
+            <td data-bind="text: lastName"></td>
+        </tr>
+    </tbody>
+</table>
+ 
+<script type="text/javascript">
+    ko.applyBindings({
+        people: [
+            { firstName: 'Bert', lastName: 'Bertington' },
+            { firstName: 'Charles', lastName: 'Charlesforth' },
+            { firstName: 'Denise', lastName: 'Dentiste' }
+        ]
+    });
+</script>
+
+///////////////////////
+
+
+Using $index, $parent, and other context properties
+
+<h1 data-bind="text: blogPostTitle"></h1>
+<ul data-bind="foreach: likes">
+    <li>
+        <b data-bind="text: name"></b> likes the blog post <b data-bind="text: $parent.blogPostTitle"></b>
+    </li>
+</ul>
+
+you can use $parent to refer to data from outside the foreach
+
+///////////////////////////////
+
+Using “as” to give an alias to “foreach” items
+
+<ul data-bind="foreach: { data: categories, as: 'category' }">
+    <li>
+        <ul data-bind="foreach: { data: items, as: 'item' }">
+            <li>
+                <span data-bind="text: category.name"></span>:
+                <span data-bind="text: item"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
+ 
+<script>
+    var viewModel = {
+        categories: ko.observableArray([
+            { name: 'Fruit', items: [ 'Apple', 'Orange', 'Banana' ] },
+            { name: 'Vegetables', items: [ 'Celery', 'Corn', 'Spinach' ] }
+        ])
+    };
+    ko.applyBindings(viewModel);
+</script>
+
+//////////////////////////
+
+The <!-- ko --> and <!-- /ko --> comments act as start/end markers, defining a “virtual element” that contains the markup inside. Knockout understands this virtual element syntax and binds as if you had a real container element.
+
+<ul>
+    <li class="header">Header item</li>
+    <!-- ko foreach: myItems -->
+        <li>Item <span data-bind="text: $data"></span></li>
+    <!-- /ko -->
+</ul>
+
+// $data refers to data in 'myItems' array
+ 
+<script type="text/javascript">
+    ko.applyBindings({
+        myItems: [ 'A', 'B', 'C' ]
+    });
+</script>
+
+//////////////////////////
+
+Here’s a trivial example that uses afterAdd to apply the classic “yellow fade” effect to newly-added items. It requires the jQuery Color plugin to enable animation of background colors.
+
+<ul data-bind="foreach: { data: myItems, afterAdd: yellowFadeIn }">
+    <li data-bind="text: $data"></li>
+</ul>
+ 
+<button data-bind="click: addItem">Add</button>
+ 
+<script type="text/javascript">
+    ko.applyBindings({
+        myItems: ko.observableArray([ 'A', 'B', 'C' ]),
+        yellowFadeIn: function(element, index, data) {
+            $(element).filter("li")
+                      .animate({ backgroundColor: 'yellow' }, 200)
+                      .animate({ backgroundColor: 'white' }, 800);
+        },
+        addItem: function() { this.myItems.push('New item'); }
+    });
+</script>
+
+////////////////////////////
+
+
+
+
