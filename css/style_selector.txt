@@ -71,10 +71,18 @@ it will select 1,2,3
 
 6>attribute selector
 
-select attribute 'class=subtitle' of h2 element
-
+//select attribute 'class=subtitle' of h2 element
 h2[class=subtitle] {
     color = blue;
 }
+
+(1:03 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+// ^= select all "../img/*"
+img[src^="../img/"] {
+    color = blue;
+}
+
+<img src="../img/test.png"> 
+<img src="../img/test2.png"> 
 
 ////////////////////////////////////////////
