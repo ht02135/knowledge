@@ -12,17 +12,29 @@ ADX black line below 25 (market price is not strong trending)
 RSI > 50 is a buy
 REI < 50 is a sell
 
-4>OBV to check volume trend
+4>OBV to check volume trend (https://www.youtube.com/watch?v=3TvY4IWe_7I)
+
+some of useful chart i use
+
+https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p24822027073
+MACD        -> spot trend
+ADX +DI -DI -> check strength of trend, above 25 strength of up/down trend go up, below 25 strength up/down trend go down
+RSI         -> price strength, above 50 buy, below 50 sell
+
+https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p02437742495
+MACD        -> spot trend
+RSI         -> price strength, above 50 buy, below 50 sell
+OBV         -> volume trend
 
 ///////////////////////////////////
 ///////////////////////////////////
 
 https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p24822027073
 
-1>MACD
+1>MACD (https://www.youtube.com/watch?v=E3KP1WyLITY&t=375s)
 check direction of trend
 
-2>ADX +DI -DI
+2>ADX +DI -DI (https://www.youtube.com/watch?v=HxUjq6B28Nc)
 check strength of trend
 ADX black line above 25 (market price is strong trending)
 ADX black line below 25 (market price is not strong trending)
@@ -63,7 +75,7 @@ hung : it is ok to use i guess, but i prefer RSI
 
 https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p02437742495
 
-5>OBV (On-Balance Volume)
+5>OBV (On-Balance Volume) (https://www.youtube.com/watch?v=3TvY4IWe_7I)
 this is volume trend indicator
 
 https://www.youtube.com/watch?v=3TvY4IWe_7I
