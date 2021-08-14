@@ -81,7 +81,7 @@ h2[class=subtitle] {
     color = blue;
 }
 
-(1:03 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+(1:03:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
 // ^= select all img begin with "../img/" like regex
 img[src^="../img/"] {
     border = 10px solid black;
@@ -213,7 +213,7 @@ body {
 ///////////////////////////////////
 
 image and url in css
-(1:39 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+(1:39:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
 
 body {
 	background: url("<http url>");	// preferable, because apply to image too
