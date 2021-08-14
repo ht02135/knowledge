@@ -157,4 +157,88 @@ Name format: orange
 //////////////////////////////
 
 
+/////////////////////////////////
+///////////////////////////////////
+
+https://htmlcolorcodes.com/color-picker/
+just use verticle bar to pick colors
+
+always start with these basic color and use verticle bar
+
+red
+hex value = #FF0000
+RGB value = (255.0.0)
+
+green
+hex value = #00FF00
+RGB value = (0.255.0)
+
+blue
+hex value = #0000FF
+RGB value = (0.0.255)
+
+/////////////////////////////////
+///////////////////////////////////
+
+https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s
+
+// set color of text to blue for element with id=title
+#title {
+	color : #0000FF;       <-- but in reality, i see this all the time
+	color : rgb(0.0.255);  <--  youtube says use this
+}
+
+in fact rgb is better, because if i feel i need more blue color, then i add
+rgb(0.0.50)
+rgb(0.0.100)  <- i added more 50 to blue
+rgb(0.0.150}  <- i added more 50 to blue again
+rgb(0.0.200}  <- i added more 50 to blue again again
+rgb(0.0.255}  <- i added more 50 to blue again again, max out 255
+
+/////////////////////////////////
+///////////////////////////////////
+
+selector {
+	color: rgb(0.0.50);  		// color of text
+	background: black;			// preferable, because apply to image too
+	background-color: black;	// background color of text
+}
+
+//this rgb() is css function
+body {
+	background: rgb(0.0.50);	// preferable, because apply to image too
+}
+
+/////////////////////////////////
+///////////////////////////////////
+
+image and url in css
+(1:39 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=3586s)
+
+body {
+	background: url("<http url>");	// preferable, because apply to image too
+	background: url("../img/background.png");
+	background-image: url("../img/background.png");
+}
+
+----------------------------------
+
+//img with id=service-image
+<div id="service-image"></div>
+
+#service-image {
+	height: 50;
+	width: 100px;
+	background-color: black;
+	background-image: url("../img/background.png");
+	background-repeat: no-repeat;
+	background-size: 50px 100px;	//height then width
+	background-size: cover;			//clipped image cover div
+	background-size: contain;		//full image contained in div
+}
+
+/////////////////////////////////////
+/////////////////////////////////////
+
+
 
