@@ -3,7 +3,7 @@ couple of chart tool i use
 
 1>MACD to spot trend (https://www.youtube.com/watch?v=E3KP1WyLITY&t=375s)
   note : it is trend oscillator indicator. 
-2>ADX or RSI to check strength of trend
+2>(ADX +DI -DI) or RSI to check strength of trend
 3>OBV to check volume trend
 
 ///////////////////////////////////
@@ -13,7 +13,7 @@ https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p24822027073
 1>MACD
 check direction of trend
 
-2>ADX
+2>ADX +DI -DI
 check strength of trend
 
 3>RSI
