@@ -80,7 +80,7 @@ h2[class=subtitle] {
 // ^= select all "../img/*"
 // to be honest, it is shitty, why cant just be src="../img/*" ??? wont that be more intuitive?
 img[src^="../img/"] {
-    color = blue;
+    border = 10px solid black;
 }
 
 <img src="../img/test.png"> 
