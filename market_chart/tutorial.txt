@@ -1,0 +1,20 @@
+
+
+https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p24822027073
+
+1>MACD
+check direction of trend
+
+2>ADX
+check strength of trend
+
+3>RSI
+check strength of chart.
+RSI > 50 is a buy
+REI < 50 is a sell
+
+/////////////////////////////////////////
+
+https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p18357128827
+
+4>PMO (Price Momentum Oscillator)
