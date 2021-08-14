@@ -17,4 +17,45 @@ REI < 50 is a sell
 
 https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p18357128827
 
-4>PMO (Price Momentum Oscillator)
+4>PMO (Price Momentum Oscillator) slammer uses
+
+100,50,15 <- slammer uses
+35,20,10  <- default setting
+
+https://school.stockcharts.com/doku.php?id=technical_indicators:dppmo
+
+Price Momentum Oscillator (PMO) is an oscillator based on a Rate of Change (ROC) calculation that is smoothed twice with exponential moving averages that use a custom smoothing process. Because the PMO is normalized, it can also be used as a relative strength tool. Stocks can thus be ranked by their PMO value as an expression of relative strength
+
+Calculation
+Smoothing Multiplier = (2 / Time period)
+
+Custom Smoothing Function = {Close - Smoothing Function(previous day)} *
+ Smoothing Multiplier + Smoothing Function(previous day) 
+
+PMO Line = 20-period Custom Smoothing of
+(10 * 35-period Custom Smoothing of
+ ( ( (Today's Price/Yesterday's Price) * 100) - 100) )
+
+PMO Signal Line = 10-period EMA of the PMO Line
+
+hung : it is ok to use i guess, but i prefer RSI
+
+//////////////////////////////////////////
+
+https://stockcharts.com/h-sc/ui?s=IYT&p=D&yr=1&mn=0&dy=0&id=p02437742495
+
+5>OBV (On-Balance Volume)
+this is volume trend indicator
+
+https://www.youtube.com/watch?v=3TvY4IWe_7I
+
+/////////////////////////////////////////////
+
+6>MFI (Money Flow Index)
+it is volume oscillator (used mostly by algo)
+
+https://www.youtube.com/watch?v=9MUOsJOxhds
+
+//////////////////////////////////////////////
+
+
