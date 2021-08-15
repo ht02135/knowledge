@@ -1,0 +1,77 @@
+
+/*
+valueUpdate  https://knockoutjs.com/documentation/value-binding.html
+
+"input" - updates your view model when the value of an <input> or <textarea> element changes. Note that this event is only raised by reasonably modern browsers (e.g., IE 9+).
+"keyup" - updates your view model when the user releases a key
+"keypress" - updates your view model when the user has typed a key. Unlike keyup, this updates repeatedly while the user holds a key down
+"afterkeydown" - updates your view model as soon as the user begins typing a character. This works by catching the browser’s keydown event and handling the event asynchronously. This does not work in some mobile browsers.
+*/
+
+<style>
+	.old {
+		color : red;
+	}
+</style>
+
+
+<div id="m1">
+	// for css: {}, if isOld is true, then element will have class="old"
+	// for style: {}
+	// for event: {}
+	// for attri: {}
+	<p data-bind="style: {background-color: age() > 50 ? 'red' : 'green' }, attri: {title: description} ">message: <span data-bind="text: message, css: {old: isOld} "></span></p>
+	<p data-bind="style: {background-color: messagecolor}, attri: {title: description} ">message: <span data-bind="text: message, css: {old: isOld} "></span></p>
+	<p>message value:  <input data-bind="value: message, valueUpdate: 'keyup'" /></p>
+	<button data-bind="click: changeMessage" >change message</button>
+	<button data-bind="event: { click: changeMessage }" >change message</button>
+	//old javascript
+	<button onclick="vm.changeMessage()" >change message</button></p> 
+	
+	<p>age: <span data-bind="text: age"></span></p>
+	<button data-bind="click: getOlder" >change age</button>
+
+	<p>description: <span data-bind="text: description"></span></p>
+
+	<ul data-binding="for-each: products">
+		<li>
+			<button data-bind="click: $parent.removeProduict" >remove product</button>
+			<input data-bind="value: $data.name, valueUpdate: 'keyup'" />
+		</li>
+	</ul>
+</div>
+
+<script>
+  function View(){
+	  this.message = ko.observable("test");
+	  this.changeMessage = function(){
+	     this.message(this.message + ' changed');  // why cant, not intuitive, this.message = this.message + ' changed';
+	  };
+	  this.messagecolor = ko.observable("blue");
+	  this.age = ko.observable(12);
+	  this.getOlder = function(){
+	     this.age(this.age() + 1);
+	  };
+	  this.isOld = ko.computed(function () {
+		return this.age() > 30;
+	  });
+	  this.description = ko.computed(function () {
+		return this.message() + " is " +his.age();
+	  });
+	  this.products = ko.ko.observableArray([
+		{ name: "Bungle" },
+		{ name: "George" }
+	  ]);
+	  this.removeProduict = function(product){
+	     this.products.remove(product);  // observableArray has smart remove function
+	  };
+  }
+  
+  var vm = new View()
+  ko.applyBindings(vm, document.getElementById("m1"));
+  ko.applyBindings(vm, $("#m1"));  //using jquery
+  
+  //multiple mvvm
+  //ko.applyBindings(new View(), document.getElementById("m2"));
+</script>
+
