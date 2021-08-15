@@ -219,11 +219,20 @@ two way binding, out of box, input element get 2 way binding
 </ul>
 </div>
 
+/*
+valueUpdate  https://knockoutjs.com/documentation/value-binding.html
+
+"input" - updates your view model when the value of an <input> or <textarea> element changes. Note that this event is only raised by reasonably modern browsers (e.g., IE 9+).
+"keyup" - updates your view model when the user releases a key
+"keypress" - updates your view model when the user has typed a key. Unlike keyup, this updates repeatedly while the user holds a key down
+"afterkeydown" - updates your view model as soon as the user begins typing a character. This works by catching the browser’s keydown event and handling the event asynchronously. This does not work in some mobile browsers.
+*/
+
 <script>
   function View(){
 	  this.message = ko.observable("test");
 	  this.changeMessage = function(){
-	     this.message = this.message + ' changed';
+	     this.message(this.message + ' changed');  // why cant, not intuitive, this.message = this.message + ' changed';
 	  };
 	  this.products = ko.ko.observableArray([
 		{ name: "Bungle" },
