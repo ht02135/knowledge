@@ -1,0 +1,111 @@
+
+https://www.oreilly.com/library/view/knockoutjs/9781491914298/ch03.html
+
+$root = root context
+This accesses the root context (the ViewModel bound to Knockout)
+
+///////////////////////////
+
+$parent
+When you are in a child context, this will access the current context’s direct parent.
+
+like for-each loop
+
+///////////////////////////////
+
+$parents
+This is similar to the $parent variable except that it contains an array of parent contexts to the context you are currently in. $parents[0] is the same as $parent
+
+//////////////////////////////////////
+
+$data
+This provides access to the current object your context is in. This is quite useful when you are in a context that is a variable and contains no properties.
+
+///////////////////////////////
+
+https://www.youtube.com/watch?v=DZmYgA2utss
+
+<ul data-binding="for-each: $context.$data.products">
+
+$context is view model
+$data is data context object
+$context.$data.products is products array
+
+   <h2 data-binding="text: $context.$index() + ' ' + $context.$data.name">
+   
+$context is individual element in products array
+$data is properties and methods in array item.  
+$context.$data.name is name of product item
+$context.$index() is index number of products array
+
+/////////////////////////////////
+
+https://stackoverflow.com/questions/38340265/knockout-js-binding-context-and-view-model-are-very-confusing
+
+binding context is an object that contains special properties such as $data, $root, if binding context is viewModel, then it should contain these properties, which it does not.
+
+Knockout adds those properties to your view model when you call applyBindings. If you really want to get into the nitty gritty, you can look into the source code: knockoutjs.com/downloads/knockout-3.4.0.debug.js. Specifically you'll want to look at the applyBindings function 
+
+If you are right, does that mean viewModel has a $data property that points to itself?   
+
+No, because ko created a new object that extends your view model 
+
+///////////////////////
+
+(18:01 https://www.youtube.com/watch?v=xnBROE-RHW0)
+
+<p data-bind="text:message">Add a message here</p>
+
+<script>
+  function View(){
+      this.message ="Hello world";
+  }
+  ko.applyBindings(new View());
+</script>
+
+ko is global variable.  we call applyBindings with vie model param and applying binding between 
+
+/////////////////////////////////
+
+(19:01 https://www.youtube.com/watch?v=xnBROE-RHW0)
+
+multiple view model
+
+<div id="m1">
+<p data-bind="text: message">Add a message here 1</p>
+</div>
+
+<div id="m2">
+<p data-bind="text: message">Add a message here 2</p>
+</div>
+
+<script>
+  function View(){
+      this.message ="Hello world";
+  }
+  ko.applyBindings(new View(), document.getElementById('m1'));
+  ko.applyBindings(new View(), document.getElementById('m2'));
+</script>
+
+///////////////////////////////
+
+two way binding, out of box, input element get 2 way binding
+
+<div id="m2">
+<p data-bind="text: message"></p>
+<input data-bind="value: message, valueUpdate: 'keyup'" />
+<button data-bind="click:changeMessage" >change message</button>
+</div>
+
+<script>
+  function View(){
+	  this.message: ko.observable("test");
+	  this.changeMessage =  function(){
+	     this.message = this.message + ' changed';
+	  };
+  }
+  ko.applyBindings(new View(), document.getElementById('m1'));
+  ko.applyBindings(new View(), document.getElementById('m2'));
+</script>
+
+
