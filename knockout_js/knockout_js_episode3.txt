@@ -242,8 +242,9 @@ valueUpdate  https://knockoutjs.com/documentation/value-binding.html
 	     this.products.remove(product);  // observableArray has smart remove function
 	  };
   }
-  ko.applyBindings(new View(), document.getElementById('m1'));
-  ko.applyBindings(new View(), document.getElementById('m2'));
+  ko.applyBindings(new View(), document.getElementById("m1"));
+  ko.applyBindings(new View(), document.getElementById("m2"));
+  ko.applyBindings(new View(), $("#m1"));  //using jquery
 </script>
 
 ///////////////////
