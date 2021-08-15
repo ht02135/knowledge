@@ -1,0 +1,132 @@
+
+/*
+valueUpdate  https://knockoutjs.com/documentation/value-binding.html
+
+"input" - updates your view model when the value of an <input> or <textarea> element changes. Note that this event is only raised by reasonably modern browsers (e.g., IE 9+).
+"keyup" - updates your view model when the user releases a key
+"keypress" - updates your view model when the user has typed a key. Unlike keyup, this updates repeatedly while the user holds a key down
+"afterkeydown" - updates your view model as soon as the user begins typing a character. This works by catching the browser’s keydown event and handling the event asynchronously. This does not work in some mobile browsers.
+*/
+
+<style>
+	.old {
+		color : red;
+	}
+</style>
+
+
+<div id="m1">
+	// for css: {}, if isOld is true, then element will have class="old"
+	// for style: {}
+	// for event: {}
+	// for attri: {}
+	<p data-bind="style: {background-color: age() > 50 ? 'red' : 'green' }, attri: {title: description} ">message: <span data-bind="text: message, css: {old: isOld} "></span></p>
+	<p data-bind="style: {background-color: messagecolor}, attri: {title: description} ">message: <span data-bind="text: message, css: {old: isOld} "></span></p>
+	
+	//we could also use $data.message vs just message
+	<p>message value:  <input data-bind="value: $data.message, valueUpdate: 'keyup'" /></p>
+	<p>message value:  <input data-bind="value: message, valueUpdate: 'keyup'" /></p>
+	
+	<button data-bind="click: changeMessage" >change message</button>
+	<button data-bind="event: { click: changeMessage }" >change message</button>
+	//old javascript
+	<button onclick="vm.changeMessage()" >change message</button></p> 
+	
+	<p>age: <span data-bind="text: age"></span></p>
+	<button data-bind="click: getOlder" >change age</button>
+	
+	<p>description: <span data-bind="text: description"></span></p>
+
+	<p>product count: <span data-bind="text: products().length"></span></p>
+
+	<ul data-binding="for-each: products">
+		<li>
+			<p>product: <span data-bind="text: $data.name"></span></p>
+			
+		    //context changed, context no longer is view model
+			//context is now product of array
+			//we also need to use $data.name to represent string product
+			<input data-bind="value: $data.name, valueUpdate: 'keyup'" />
+			<input data-bind="value: name, valueUpdate: 'keyup'" />
+			
+			//the param to $parent.removeProduict will be product
+			<button data-bind="click: $parent.removeProduict" >remove product</button>
+		</li>
+	</ul>
+	
+	<ul data-binding="for-each: kids">
+		<li>
+		    //context changed, context no longer is view model
+			//context is now kid of array
+			//we also need to use $data to represent string kid
+			<input data-bind="value: $data, valueUpdate: 'keyup'" />
+		</li>
+	</ul>
+</div>
+
+<script>
+  function View(){
+	  this.message = ko.observable("test");
+	  this.changeMessage = function(){
+	     this.message(this.message + ' changed');
+	  };
+	  this.messagecolor = ko.observable("blue");
+	  this.age = ko.observable(12);
+	  this.getOlder = function(){
+	     this.age(this.age() + 1);
+	  };
+	  this.isOld = ko.computed(function () {
+		return this.age() > 30;
+	  });
+	  this.description = ko.computed(function () {
+		return this.message() + " is " +his.age();
+	  });
+	  this.products = ko.observableArray([
+		{ name: ko.observable("Bungle") },
+		{ name: ko.observable("George") }
+	  ]);
+	  this.removeProduict = function(product){
+	     this.products.remove(product);  // observableArray has smart remove function
+		 this.products.push({name: ko.observable("new")});
+	  };
+	  this.kids = ko.observableArray([
+		{ ko.observable("bungie") },
+		{ ko.observable("activision") }
+	  ]);
+  }
+  
+  var vm = new View()
+  ko.applyBindings(vm, document.getElementById("m1"));
+  ko.applyBindings(vm, $("#m1"));  //using jquery
+  
+  //multiple mvvm
+  //ko.applyBindings(new View(), document.getElementById("m2"));
+  
+  var js = ko.toJS(vm);          // turn in to json obj without ko binding
+  var json = JSON.stringify(js); // turn into json string
+  alert(json);
+  
+  var json2 = ko.toJSON(vm);     // turn into json string directly
+  alert(json2)
+  var vm2 = ko.mapping.fromJSON(json2);
+  
+  var js2 = JSON.parse(json2);   // turn into json obj
+  //need knockoutjs mapping lib
+  var vm3 = ko.mapping.fromJS(js2);
+  
+  // define vm as json string and then call mapping to build vm
+  var vm4 = {
+	message : "test",
+	messagecolor : "blue",
+	age : 12,
+	products : [{ name: "Bungle" },{ name: "George" }],
+	kids : [{ name: "bungie" },{ name: "acitvision" }]
+  }
+  vm4 = ko.mapping.fromJSON(vm4);
+</script>
+
+//use Qunit and jasmine to do unit testing of knockoutjs
+//to do javascript testing
+
+
+
