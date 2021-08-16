@@ -12,9 +12,7 @@ public\publicTop.jsp
 
     <script type="text/javascript" src="../js/core/bootstrap.js"></script>
     <script type="text/javascript" src="../js/libraries/bootstrap-slider.js"></script>
-    <script type="text/javascript" src="../js/libraries/growl.js"></script>
-    <script type="text/javascript" src="../js/libraries/moment.js"></script>
-    <script type="text/javascript" src="../js/libraries/moment-range.js"></script>
+    
     <script type="text/javascript" src="../js/libraries/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="../js/libraries/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="../js/libraries/knockout.js"></script>
@@ -26,11 +24,9 @@ public\publicTop.jsp
     <script type="text/javascript" src="../js/libraries/koExternalTemplateEngine_all.js"></script>
 	
 public\index.jsp
-<%@ include file="loginApp.jsp" %>
 <%@ include file="publicTop.jsp" %>
-<%@ include file="../templates/inputTemplates.jsp" %>
 
-old home.jsp
+old my_home.jsp
 <script>
 $(window).on('load', function(){
 	ko.applyBindings(null, document.getElementById('homepage-content'));
@@ -455,9 +451,6 @@ function MyAccountsViewModel(data) {
 	}
 	
 	self.hideAccountsBalancesTab = ko.observable(hideAccounts);
-	self.pageMessage = ko.observable('');
-	self.currentListSize = ko.observable(0);
-	
 	self.setActiveTab = function (_self, $event, newtab) {
 		..
 	};
