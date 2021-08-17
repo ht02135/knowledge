@@ -1,0 +1,208 @@
+
+different type of unit
+
+1>absolute unit such as inch, centimeter
+2>relative unit such as 100%
+3>special unit such as 100px
+
+///////////////////////////////////
+
+absolute value
+
+body {
+	font-size : 2cm;	//centimer
+	font-size : 2mm;	//millimeter
+	font-size : 10px;	//pixel
+	font-size : 10pt;	//point = littele biggar than pixel
+}
+
+//id=service-image
+#service-image {
+	width : 400pt;
+	height : 400px;
+	height : 10pc;		//1pc=12pt
+}
+
+///////////////////////////////////
+
+relative
+
+body {
+	font-size : 2em;	//em = double standard font size
+	width : 70%;
+}
+
+//////////////////////////////////////
+
+view-port
+view-width = width of body
+view-height = height of body
+
+1 view-width = 1% of width of view-port
+
+#service-image {
+	width : 70vw; 		//1vw=1% => 70vw is relative to 70% of view-port
+	width : 70%; 		//is 70% of containing element
+	height : 70vh;		//view-height
+	height : 400vh;		//400% of view-height
+}
+
+////////////////////////////////////////////
+
+you most likely use % and px
+
+///////////////////////////////////////////
+
+font and text manipulation
+
+---------------------------------------
+
+2:20:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+text decoration and text transform => text manipulation
+
+//class='link'
+.link {
+	text-decoration : none;			//remove underline from the link
+	text-decoration : underline;	//by define, underline link
+	text-decoration : line-through	//strike thru
+}
+
+body {
+	text-transform : capitalize;	// capitalize text in body
+	text-transform : lowercase;		//lowercase
+	text-transform : upercase;		//upercase
+}
+
+text alignment
+
+body {
+	text-align : left;
+	text-align : right;
+	text-align : center;
+	text-align : justify;		// align each character to same width
+}
+
+////////////////////////////////
+
+font size, bold, style
+
+body {
+	font-size : 1.25em;		//25% more than standard font size
+}
+
+(2.26.021 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+-------------------------------------
+
+font-weight is bolding of font (0 to 800)
+
+//id=title
+#title {
+	font-weight : 0;		//no bolding
+	font-weight : 800;		//equivalent to h1
+	font-weight : 400;		//normal bolding
+}
+
+--------------------------------
+
+font-style is italisizing
+
+<span class="italics">test me</span>
+//inline container tag contains piece of text without disrupt
+//flow of text
+
+.italics {
+	font-style : normal;
+	font-style : italic;
+	font-style : oblique;		//doubledown italic
+}
+
+///////////////////////////////////////////
+
+font family
+
+3 major font
+
+1>serif font = used by academic, but difficut to read on pc
+Serif fonts include Times Roman, Courier, New Century Schoolbook
+
+2>san serif font => build for pc reading.  easy to read
+Popular sans serif fonts include Helvetica, Avant Garde, Arial, and Geneva
+
+3>monospace
+
+(2:37:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+//if "Times New Roman" is available, then use that or fall back to serif
+body {
+	font-family : sans-serif;
+	font-family : "Times New Roman", serif;
+	font-family : "Ariel", sans-serif;
+}
+
+///////////////////////////
+
+google font
+https://fonts.google.com/?category=Sans+Serif&preview.size=20
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+</style>
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+/////////////////////////////////////
+
+layout => css box model
+
+(2:50:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+1>content = contains item
+2>padding = between content and border = inner space for content
+3>border  = between padding and margin 
+
+border : 1px solid #ffffff;	//you can style border
+
+4>margin  = most outside layer = external space
+
+----------------------------
+
+shaping content
+
+(2:54:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+//coding standar, use absolute unit for height, relative for width
+#about-us-image {
+	height : 400px;		
+	width : 70%;
+	border : 1px solid #ffffff;		//size style color
+	border : 1px dotted #ffffff;		//size style color
+	border : 1px dashed #ffffff;		//size style color
+	border : 1px double #ffffff;		//size style color
+}
+
+-------------------------------------
+
+padding and margin
+
+(3:09:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=7460s)
+
+#about-us-image {
+	padding : 20px;					//add20px to top/left/bottom/right
+	padding-top : 20px;				//add20px to top
+	padding : 20px 20px 20px 0; 	//top left bottomright short-hand
+	margin : 20px;
+	margin : 20px 20px 20px0  0;	//top left bottomright short-hand
+}
+
+update padding
+1>if you want to move content around in border
+
+update margin
+2>if you want to move border around
+
+//////////////////////////////////////////////
+
