@@ -1,0 +1,59 @@
+
+--use whole bunch of case to run a quick summary what record has what.
+
+select 'keyword' as 'first cr+cm',
+		--------------------------
+		CASE WHEN (cm.meta_value like '%111%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_111,
+		--------------------------
+		CASE WHEN (cm.meta_value like '%222%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_222,
+		--------------------------
+		CASE WHEN (cm.meta_value like '%333%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_333,		
+		--------------------------
+		CASE WHEN (cm.meta_value like '%444%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_444,
+		--------------------------
+		CASE WHEN (cm.meta_value like '%555%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_555,
+		--------------------------
+		CASE WHEN (cm.meta_value like '%666%')
+		THEN 'Y'
+		ELSE 'N' 
+		END AS has_666,
+		--------------------------
+		cr.aloha_code as 'cr.aloha_code',
+		cm.name as 'cm.name',
+		cm.meta_value as 'cm.meta_value',
+		'---' as '---',
+		cr.*
+from aloha as cr WITH(NOLOCK)
+inner join aloha_metadata as cm WITH(NOLOCK) on cm.aloha_id = cr.aloha_id
+	and cm.name like '%keyword%'
+where 1=1
+and cr.aloha_code in (
+	'111',
+	'222',
+	'333',
+	'444',
+	'555',
+	'666'
+)
+order by has_111,
+         has_222,
+         has_333,
+         has_444,
+         has_555,
+         has_666,
+	     cr.aloha_code
