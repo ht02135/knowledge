@@ -1,0 +1,183 @@
+
+float and display
+
+2 display type
+inline vs block level
+
+<p> tag is block level element
+
+<span> is an example of inline level element
+
+(3:20:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=11729s)
+https://www.w3schools.com/css/tryit.asp?filename=trycss_layout_float
+
+img {
+  float: right;
+  float: left;
+  float: none;	//default not move to left or right
+}
+
+<p><img src="pineapple.jpg" >
+Lorem ipsum dolor sit amet, </p>
+
+image will float to right in side <p> block level element
+
+/////////////////////////////
+
+display
+<table class="site-table"
+
+.site-table {
+	display : none;			// table disappeared
+}
+
+///////////////////////////////
+
+p.ex1 {display: none;}
+p.ex2 {display: inline;}
+p.ex3 {display: block;}
+p.ex4 {display: inline-block;}
+
+.site-table {
+	display: none;			//not display 
+	display: inline;		//display element as inline in block element 
+	display: block;			//display element as block in block element 
+	display : inline-block;	//display as inline+block in block element 	
+}
+
+<div>
+test <p class="ex3">HELLO WORLD!</p> display
+</div>
+
+///////////////////////////////
+
+(3:28:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=11729s)
+
+flex-box = split into container (parent) and items (children)
+
+<div class="container">
+	<div class="container-item">A</div>
+	<div class="container-item">B</div>
+	<div class="container-item">C</div>
+	<div class="container-item">D</div>
+	<div class="container-item">E</div>
+</div>
+
+//flex direction and wrap=move to next row
+
+.container {
+	background-color : white;
+	margin : 10px;
+	height : 300px;
+	
+	dipaly : flex;						// create flex container
+	flex-direction : row;				//row default, align horizontal
+	flex-direction : column;			//align veritical
+	flex-direction : column-reverse;	//align veritical in reverse
+	flex-wrap : wrap;
+	flex-wrap : nowrap;
+	justify-content : flex-end;			//flex-start, center, flex-end
+	justify-content : space-between;	//space-between or space-around
+	
+	align-items : center;				//flex-start, center, flex-end
+	// (3:43:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=13376s)
+	align-item : stretch;
+	//https://css-tricks.com/almanac/properties/a/align-items/
+	align-item : baseline;
+}
+
+.container-item {
+	background : green;
+	color : white;		//text color white
+	font-siaze : 25px;
+	text-align : center;
+	width : 70px;
+	line-height : 50px;
+	margin : 10px
+}
+
+///////////////////////////////
+
+flex item order
+
+(3:48:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=13376s)
+
+<div class="container">
+	<div class="container-item" style="order : 5">A</div>
+	<div class="container-item" style="order : 4">B</div>
+	<div class="container-item" style="order : 3">C</div>
+	<div class="container-item" style="order : 2">D</div>
+	<div class="container-item" style="order : 1">E</div>
+</div>
+
+///////////////////////////////
+
+flex shrink, grow, basis properties/a/align-items/
+
+<div class="container">
+	<div class="container-item" style="order: 4;
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-basis: 100px;	//min width of flex item
+	">A</div>
+	<div class="container-item" style="order: 3;
+	flex-grow: 1;
+	flex-shrink: 3;		//shrink 3 x times faster
+	flex-basis: 100px;
+	">B</div>
+	<div class="container-item" style="order: 5;
+	flex-grow: 5;		//item get 5 x space compare to other
+	flex-shrink: 1;
+	flex-basis: 100px;
+	">C</div>
+	<div class="container-item" style="order: 1;
+	flex-grow: 1;
+	flex-shrink: 0;		//0 = dont shrink the item, default is 1
+	flex-basis: 100px;
+	">D</div>
+	<div class="container-item" style="order: 2;
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-basis: 100px;
+	">E</div>
+</div>
+
+//////////////////////////////
+
+flex properties
+(4:01:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=13376s)
+
+<div class="container">
+	<div class="container-item" style="order: 4;
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-basis: 100px;	//min width of flex item
+	">A</div>
+	
+	<div class="container-item" style="order: 4;
+	flex: grow shrink basis;">A</div>  //short hand
+	
+	<div class="container-item" style="order: 4;
+	flex: 1 1 100px;">A</div>  //short hand
+</div>	
+
+/////////////////////////
+
+item alignment
+
+<div class="container">
+	<div class="container-item" style="order: 3; 
+	flex: 1 1 100px;
+	">A</div>  
+	
+	<div class="container-item" style="order: 2; 
+	flex: 1 1 100px;
+	align-self: flex-start;		//overrid container align-items
+	">B</div>
+	
+	<div class="container-item" style="order: 1; 
+	flex: 1 1 100px;
+	">C</div>   
+</div>	
+
+
