@@ -1,0 +1,144 @@
+
+flex box = focus on width
+grid box = focus on both width and height
+
+template colum and row
+(4:13:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=14926s)
+
+
+<div class="grid-container">
+	<div class="grid-item" style="
+	background: green;
+	grid-row: 2 / 3;			//start row1 end row3
+	grid-column: 1 / 4;			//start col1 end col3
+	">1</div>
+	<div class="grid-item" style="
+	background: green;
+	grid-row: 2 / span 2;			//start row1 span 2
+	grid-column: 1 / span 3;			//start col1 span 2
+	">2</div>
+	<div class="grid-item" style="
+	background: green;
+	grid-area: 2 / 1 / span 2 / spane 2;//row / col / span row / span col
+	">3</div>
+	<div class="grid-item" style="
+	background: green;
+	">4</div>
+	<div class="grid-item" style="
+	background: green;
+	">5</div>
+	<div class="grid-item" style="
+	background: green;
+	">6</div>
+</div>
+
+.grid-container {
+	background-color: white;
+	margin: 10px;
+	height: 100px;
+	
+	display: grid;
+	grid-template-columns: 10px 50px 10px;  	//3col
+	grid-template-rows: 50px 250px				//250rows
+	
+	grid-template-columns: auto auto auto;  	//3col
+	grid-template-rows: auto auto				//250rows
+	
+	justifyy-content: end;			//start, center, end
+	justifyy-content: space-evenly;	//space-around, space-evenly
+	
+	align-content: space-between;	//space-around, speace-evenly
+	align-content: start;			//center, end
+
+	grid-row-gap: 300px;	
+	grid-column-gap: 150px;
+	
+	grid-gap: 300px 150px;		//row then col short-hand
+}
+
+.grid-item {
+	color: black;
+	font-size: 25px;
+	text-align: center;
+	
+	width: 70px;
+	line-height:4 40px
+	margin: 10px
+}
+
+//////////////////////////////////
+
+transition property
+
+about movement on the page
+
+(4:45:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=14926s)
+
+<div class="submit-button>submit</div>
+
+.submit-button {
+	margin: 10px 10px;
+	padding: 10px 10px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;	//bolding
+	font-size: 20px;
+	color: white;
+	background: blue;
+	
+	//specify property durtion transition-style delay
+	//ease, linear, ease-in-out
+	transition: background	2s ease-in-out 1s;
+	transition: background	0.5s ease-in-out 0.25s;
+	transition: background	300ms ease-in-out;
+	
+	transition: all 300ms ease-in-out;		//all property for psudo
+}
+
+//use psudo selector to change button
+.submit-button:hoover {	//psudo class when hoover on
+	color: black;
+	background: lighter-blue;
+	padding: 20px 20px;
+}
+
+///////////////////////////////////////
+
+pre-fix for browser support
+
+.submit-button {
+	margin: 10px 10px;
+	padding: 10px 10px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;	//bolding
+	font-size: 20px;
+	color: white;
+	background: blue;
+	
+	//chrome
+	-webkit-transition: all 300ms ease-in-out;		
+	
+	//firefox
+	-moz-transition: all 300ms ease-in-out;	
+	
+	//oprah
+	-o-transition: all 300ms ease-in-out;	
+}
+
+///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
