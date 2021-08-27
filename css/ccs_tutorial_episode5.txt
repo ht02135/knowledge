@@ -128,7 +128,26 @@ pre-fix for browser support
 
 ///////////////////////////////////////
 
+practice selector
 
+<a href="https://www.qries.com/">
+         <img alt="Qries" src="https://www.qries.com/images/banner_logo.png"
+         width=150" height="70">
+		 
+<div class="post"><a href="www.yahoo.com">yahoo</a>
+</div>
+
+.post > a {
+	color : blue;
+}
+
+.post > a:hoover {
+	color : blue;
+}
+		 
+a > img {
+	color : blue;
+}
 
 
 
