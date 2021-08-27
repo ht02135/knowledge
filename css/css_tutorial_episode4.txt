@@ -180,4 +180,116 @@ item alignment
 	">C</div>   
 </div>	
 
+////////////////////////////////
+
+
+.submit-button {
+	margin: 10px 10px;
+	padding: 10px 10px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;	//bolding
+	font-size: 20px;
+	color: white;
+	background: blue;
+	
+	//chrome
+	-webkit-transition: all 300ms ease-in-out;		
+	
+	//firefox
+	-moz-transition: all 300ms ease-in-out;	
+	
+	//oprah
+	-o-transition: all 300ms ease-in-out;	
+}
+
+.submit-button:hoover {	//psudo class when hoover on
+	color: black;
+	background: lighter-blue;
+	padding: 20px 20px;
+	
+	transform: translate(0px, 30px);    // x=50px, y=30px
+	
+	transform: scale(2.5);	//scale up size 2.5
+	
+	transform: rotate(-45deg);	//-45 degree, rotate to left
+	
+	transform: skewX(-45deg);	//skewY(-45degree)
+	
+	//6 params ordering is madness
+	transform.matrix(scaleX(), skewY(), skewX(), scaleY(), translateX(), translateY());
+	transform.matrix(1, 0.45, 0.45, 1, 100, 50);
+}
+
+////////////////////////////
+
+(5:12:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=17919s)
+
+animation with keyframe.  animation is split up in keyframes
+
+//from to only give you 2 stages
+@keyframes red-to-black {
+	from { background: red; }
+	to { background: black; }
+}
+
+//advantage of % you can specify multiple stages. 
+@keyframes red-to-black {
+	//0% of animation
+	0% { background: red; 
+		 transform: translate(0px, 0px); 
+	}	
+	//50% of animation	
+	50% { background: yellow; 
+		  transform: translate(10px, 10px);
+	}
+	//100% of animation
+	100% { background: black; 
+		   transform: translate(20px, 20px);
+	}		
+}
+
+/////////////////////////////
+
+(5:20:01 https://www.youtube.com/watch?v=1Rs2ND1ryYc&t=17919s)
+
+adding animation
+
+<h2 class="subtitle" id="about-me">about me</h2>
+
+#about-me {
+	animation-name: red-to-black;
+	animation-duration: 4s; //4sec, default is 0 = no animation
+	animation-timing-function:  ease; //linear, ease-in, ease-out
+	animation-delay: -2s;
+	animation-iteration-count: 4;	//infinite
+	animation-direaction: normal;	//play from 0% to 100%
+	animation-direaction: reverse;	//play 100% to 0%
+	animation-direaction: alternate;
+}
+
+
+#about-me {
+	animation-name: red-to-black;
+	animation-duration: 4s; //4sec, default is 0 = no animation
+	animation-timing-function:  linear;
+	animation-delay: -2s;
+	animation-iteration-count: 4;	//infinite
+	animation-direaction: normal;	//play from 0% to 100%
+	
+	//shorthand take 6 params
+	//name duration timing-function delay iteration-count direction
+	animaion: red-to-black 4s linear -2s 4 normal;
+	-webkit-animaion: red-to-black 4s linear -2s 4 normal;
+	-moz-animaion: red-to-black 4s linear -2s 4 normal;
+	-ms-animaion: red-to-black 4s linear -2s 4 normal;
+}
+
+
+
+
+
+
+
+
 
