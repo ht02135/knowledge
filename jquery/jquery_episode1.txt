@@ -1,0 +1,317 @@
+
+(4:01 https://www.youtube.com/watch?v=ScoURsEM_yU&t=269s)
+
+jquery is framework based on javascript
+
+deal with cross browser issue
+
+html and ccs manipulation and ajax
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/scripts_original.js"></script>
+
+https://jquery.com/download/
+download
+https://code.jquery.com/jquery-3.6.0.min.js
+
+///////////////////////////
+
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/myscript.js"></script>
+</script>
+</head>
+
+<body>
+
+<h1>i love jquery 1 </h1>
+<h1>i love jquery 2 </h1>
+<h1>i love jquery 3 </h1>
+
+//A parent element can have one or more child elements:
+<div class="parent-class">
+  <p>Child</p> <!-- div:first-child, div:first-of-type -->
+  <p>Child</p>
+  <p>Child</p>
+  <p>Child</p>
+</div>
+
+<div id="parent-id">
+  <p>Child</p> <!-- div:first-child, div:first-of-type -->
+  <p>Child</p>
+  <p>Child</p>
+  <p>Child</p>
+</div>
+
+<div id="textBox">
+	temp text
+</div>
+
+<div id="myDiv">
+    <form id="myForm">
+    </form> 
+</div>
+
+</body>
+</html>
+
+-------------------------
+
+js/myscript.js
+---------------------------------------------
+
+	$("document").ready(function() {
+		var newText = $("<p><i>i replaced something</i></p>");
+		$("#textBox").html(newText);
+	
+---------------------------------------------
+
+		//http://jsfiddle.net/codeSpy/XwDUk/
+		
+		var chbx='<input type="checkbox" id="Mumbai" name="Mumbai" value="Mumbai" />Mumbai<br /> <input type="checkbox" id=" Delhi" name=" Delhi" value=" Delhi" /> Delhi<br/><input type="checkbox" id=" Bangalore" name=" Bangalore" value=" Bangalore"/>Bangalore<br />';
+
+		$("#myDiv form#myForm").html(chbx);
+		
+		//to insert dynamically created form 
+		$("#myDiv").html("<form id='dynamicForm'>" +chbx + "'</form>");
+		
+---------------------------------------------
+
+	//https://learn.jquery.com/using-jquery-core/document-ready/
+	// write jquery, start with $ to reference jquery code
+	//("") target our selector
+	//target entire document
+	/* ready is event handler
+	A page can't be manipulated safely until the document 
+	is "ready." jQuery detects this state of readiness for you. 
+	Code included inside $( document ).ready() will only run 
+	once the page Document Object Model (DOM) is ready for 
+	JavaScript code to execute. Code
+	*/
+	//it has callback function
+		console.log( "ready!" );
+		$("body").append("<h1>i love jquery 0</h1>");
+
+		//jquery filter is not same as css selector
+		$("h1:first").css("border","3px solid green");
+		$("h1:last").css("border","3px solid green");
+		$("p:first").css("font-style","italic");
+		
+		$(".parent-class:first").css("font-style","italic");
+		$("#parent-id:first").css("font-style","italic");
+		
+		//apply dotted green to css prop 'border'
+		$("h1").css("border","1px dotted green");
+		$("h1").css("border","3px solid green");
+	});
+	
+-------------------------------------
+
+css/style.css
+
+h1 {
+	border : 1px dotted green;
+	border : 3px solid green;
+}
+
+//The :first-of-type CSS pseudo-class represents the first element of its type among a group of sibling elements.
+.parent-class :first-of-type {
+  background: yellow;
+}
+
+//The :first-child CSS pseudo-class represents the first element among a group of sibling elements.
+.parent-class :first-child {
+  color: red;
+}
+
+-------------------------------------
+
+//////////////////////////////
+//////////////////////////////
+
+//events
+
+<script>
+	$("document").ready(function() {
+		//on click event
+		$("#textBox").on("click", whenMouseIsClicked);
+		
+		$("#textBox").on("mouseleave", whenmouseLeaves);
+		
+		$("#myID").on('click',handle(e));
+		
+		$("#show").on("click", function () {
+			$("#textBox").show();
+		});
+		
+		$("#hide").on("click", function () {
+			$("#textBox").hide();
+		});
+		
+		$("button").on("click", function(){
+			$("p").toggleClass("main");
+		});
+		
+		$(".textCopy").hoover(highlightCopy);
+	});	
+	
+	function highlightCopy(){
+		$(this).toggleClass("highlight");
+		$(".textCopy").toggleClass("highlight");
+	}
+	
+	function whenMouseIsClicked(){
+		$("#textBox").html("<h1>you clicked</h1>")
+	}
+	
+	function whenmouseLeaves(){
+		$("#textBox").html("<h1>mouse left</h1>")
+	}
+	
+	//This is possible in JavaScript because it has first-class functions.
+	function handle(e){
+		console.log(e.type);
+	}
+	
+	// create a function and store a reference to it in a variable
+	var handle = function (e) { 
+		console.log(e.type);
+	};
+</script>
+<style>
+#textBox {
+	width: 250px;
+	height: 250px;
+	border: 1px solid black;
+	background-color: blue;
+	
+	display: none; //hide by default
+}
+
+.highlight {
+	text-shadow: 1px 1px blue;
+	background: red
+}
+
+.main {
+  font-size: 120%;
+  color: red;
+}
+</style>
+
+<body>
+
+<div id="textBox">
+	<p class="textCopy">temp text</p>
+	<p>temp text</p>
+</div>
+
+<div id="myID"> 
+	abc 
+</div>
+
+<div>
+<a id="show" href="#">show</a>
+</div>
+
+<div>
+<a id="hide" href="#">hide</a>
+</div>
+
+<button>Toggle class "main" for p elements</button>
+<p>This is a paragraph.</p>
+
+</body>
+
+//////////////////////////////
+//////////////////////////////
+
+<script>
+	$("document").ready(function() {
+		//fading in and out
+		$("#fade-in").on("click", function(){
+			//3000 nanosec
+			$("#textBox").fadeIn(3000, function(){
+				alert("i am done fade in");
+			});
+		});
+		
+		$("#fade-out").on("click", function(){
+			//3000 nanosec
+			$("#textBox").fadeOut("fast", function(){
+				alert("i am done fade out");
+			});
+		});
+		
+		//sliding up and down
+		$("#slide-up").click(function(){
+			$("#textBox").slideUp(2000, "linear");
+		});
+		
+		$("#slide-down").click(function(){
+			$("#textBox").slideDown(2000, "linear");
+		});
+		
+		$("#toggle-slide").click(function(){
+			$("#textBox").slideToggle(2000, function(){
+				alert("i am done slide-toggle");
+			});
+		});
+	});	
+</script>
+<style>
+#textBox {
+	display: none;
+}
+</style>
+
+<body>
+<div>
+	<a id="fade-in" href="#">fade-in</a>
+</div>
+<div>
+	<a id="fade-out" href="#">fade-out</a>
+</div>
+
+<div>
+	<a id="slide-up" href="#">slide-up</a>
+</div>
+<div>
+	<a id="slide-down" href="#">slide-down</a>
+</div>
+
+//you do contrast/expand things
+<div>
+	<a id="toggle-slide" href="#">toggle-slide</a>
+</div>
+
+<div id="textBox">
+	<p>temp text</p>
+</div>
+</body>
+
+/////////////////////////////////////////
+///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
