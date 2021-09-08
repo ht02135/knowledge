@@ -1,0 +1,263 @@
+
+//////////////////////////////
+//////////////////////////////
+
+<script>
+	$("document").ready(function() {
+		//fading in and out
+		$("#fade-in").on("click", function(){
+			//3000 nanosec
+			$("#textBox").fadeIn(3000, function(){
+				alert("i am done fade in");
+			});
+		});
+		
+		$("#fade-out").on("click", function(){
+			//3000 nanosec
+			$("#textBox").fadeOut("fast", function(){
+				alert("i am done fade out");
+			});
+		});
+		
+		//sliding up and down
+		$("#slide-up").click(function(){
+			$("#textBox").slideUp(2000, "linear");
+		});
+		
+		$("#slide-down").click(function(){
+			$("#textBox").slideDown(2000, "linear");
+		});
+		
+		$("#toggle-slide").click(function(){
+			$("#textBox").slideToggle(2000, function(){
+				alert("i am done slide-toggle");
+			});
+		});
+		
+		$("#toggle-me").click(function(){
+			$("#textBox").toggle(2000, "swing");
+		});
+		
+		$("#grow").click(function(){
+			$("#textBox").animate({ width: "500px" }, 2000);
+		});
+		
+		$("#move").click(function(){
+			$("#textBox").animate({ moveLeft: "500px" }, 2000);
+		});
+		
+		$("#bigger").click(function(){
+			$("#textBox").animate({ fontSizw: "50px" }, 2000);
+		});
+		
+		$("#many").click(function(){
+			$("#textBox").animate(
+				{ width: "500px",
+				  moveLeft: "500px",
+				  fontSizw: "50px"
+				}, 2000
+			);
+		});
+		
+		//------------------------------------------------
+		//selector in jquery
+		$("p").css( "border", "3px red dotted" );
+		$("#p-id").css( "border", "3px blue solid" );
+		$(".p-class").css( "border", "3px blue dashed" );
+		
+		//--------------------------------------------------
+		//filter in jquery
+		$("#container p:even").css( "background", "grey" );
+		$("#container p:odd").css( "background", "blue" );
+		$("#container p:first").css( "border", "6px red dotted" );
+		$("#container p:last").css( "border", "6px red dotted" );
+		
+		//---------------------------------------------------
+		//advanced selector
+		//https://www.w3schools.com/cssref/css_selectors.asp
+		// p.intro	Selects all <p> with class="intro"
+		// div p	Selects all <p> inside <div> 
+		// div > p	Selects all <p> where the parent is <div>
+		// div + p	Selects the first <p> that is immediately after <div>
+		
+		$("div > p").css( "border", "6px black dotted" );
+		$("div > p.fourth-para").css( "border", "12px yellow dotted" );
+		$("#box + ul").css( "border", "12px yellow dotted" );
+		
+		//--------------------------------------------------
+		//more filter
+		$("p:first-child").css( "border", "3px red dotted" );
+		$("p:last-of-type").css( "border", "3px red dotted" );
+		$("p:contains('test')").css( "border", "3px red dotted" );
+		$("p:parent").css( "border", "3px red dotted" );
+		$("p:nth-child(3)").css( "border", "3px red dotted" );
+		
+		//-----------------------------------------------------
+		$("#create-text").click(function(){
+			$("#container2 p:last").text("create-text");
+		});
+		
+		//-------------------------------------------------------
+		//this actually moved p:first element to p:last
+		//it also removed original p:last
+		$("#create-var").click(function(){
+			var newText = $("#container2 p:first");
+			$("#container2 p:last").html(newText);
+		});
+		
+		//----------------------------------
+		//insert content
+		$("#append").click(function(){
+			$("#container2 p:first").append("i appended");
+			$("#container2 p:first").prepend("i prepended");
+		});
+		
+		//--------------------------------------
+		//modify content, wrap around by div
+		$("#container2 p").wrap("<div class='colorBox'>");
+		$("#container2 p:first").wrap("<div class='colorBox'>");
+		$("#container2 p:first").empty();
+		$("<div>container</div>")replaceAll(#container2);
+		$("#container2").replaceWith("<div>container</div>");
+		
+		//----------------------------------------
+		//modify css
+		$("#add-class").click(function(){
+			$("#container2 p:first").addClass('color');
+		});
+		$("#remove-class").click(function(){
+			$("#container2 p:first").removeClass('color');
+		});
+		$("#toggle-class").click(function(){
+			$("#container2 p:first").toggleClass('color');
+		});
+		$("#increase-class").click(function(){
+			$("#container2 p:first").css("font-size","+=1px");
+		});
+	});	
+</script>
+<style>
+#textBox {
+	display: none;
+	width: 200px;
+	height: 200px;
+	background-color: blue;
+	position: absolute;
+	margin-top: 20px;
+}
+.colorBox {
+	color: blue;
+}
+.color {
+	color: blue;
+}
+</style>
+
+<body>
+<div>
+	<a id="fade-in" href="#">fade-in</a>
+</div>
+<div>
+	<a id="fade-out" href="#">fade-out</a>
+</div>
+
+<div>
+	<a id="slide-up" href="#">slide-up</a>
+</div>
+<div>
+	<a id="slide-down" href="#">slide-down</a>
+</div>
+
+//you do contrast/expand things
+<div>
+	<a id="toggle-slide" href="#">toggle-slide</a>
+</div>
+<div>
+	<a id="toggle-me" href="#">toggle-me</a>
+</div>
+<div>
+	<a id="grow" href="#">grow</a>
+</div>
+<div>
+	<a id="move" href="#">move</a>
+</div>
+<div>
+	<a id="bigger" href="#">bigger</a>
+</div>
+<div>
+	<a id="many" href="#">many</a>
+</div>
+
+<div id="textBox">
+	<p>temp text</p>
+</div>
+</body>
+
+<div id="container">
+	<p>test me</p>
+	<p>test me</p>
+	<p>test me</p>
+	<p class="fourth-para">test me</p>
+	<p id="p-id">test me</p>
+	<p clas="p-class">test me</p>
+</div>
+
+div id="box">
+	<ul>
+		<li>test</li>
+		<li>test2</li>
+	</ul>
+</div>
+
+<div>
+	<a id="create" href="#">create</a>
+</div>
+<div>
+	<a id="create-text" href="#">create-text</a>
+</div>
+<div>
+	<a id="create-var" href="#">create-var</a>
+</div>
+<div>
+	<a id="append" href="#">append</a>
+</div>
+
+<div>
+	<a id="add-class" href="#">add-class</a>
+</div>
+<div>
+	<a id="remove-class" href="#">remove-class</a>
+</div>
+<div>
+	<a id="toggle-class" href="#">toggle-class</a>
+</div>
+<div>
+	<a id="increase-class" href="#">increase-class</a>
+</div>
+
+<div id="container2">
+	<p class="colorBox">test me</p>
+	<p>test me</p>
+	<p>test me</p>
+</div>
+	
+/////////////////////////////////////////
+///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
