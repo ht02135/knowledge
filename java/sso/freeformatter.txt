@@ -1,0 +1,14 @@
+suppose you have sso token
+1>that need to un-escape
+2>that need to decode base 64
+4>that need to 
+
+1>get token=xxxx from log
+  and go to go to https://www.freeformatter.com/
+
+2>un-escape using https://www.freeformatter.com/html-escape.html
+
+3>decode base 64 usig https://www.freeformatter.com/base64-encoder.html
+
+4>xml format using https://www.freeformatter.com/xml-formatter.html
+
