@@ -12,3 +12,30 @@ suppose you have sso token
 
 4>xml format using https://www.freeformatter.com/xml-formatter.html
 
+////////////////
+
+you can save as sso_token_test.html
+
+<html>
+<head>
+    <TITLE>SSO Login</TITLE>
+</head>
+<!--
+sso_end_point = https://www.nylmod.com/sso
+-->
+<BODY>
+    <form 
+        name="direxxisFRM" 
+        method="POST" 
+        action="<sso_end_point>">
+        <input 
+            type="hidden" 
+            name="SAMLResponse" 
+            value="<encrypted_token>"
+		/>
+        <script language="JavaScript1.2">
+            document.forms[0].submit();
+        </script>        
+    </form>
+</BODY>
+</html>
