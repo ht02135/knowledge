@@ -1,0 +1,27 @@
+
+select 
+	cm.name as 'cm.name',
+	cm.meta_value as 'cm.meta_value',
+	--------------------------
+	CASE WHEN (cm.meta_value like '%CEP%')
+		THEN 'Y'
+		ELSE 'N' 
+	END AS 'has_CEP',
+	--------------------------
+	cr.inventory_code as 'cr.inventory_code',
+	cr.status as 'cr.status',
+	CASE WHEN ((Getdate() >= cr.effective_from) and (Getdate() <= cr.effective_thru)) 
+		THEN 'Y'
+		ELSE 'N' 
+	END AS 'cr.effective',
+	'---' as '---',
+	cr.*
+from CR as cr WITH(NOLOCK)
+inner join CM as cm WITH(NOLOCK) on cm.CR_id = cr.CR_id
+where 1=1
+and cm.meta_value like '%EP%'
+order by cm.name, 'has_CEP', 
+         cr.status, 
+		 'cr.effective',
+         cr.role_emlist, cr.inventory_code
+         
