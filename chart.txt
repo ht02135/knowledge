@@ -1,1 +1,2 @@
-https://stockcharts.com/freecharts/candleglance.html?$TNX,TLT,UUP,$VIX,IWD,IYT,IHE,IYZ,EWJ,IEFA,RWX|D|AQ100,50,10|0
+
+https://stockcharts.com/freecharts/candleglance.html?$TNX,$VIX,_fxe,_xlv,_iyk,_spy,_efa,_ewj|D|AQ100,50,10|0
